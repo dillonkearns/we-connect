@@ -46,7 +46,12 @@ type alias Model =
 
 init : () -> ( Model, Cmd Msg )
 init flags =
-    ( { username = Entering ""
+    let
+        username =
+            Entered "Dillon"
+    in
+    ( { -- username = Entering ""
+        username = username
       , userInterests = RemoteData.Loading
       , allInterests = RemoteData.Loading
       , timeSlots = RemoteData.Loading
@@ -54,6 +59,7 @@ init flags =
     , Cmd.batch
         [ getAllInterests
         , getTimeSlots
+        , getUserInterests (getUsername username)
         ]
     )
 
@@ -79,7 +85,14 @@ mainView model =
             usernameView usernameInput
 
         Entered username ->
-            interestsView model
+            Element.row []
+                [ interestsView model
+                , timeSlotsView model
+                ]
+
+
+timeSlotsView model =
+    Element.text "Time slots..."
 
 
 usernameView username =
