@@ -1,4 +1,4 @@
-module Request.TimeSlot exposing (TimeSlot, getAll, signup)
+module Request.TimeSlot exposing (Availability, TimeSlot, availableSlots, getAll, matches, signup, userInterestsToSlotCounts)
 
 import Api.InputObject
 import Api.Mutation
@@ -19,10 +19,56 @@ type alias TimeSlot =
     }
 
 
+availableSlots : List Availability -> List String -> List String
+availableSlots availabilities userTimes =
+    userTimes
+        |> List.filter
+            (\time ->
+                let
+                    maybeAvailability =
+                        findAvailabilityByTime time availabilities
+                in
+                case maybeAvailability of
+                    Just availability ->
+                        availability.interests == []
+
+                    Nothing ->
+                        False
+            )
+
+
+findAvailabilityByTime : String -> List Availability -> Maybe Availability
+findAvailabilityByTime time availabilities =
+    availabilities
+        |> List.filter (\availability -> availability.time == time)
+        |> List.head
+
+
 type alias Availability =
     { time : String
     , interests : List (List String)
     }
+
+
+whereUserIsAvailable : List String -> List Availability -> List Availability
+whereUserIsAvailable userAvailableTimes availabilities =
+    availabilities
+        |> List.filter (\availability -> List.member availability.time userAvailableTimes)
+
+
+userInterestsToSlotCounts : List String -> List Availability -> List { time : String, things : List { interest : String, count : Int } }
+userInterestsToSlotCounts userInterests availabilities =
+    availabilities
+        |> List.map
+            (\availability ->
+                { time = availability.time
+                , things =
+                    [ { interest = ""
+                      , count = -1
+                      }
+                    ]
+                }
+            )
 
 
 matches : String -> SelectionSet (List Availability) RootQuery

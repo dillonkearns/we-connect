@@ -25,6 +25,7 @@ type Msg
     | GotInterests (RemoteData (Graphql.Http.Error ()) (List String))
     | GotAllInterests (RemoteData (Graphql.Http.Error ()) (List Request.Interests.Interest))
     | GotTimeSlots (RemoteData (Graphql.Http.Error ()) (List Request.TimeSlot.TimeSlot))
+    | GotMatches (RemoteData (Graphql.Http.Error ()) (List Request.TimeSlot.Availability))
 
 
 mapError : Result (Graphql.Http.Error something) something -> RemoteData (Graphql.Http.Error ()) something
@@ -44,6 +45,7 @@ type alias Model =
     , userInterests : RemoteData (Graphql.Http.Error ()) (List String)
     , allInterests : RemoteData (Graphql.Http.Error ()) (List Request.Interests.Interest)
     , timeSlots : RemoteData (Graphql.Http.Error ()) (List Request.TimeSlot.TimeSlot)
+    , matches : RemoteData (Graphql.Http.Error ()) (List Request.TimeSlot.Availability)
     }
 
 
@@ -58,11 +60,13 @@ init flags =
       , userInterests = RemoteData.Loading
       , allInterests = RemoteData.Loading
       , timeSlots = RemoteData.Loading
+      , matches = RemoteData.Loading
       }
     , Cmd.batch
         [ getAllInterests
         , getTimeSlots
         , getUserInterests (getUsername username)
+        , getMatches (getUsername username)
         ]
     )
 
@@ -95,15 +99,43 @@ mainView model =
             usernameView usernameInput
 
         Entered username ->
-            case RemoteData.map3 SuccessData model.allInterests model.userInterests model.timeSlots of
+            case
+                RemoteData.map3 SuccessData
+                    model.allInterests
+                    model.userInterests
+                    model.timeSlots
+            of
                 RemoteData.Success { allInterests, userInterests, timeSlots } ->
+                    let
+                        availabilities =
+                            []
+
+                        slotCounts =
+                            Request.TimeSlot.userInterestsToSlotCounts userInterests
+                                availabilities
+                    in
                     Element.row [ Element.spacing 20 ]
                         [ interestsView allInterests userInterests
                         , timeSlotsView timeSlots
+                        , slotCountsView userInterests model.matches
                         ]
 
                 _ ->
                     Element.text "Loading..."
+
+
+slotCountsView userInterests timeSlots =
+    -- slotCounts : List { time : String, things : List { interest : String, count : Int } }
+    case
+        timeSlots
+    of
+        RemoteData.Success success ->
+            Request.TimeSlot.userInterestsToSlotCounts userInterests success
+                |> Debug.toString
+                |> Element.text
+
+        _ ->
+            Element.text "..."
 
 
 timeSlotsView : List Request.TimeSlot.TimeSlot -> Element Msg
@@ -219,6 +251,9 @@ update msg model =
                 _ ->
                     ( model, Cmd.none )
 
+        GotMatches matchesResponse ->
+            ( { model | matches = matchesResponse }, Cmd.none )
+
 
 addInterest : Username -> String -> Cmd Msg
 addInterest username interest =
@@ -253,6 +288,13 @@ getTimeSlots =
     Request.TimeSlot.getAll
         |> Graphql.Http.queryRequest apiUrl
         |> Graphql.Http.send (mapError >> GotTimeSlots)
+
+
+getMatches : String -> Cmd Msg
+getMatches username =
+    Request.TimeSlot.matches username
+        |> Graphql.Http.queryRequest apiUrl
+        |> Graphql.Http.send (mapError >> GotMatches)
 
 
 signupForTime : String -> String -> Cmd Msg
