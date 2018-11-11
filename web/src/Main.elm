@@ -9,8 +9,15 @@ import Html
 import View.Navbar
 
 
+type alias Model =
+    { username : Maybe String }
+
+
 init flags =
-    ( (), Cmd.none )
+    ( { username = Nothing
+      }
+    , Cmd.none
+    )
 
 
 view model =
@@ -62,7 +69,7 @@ subscriptions model =
     Sub.none
 
 
-main : Program () () ()
+main : Program () Model ()
 main =
     Browser.document
         { init = init
