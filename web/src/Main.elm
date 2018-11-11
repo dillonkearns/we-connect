@@ -7,13 +7,16 @@ import Element.Background
 import Element.Border
 import Element.Events
 import Element.Input
+import Graphql.Http
 import Html
+import Request.Interests
 import View.Navbar
 
 
 type Msg
     = EditedUsername String
     | SetUsername
+    | NoOp (Result.Result (Graphql.Http.Error ()) ())
 
 
 type Username
@@ -104,7 +107,19 @@ update msg model =
             ( { model | username = Entering usernameInput }, Cmd.none )
 
         SetUsername ->
-            ( { model | username = setUsername model.username }, Cmd.none )
+            ( { model | username = setUsername model.username }
+            , createUser (getUsername model.username)
+            )
+
+        NoOp _ ->
+            ( model, Cmd.none )
+
+
+createUser : String -> Cmd Msg
+createUser username =
+    Request.Interests.createUser username
+        |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.send NoOp
 
 
 setUsername username =
@@ -114,6 +129,15 @@ setUsername username =
 
         _ ->
             username
+
+
+getUsername username =
+    case username of
+        Entering input ->
+            input
+
+        Entered name ->
+            name
 
 
 subscriptions model =

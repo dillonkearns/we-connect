@@ -1,13 +1,17 @@
-module Request.Interests exposing (request)
+module Request.Interests exposing (createUser)
 
+import Api.Mutation
 import Graphql.Field as Field
-import Graphql.SelectionSet as SelectionSet exposing (with)
+import Graphql.Operation exposing (RootMutation)
+import Graphql.OptionalArgument exposing (OptionalArgument(..))
+import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, fieldSelection, with)
 
 
-request =
-    -- Api.
-    123
-
-
-foo =
-    123
+createUser : String -> SelectionSet () RootMutation
+createUser username =
+    Api.Mutation.createUser
+        { data =
+            { name = username, interests = Absent }
+        }
+        SelectionSet.empty
+        |> fieldSelection
