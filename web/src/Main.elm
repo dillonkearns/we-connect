@@ -27,13 +27,13 @@ type Username
 
 type alias Model =
     { username : Username
-    , interests : List String
+    , userInterests : List String
     }
 
 
 init flags =
     ( { username = Entering ""
-      , interests = []
+      , userInterests = []
       }
     , Cmd.none
     )
@@ -59,7 +59,7 @@ mainView model =
 
         Entered username ->
             Element.column [ Element.spacing 10 ]
-                [ Element.text ("Your interests so far: " ++ Debug.toString model.interests)
+                [ Element.text ("Your interests so far: " ++ Debug.toString model.userInterests)
                 , interestsView model
                 ]
 
@@ -126,12 +126,12 @@ update msg model =
             ( model, Cmd.none )
 
         AddInterest interest ->
-            ( model, addInterest model.username model.interests interest )
+            ( model, addInterest model.username model.userInterests interest )
 
         GotInterests interestsResult ->
             case interestsResult of
                 Ok latestInterests ->
-                    ( { model | interests = latestInterests }, Cmd.none )
+                    ( { model | userInterests = latestInterests }, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
