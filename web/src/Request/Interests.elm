@@ -1,4 +1,4 @@
-module Request.Interests exposing (addInterest, createUser, getInterests)
+module Request.Interests exposing (addInterest, createUser, getUserInterests)
 
 import Api.InputObject
 import Api.Mutation
@@ -27,8 +27,8 @@ createUser username =
         |> fieldSelection
 
 
-getInterests : String -> SelectionSet (List String) RootQuery
-getInterests username =
+getUserInterests : String -> SelectionSet (List String) RootQuery
+getUserInterests username =
     Api.Query.user
         { where_ =
             { id = Absent

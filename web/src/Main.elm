@@ -118,7 +118,7 @@ update msg model =
             ( { model | username = setUsername model.username }
             , Cmd.batch
                 [ createUser (getUsername model.username)
-                , getInterests (getUsername model.username)
+                , getUserInterests (getUsername model.username)
                 ]
             )
 
@@ -151,9 +151,9 @@ createUser username =
         |> Graphql.Http.send NoOp
 
 
-getInterests : String -> Cmd Msg
-getInterests username =
-    Request.Interests.getInterests username
+getUserInterests : String -> Cmd Msg
+getUserInterests username =
+    Request.Interests.getUserInterests username
         |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
         |> Graphql.Http.send GotInterests
 
