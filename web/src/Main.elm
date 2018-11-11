@@ -80,10 +80,6 @@ usernameView username =
         ]
 
 
-interests =
-    [ "Golf", "Tennis" ]
-
-
 interestsView model =
     model.allInterests
         |> List.map interestButton
