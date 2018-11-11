@@ -1,4 +1,4 @@
-module Request.Interests exposing (addInterest, createUser, getInterests, getUserInterests)
+module Request.Interests exposing (Interest, addInterest, createUser, getInterests, getUserInterests)
 
 import Api.InputObject
 import Api.Mutation
@@ -7,14 +7,10 @@ import Api.Object.Interest
 import Api.Object.User
 import Api.Query
 import Api.Scalar
-import Graphql.Field as Field
+import Graphql.Field as Field exposing (Field)
 import Graphql.Operation exposing (RootMutation, RootQuery)
 import Graphql.OptionalArgument exposing (OptionalArgument(..))
 import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, fieldSelection, with)
-
-
-type alias Interest =
-    String
 
 
 createUser : String -> SelectionSet () RootMutation
@@ -27,14 +23,31 @@ createUser username =
         |> fieldSelection
 
 
-getInterests : SelectionSet (List String) RootQuery
+type alias Interest =
+    { name : String
+    , interestedCount : Int
+    }
+
+
+getInterests : SelectionSet (List Interest) RootQuery
 getInterests =
-    Api.Query.interests identity
-        (Api.Object.Interest.name
-            |> fieldSelection
-        )
+    Api.Query.interests identity interestSelection
         |> Field.nonNullElementsOrFail
         |> fieldSelection
+
+
+interestSelection : SelectionSet Interest Api.Object.Interest
+interestSelection =
+    Api.Object.Interest.selection Interest
+        |> with Api.Object.Interest.name
+        |> with interestedUserCountSelection
+
+
+interestedUserCountSelection : Field Int Api.Object.Interest
+interestedUserCountSelection =
+    Api.Object.Interest.interestedUsers identity SelectionSet.empty
+        |> Field.map (Maybe.withDefault [])
+        |> Field.map List.length
 
 
 getUserInterests : String -> SelectionSet (List String) RootQuery
@@ -62,7 +75,7 @@ interestNameSelection =
     Api.Object.Interest.name |> fieldSelection
 
 
-addInterest : String -> Interest -> SelectionSet (List Interest) RootMutation
+addInterest : String -> String -> SelectionSet (List String) RootMutation
 addInterest username interest =
     Api.Mutation.updateUser
         { data =

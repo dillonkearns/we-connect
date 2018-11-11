@@ -19,7 +19,7 @@ type Msg
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
     | AddInterest String
     | GotInterests (RemoteData (Graphql.Http.Error ()) (List String))
-    | GotAllInterests (RemoteData (Graphql.Http.Error ()) (List String))
+    | GotAllInterests (RemoteData (Graphql.Http.Error ()) (List Request.Interests.Interest))
 
 
 mapError : Result (Graphql.Http.Error something) something -> RemoteData (Graphql.Http.Error ()) something
@@ -37,7 +37,7 @@ type Username
 type alias Model =
     { username : Username
     , userInterests : RemoteData (Graphql.Http.Error ()) (List String)
-    , allInterests : RemoteData (Graphql.Http.Error ()) (List String)
+    , allInterests : RemoteData (Graphql.Http.Error ()) (List Request.Interests.Interest)
     }
 
 
@@ -101,21 +101,22 @@ interestsView model =
             Element.text "..."
 
 
-interestButton : List String -> String -> Element Msg
+interestButton : List String -> Request.Interests.Interest -> Element Msg
 interestButton userInterests interest =
-    if List.member interest userInterests then
-        ("✔ " ++ interest)
+    if List.member interest.name userInterests then
+        ("✔ " ++ interest.name ++ " (" ++ String.fromInt interest.interestedCount ++ ")")
             |> Element.text
             |> button
             |> Element.el
-                [ Element.Events.onClick (AddInterest interest) ]
+                [-- Element.Events.onClick (AddInterest interest.name)
+                ]
 
     else
-        interest
+        interest.name
             |> Element.text
             |> button
             |> Element.el
-                [ Element.Events.onClick (AddInterest interest) ]
+                [ Element.Events.onClick (AddInterest interest.name) ]
 
 
 button content =
