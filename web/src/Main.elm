@@ -10,6 +10,7 @@ import Graphql.Http
 import Html
 import RemoteData exposing (RemoteData)
 import Request.Interests
+import Request.TimeSlot
 import View.Navbar
 
 
@@ -20,6 +21,7 @@ type Msg
     | AddInterest String
     | GotInterests (RemoteData (Graphql.Http.Error ()) (List String))
     | GotAllInterests (RemoteData (Graphql.Http.Error ()) (List Request.Interests.Interest))
+    | GotTimeSlots (RemoteData (Graphql.Http.Error ()) (List Request.TimeSlot.TimeSlot))
 
 
 mapError : Result (Graphql.Http.Error something) something -> RemoteData (Graphql.Http.Error ()) something
@@ -38,6 +40,7 @@ type alias Model =
     { username : Username
     , userInterests : RemoteData (Graphql.Http.Error ()) (List String)
     , allInterests : RemoteData (Graphql.Http.Error ()) (List Request.Interests.Interest)
+    , timeSlots : RemoteData (Graphql.Http.Error ()) (List Request.TimeSlot.TimeSlot)
     }
 
 
@@ -46,8 +49,12 @@ init flags =
     ( { username = Entering ""
       , userInterests = RemoteData.Loading
       , allInterests = RemoteData.Loading
+      , timeSlots = RemoteData.Loading
       }
-    , getAllInterests
+    , Cmd.batch
+        [ getAllInterests
+        , getTimeSlots
+        ]
     )
 
 
@@ -159,33 +166,43 @@ update msg model =
         GotAllInterests interestsResult ->
             ( { model | allInterests = interestsResult }, Cmd.none )
 
+        GotTimeSlots timeSlotsResponse ->
+            ( { model | timeSlots = timeSlotsResponse }, Cmd.none )
+
 
 addInterest : Username -> String -> Cmd Msg
 addInterest username interest =
     Request.Interests.addInterest (getUsername username) interest
-        |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.mutationRequest apiUrl
         |> Graphql.Http.send (mapError >> GotInterests)
 
 
 createUser : String -> Cmd Msg
 createUser username =
     Request.Interests.createUser username
-        |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.mutationRequest apiUrl
         |> Graphql.Http.send NoOp
 
 
 getUserInterests : String -> Cmd Msg
 getUserInterests username =
     Request.Interests.getUserInterests username
-        |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.queryRequest apiUrl
         |> Graphql.Http.send (mapError >> GotInterests)
 
 
 getAllInterests : Cmd Msg
 getAllInterests =
     Request.Interests.getInterests
-        |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.queryRequest apiUrl
         |> Graphql.Http.send (mapError >> GotAllInterests)
+
+
+getTimeSlots : Cmd Msg
+getTimeSlots =
+    Request.TimeSlot.getAll
+        |> Graphql.Http.queryRequest apiUrl
+        |> Graphql.Http.send (mapError >> GotTimeSlots)
 
 
 setUsername username =
@@ -208,6 +225,11 @@ getUsername username =
 
 subscriptions model =
     Sub.none
+
+
+apiUrl : String
+apiUrl =
+    "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
 
 
 main : Program () Model Msg
