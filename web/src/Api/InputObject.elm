@@ -16,6 +16,7 @@ import Json.Decode as Decode
 import Graphql.Internal.Encode as Encode exposing (Value)
 import Api.Enum.MutationType
 import Api.Enum.MutationType
+import Api.Enum.MutationType
 
 
 
@@ -509,6 +510,496 @@ encodeInterestWhereUniqueInput input =
         [ ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "name", (Encode.string)  |> Encode.optional input.name ) ]
 
 
+buildTimeSlotCreateInput : TimeSlotCreateInputRequiredFields -> (TimeSlotCreateInputOptionalFields -> TimeSlotCreateInputOptionalFields) -> TimeSlotCreateInput
+buildTimeSlotCreateInput required fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { users = Absent }
+    in
+    TimeSlotCreateInput{ time = required.time, users = optionals.users }
+
+type alias TimeSlotCreateInputRequiredFields =
+    { time : String }
+type alias TimeSlotCreateInputOptionalFields =
+    { users : (OptionalArgument UserCreateManyWithoutAvailabilityInput) }
+
+
+{-| Type alias for the `TimeSlotCreateInput` attributes. Note that this type
+needs to use the `TimeSlotCreateInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias TimeSlotCreateInputRaw =
+    { time : String, users : (OptionalArgument UserCreateManyWithoutAvailabilityInput) }
+
+
+{-| Type for the TimeSlotCreateInput input object.
+-}
+type TimeSlotCreateInput
+    = TimeSlotCreateInput TimeSlotCreateInputRaw
+    
+
+{-| Encode a TimeSlotCreateInput into a value that can be used as an argument.
+-}
+encodeTimeSlotCreateInput : TimeSlotCreateInput -> Value
+encodeTimeSlotCreateInput (TimeSlotCreateInput input) =
+    Encode.maybeObject
+        [ ( "time", (Encode.string)  input.time |> Just ), ( "users", (encodeUserCreateManyWithoutAvailabilityInput)  |> Encode.optional input.users ) ]
+
+
+buildTimeSlotCreateManyWithoutUsersInput : (TimeSlotCreateManyWithoutUsersInputOptionalFields -> TimeSlotCreateManyWithoutUsersInputOptionalFields) -> TimeSlotCreateManyWithoutUsersInput
+buildTimeSlotCreateManyWithoutUsersInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { create = Absent, connect = Absent }
+    in
+    { create = optionals.create, connect = optionals.connect }
+
+
+type alias TimeSlotCreateManyWithoutUsersInputOptionalFields =
+    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)) }
+
+
+{-| Type for the TimeSlotCreateManyWithoutUsersInput input object.
+-}
+type alias TimeSlotCreateManyWithoutUsersInput =
+    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)) }
+    
+
+{-| Encode a TimeSlotCreateManyWithoutUsersInput into a value that can be used as an argument.
+-}
+encodeTimeSlotCreateManyWithoutUsersInput : TimeSlotCreateManyWithoutUsersInput -> Value
+encodeTimeSlotCreateManyWithoutUsersInput input =
+    Encode.maybeObject
+        [ ( "create", (encodeTimeSlotCreateWithoutUsersInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ) ]
+
+
+buildTimeSlotCreateWithoutUsersInput : TimeSlotCreateWithoutUsersInputRequiredFields -> TimeSlotCreateWithoutUsersInput
+buildTimeSlotCreateWithoutUsersInput required =
+
+    { time = required.time }
+
+type alias TimeSlotCreateWithoutUsersInputRequiredFields =
+    { time : String }
+
+
+
+{-| Type for the TimeSlotCreateWithoutUsersInput input object.
+-}
+type alias TimeSlotCreateWithoutUsersInput =
+    { time : String }
+    
+
+{-| Encode a TimeSlotCreateWithoutUsersInput into a value that can be used as an argument.
+-}
+encodeTimeSlotCreateWithoutUsersInput : TimeSlotCreateWithoutUsersInput -> Value
+encodeTimeSlotCreateWithoutUsersInput input =
+    Encode.maybeObject
+        [ ( "time", (Encode.string)  input.time |> Just ) ]
+
+
+buildTimeSlotScalarWhereInput : (TimeSlotScalarWhereInputOptionalFields -> TimeSlotScalarWhereInputOptionalFields) -> TimeSlotScalarWhereInput
+buildTimeSlotScalarWhereInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, time = Absent, time_not = Absent, time_in = Absent, time_not_in = Absent, time_lt = Absent, time_lte = Absent, time_gt = Absent, time_gte = Absent, time_contains = Absent, time_not_contains = Absent, time_starts_with = Absent, time_not_starts_with = Absent, time_ends_with = Absent, time_not_ends_with = Absent }
+    in
+    TimeSlotScalarWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, time = optionals.time, time_not = optionals.time_not, time_in = optionals.time_in, time_not_in = optionals.time_not_in, time_lt = optionals.time_lt, time_lte = optionals.time_lte, time_gt = optionals.time_gt, time_gte = optionals.time_gte, time_contains = optionals.time_contains, time_not_contains = optionals.time_not_contains, time_starts_with = optionals.time_starts_with, time_not_starts_with = optionals.time_not_starts_with, time_ends_with = optionals.time_ends_with, time_not_ends_with = optionals.time_not_ends_with }
+
+
+type alias TimeSlotScalarWhereInputOptionalFields =
+    { and : (OptionalArgument (List TimeSlotScalarWhereInput)), or : (OptionalArgument (List TimeSlotScalarWhereInput)), not : (OptionalArgument (List TimeSlotScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String), time_not : (OptionalArgument String), time_in : (OptionalArgument (List String)), time_not_in : (OptionalArgument (List String)), time_lt : (OptionalArgument String), time_lte : (OptionalArgument String), time_gt : (OptionalArgument String), time_gte : (OptionalArgument String), time_contains : (OptionalArgument String), time_not_contains : (OptionalArgument String), time_starts_with : (OptionalArgument String), time_not_starts_with : (OptionalArgument String), time_ends_with : (OptionalArgument String), time_not_ends_with : (OptionalArgument String) }
+
+
+{-| Type alias for the `TimeSlotScalarWhereInput` attributes. Note that this type
+needs to use the `TimeSlotScalarWhereInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias TimeSlotScalarWhereInputRaw =
+    { and : (OptionalArgument (List TimeSlotScalarWhereInput)), or : (OptionalArgument (List TimeSlotScalarWhereInput)), not : (OptionalArgument (List TimeSlotScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String), time_not : (OptionalArgument String), time_in : (OptionalArgument (List String)), time_not_in : (OptionalArgument (List String)), time_lt : (OptionalArgument String), time_lte : (OptionalArgument String), time_gt : (OptionalArgument String), time_gte : (OptionalArgument String), time_contains : (OptionalArgument String), time_not_contains : (OptionalArgument String), time_starts_with : (OptionalArgument String), time_not_starts_with : (OptionalArgument String), time_ends_with : (OptionalArgument String), time_not_ends_with : (OptionalArgument String) }
+
+
+{-| Type for the TimeSlotScalarWhereInput input object.
+-}
+type TimeSlotScalarWhereInput
+    = TimeSlotScalarWhereInput TimeSlotScalarWhereInputRaw
+    
+
+{-| Encode a TimeSlotScalarWhereInput into a value that can be used as an argument.
+-}
+encodeTimeSlotScalarWhereInput : TimeSlotScalarWhereInput -> Value
+encodeTimeSlotScalarWhereInput (TimeSlotScalarWhereInput input) =
+    Encode.maybeObject
+        [ ( "AND", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "time", (Encode.string)  |> Encode.optional input.time ), ( "time_not", (Encode.string)  |> Encode.optional input.time_not ), ( "time_in", (Encode.string |> Encode.list)  |> Encode.optional input.time_in ), ( "time_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.time_not_in ), ( "time_lt", (Encode.string)  |> Encode.optional input.time_lt ), ( "time_lte", (Encode.string)  |> Encode.optional input.time_lte ), ( "time_gt", (Encode.string)  |> Encode.optional input.time_gt ), ( "time_gte", (Encode.string)  |> Encode.optional input.time_gte ), ( "time_contains", (Encode.string)  |> Encode.optional input.time_contains ), ( "time_not_contains", (Encode.string)  |> Encode.optional input.time_not_contains ), ( "time_starts_with", (Encode.string)  |> Encode.optional input.time_starts_with ), ( "time_not_starts_with", (Encode.string)  |> Encode.optional input.time_not_starts_with ), ( "time_ends_with", (Encode.string)  |> Encode.optional input.time_ends_with ), ( "time_not_ends_with", (Encode.string)  |> Encode.optional input.time_not_ends_with ) ]
+
+
+buildTimeSlotSubscriptionWhereInput : (TimeSlotSubscriptionWhereInputOptionalFields -> TimeSlotSubscriptionWhereInputOptionalFields) -> TimeSlotSubscriptionWhereInput
+buildTimeSlotSubscriptionWhereInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { and = Absent, or = Absent, not = Absent, mutation_in = Absent, updatedFields_contains = Absent, updatedFields_contains_every = Absent, updatedFields_contains_some = Absent, node = Absent }
+    in
+    TimeSlotSubscriptionWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, mutation_in = optionals.mutation_in, updatedFields_contains = optionals.updatedFields_contains, updatedFields_contains_every = optionals.updatedFields_contains_every, updatedFields_contains_some = optionals.updatedFields_contains_some, node = optionals.node }
+
+
+type alias TimeSlotSubscriptionWhereInputOptionalFields =
+    { and : (OptionalArgument (List TimeSlotSubscriptionWhereInput)), or : (OptionalArgument (List TimeSlotSubscriptionWhereInput)), not : (OptionalArgument (List TimeSlotSubscriptionWhereInput)), mutation_in : (OptionalArgument (List Api.Enum.MutationType.MutationType)), updatedFields_contains : (OptionalArgument String), updatedFields_contains_every : (OptionalArgument (List String)), updatedFields_contains_some : (OptionalArgument (List String)), node : (OptionalArgument TimeSlotWhereInput) }
+
+
+{-| Type alias for the `TimeSlotSubscriptionWhereInput` attributes. Note that this type
+needs to use the `TimeSlotSubscriptionWhereInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias TimeSlotSubscriptionWhereInputRaw =
+    { and : (OptionalArgument (List TimeSlotSubscriptionWhereInput)), or : (OptionalArgument (List TimeSlotSubscriptionWhereInput)), not : (OptionalArgument (List TimeSlotSubscriptionWhereInput)), mutation_in : (OptionalArgument (List Api.Enum.MutationType.MutationType)), updatedFields_contains : (OptionalArgument String), updatedFields_contains_every : (OptionalArgument (List String)), updatedFields_contains_some : (OptionalArgument (List String)), node : (OptionalArgument TimeSlotWhereInput) }
+
+
+{-| Type for the TimeSlotSubscriptionWhereInput input object.
+-}
+type TimeSlotSubscriptionWhereInput
+    = TimeSlotSubscriptionWhereInput TimeSlotSubscriptionWhereInputRaw
+    
+
+{-| Encode a TimeSlotSubscriptionWhereInput into a value that can be used as an argument.
+-}
+encodeTimeSlotSubscriptionWhereInput : TimeSlotSubscriptionWhereInput -> Value
+encodeTimeSlotSubscriptionWhereInput (TimeSlotSubscriptionWhereInput input) =
+    Encode.maybeObject
+        [ ( "AND", (encodeTimeSlotSubscriptionWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeTimeSlotSubscriptionWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeTimeSlotSubscriptionWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "mutation_in", ((Encode.enum Api.Enum.MutationType.toString) |> Encode.list)  |> Encode.optional input.mutation_in ), ( "updatedFields_contains", (Encode.string)  |> Encode.optional input.updatedFields_contains ), ( "updatedFields_contains_every", (Encode.string |> Encode.list)  |> Encode.optional input.updatedFields_contains_every ), ( "updatedFields_contains_some", (Encode.string |> Encode.list)  |> Encode.optional input.updatedFields_contains_some ), ( "node", (encodeTimeSlotWhereInput)  |> Encode.optional input.node ) ]
+
+
+buildTimeSlotUpdateInput : (TimeSlotUpdateInputOptionalFields -> TimeSlotUpdateInputOptionalFields) -> TimeSlotUpdateInput
+buildTimeSlotUpdateInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { time = Absent, users = Absent }
+    in
+    TimeSlotUpdateInput{ time = optionals.time, users = optionals.users }
+
+
+type alias TimeSlotUpdateInputOptionalFields =
+    { time : (OptionalArgument String), users : (OptionalArgument UserUpdateManyWithoutAvailabilityInput) }
+
+
+{-| Type alias for the `TimeSlotUpdateInput` attributes. Note that this type
+needs to use the `TimeSlotUpdateInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias TimeSlotUpdateInputRaw =
+    { time : (OptionalArgument String), users : (OptionalArgument UserUpdateManyWithoutAvailabilityInput) }
+
+
+{-| Type for the TimeSlotUpdateInput input object.
+-}
+type TimeSlotUpdateInput
+    = TimeSlotUpdateInput TimeSlotUpdateInputRaw
+    
+
+{-| Encode a TimeSlotUpdateInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpdateInput : TimeSlotUpdateInput -> Value
+encodeTimeSlotUpdateInput (TimeSlotUpdateInput input) =
+    Encode.maybeObject
+        [ ( "time", (Encode.string)  |> Encode.optional input.time ), ( "users", (encodeUserUpdateManyWithoutAvailabilityInput)  |> Encode.optional input.users ) ]
+
+
+buildTimeSlotUpdateManyDataInput : (TimeSlotUpdateManyDataInputOptionalFields -> TimeSlotUpdateManyDataInputOptionalFields) -> TimeSlotUpdateManyDataInput
+buildTimeSlotUpdateManyDataInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { time = Absent }
+    in
+    { time = optionals.time }
+
+
+type alias TimeSlotUpdateManyDataInputOptionalFields =
+    { time : (OptionalArgument String) }
+
+
+{-| Type for the TimeSlotUpdateManyDataInput input object.
+-}
+type alias TimeSlotUpdateManyDataInput =
+    { time : (OptionalArgument String) }
+    
+
+{-| Encode a TimeSlotUpdateManyDataInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpdateManyDataInput : TimeSlotUpdateManyDataInput -> Value
+encodeTimeSlotUpdateManyDataInput input =
+    Encode.maybeObject
+        [ ( "time", (Encode.string)  |> Encode.optional input.time ) ]
+
+
+buildTimeSlotUpdateManyMutationInput : (TimeSlotUpdateManyMutationInputOptionalFields -> TimeSlotUpdateManyMutationInputOptionalFields) -> TimeSlotUpdateManyMutationInput
+buildTimeSlotUpdateManyMutationInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { time = Absent }
+    in
+    { time = optionals.time }
+
+
+type alias TimeSlotUpdateManyMutationInputOptionalFields =
+    { time : (OptionalArgument String) }
+
+
+{-| Type for the TimeSlotUpdateManyMutationInput input object.
+-}
+type alias TimeSlotUpdateManyMutationInput =
+    { time : (OptionalArgument String) }
+    
+
+{-| Encode a TimeSlotUpdateManyMutationInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpdateManyMutationInput : TimeSlotUpdateManyMutationInput -> Value
+encodeTimeSlotUpdateManyMutationInput input =
+    Encode.maybeObject
+        [ ( "time", (Encode.string)  |> Encode.optional input.time ) ]
+
+
+buildTimeSlotUpdateManyWithWhereNestedInput : TimeSlotUpdateManyWithWhereNestedInputRequiredFields -> TimeSlotUpdateManyWithWhereNestedInput
+buildTimeSlotUpdateManyWithWhereNestedInput required =
+
+    TimeSlotUpdateManyWithWhereNestedInput{ where_ = required.where_, data = required.data }
+
+type alias TimeSlotUpdateManyWithWhereNestedInputRequiredFields =
+    { where_ : TimeSlotScalarWhereInput, data : TimeSlotUpdateManyDataInput }
+
+
+
+{-| Type alias for the `TimeSlotUpdateManyWithWhereNestedInput` attributes. Note that this type
+needs to use the `TimeSlotUpdateManyWithWhereNestedInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias TimeSlotUpdateManyWithWhereNestedInputRaw =
+    { where_ : TimeSlotScalarWhereInput, data : TimeSlotUpdateManyDataInput }
+
+
+{-| Type for the TimeSlotUpdateManyWithWhereNestedInput input object.
+-}
+type TimeSlotUpdateManyWithWhereNestedInput
+    = TimeSlotUpdateManyWithWhereNestedInput TimeSlotUpdateManyWithWhereNestedInputRaw
+    
+
+{-| Encode a TimeSlotUpdateManyWithWhereNestedInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpdateManyWithWhereNestedInput : TimeSlotUpdateManyWithWhereNestedInput -> Value
+encodeTimeSlotUpdateManyWithWhereNestedInput (TimeSlotUpdateManyWithWhereNestedInput input) =
+    Encode.maybeObject
+        [ ( "where", (encodeTimeSlotScalarWhereInput)  input.where_ |> Just ), ( "data", (encodeTimeSlotUpdateManyDataInput)  input.data |> Just ) ]
+
+
+buildTimeSlotUpdateManyWithoutUsersInput : (TimeSlotUpdateManyWithoutUsersInputOptionalFields -> TimeSlotUpdateManyWithoutUsersInputOptionalFields) -> TimeSlotUpdateManyWithoutUsersInput
+buildTimeSlotUpdateManyWithoutUsersInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, updateMany = Absent, deleteMany = Absent, upsert = Absent }
+    in
+    TimeSlotUpdateManyWithoutUsersInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, updateMany = optionals.updateMany, deleteMany = optionals.deleteMany, upsert = optionals.upsert }
+
+
+type alias TimeSlotUpdateManyWithoutUsersInputOptionalFields =
+    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)), disconnect : (OptionalArgument (List TimeSlotWhereUniqueInput)), delete : (OptionalArgument (List TimeSlotWhereUniqueInput)), update : (OptionalArgument (List TimeSlotUpdateWithWhereUniqueWithoutUsersInput)), updateMany : (OptionalArgument (List TimeSlotUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List TimeSlotScalarWhereInput)), upsert : (OptionalArgument (List TimeSlotUpsertWithWhereUniqueWithoutUsersInput)) }
+
+
+{-| Type alias for the `TimeSlotUpdateManyWithoutUsersInput` attributes. Note that this type
+needs to use the `TimeSlotUpdateManyWithoutUsersInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias TimeSlotUpdateManyWithoutUsersInputRaw =
+    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)), disconnect : (OptionalArgument (List TimeSlotWhereUniqueInput)), delete : (OptionalArgument (List TimeSlotWhereUniqueInput)), update : (OptionalArgument (List TimeSlotUpdateWithWhereUniqueWithoutUsersInput)), updateMany : (OptionalArgument (List TimeSlotUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List TimeSlotScalarWhereInput)), upsert : (OptionalArgument (List TimeSlotUpsertWithWhereUniqueWithoutUsersInput)) }
+
+
+{-| Type for the TimeSlotUpdateManyWithoutUsersInput input object.
+-}
+type TimeSlotUpdateManyWithoutUsersInput
+    = TimeSlotUpdateManyWithoutUsersInput TimeSlotUpdateManyWithoutUsersInputRaw
+    
+
+{-| Encode a TimeSlotUpdateManyWithoutUsersInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpdateManyWithoutUsersInput : TimeSlotUpdateManyWithoutUsersInput -> Value
+encodeTimeSlotUpdateManyWithoutUsersInput (TimeSlotUpdateManyWithoutUsersInput input) =
+    Encode.maybeObject
+        [ ( "create", (encodeTimeSlotCreateWithoutUsersInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeTimeSlotUpdateWithWhereUniqueWithoutUsersInput |> Encode.list)  |> Encode.optional input.update ), ( "updateMany", (encodeTimeSlotUpdateManyWithWhereNestedInput |> Encode.list)  |> Encode.optional input.updateMany ), ( "deleteMany", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.deleteMany ), ( "upsert", (encodeTimeSlotUpsertWithWhereUniqueWithoutUsersInput |> Encode.list)  |> Encode.optional input.upsert ) ]
+
+
+buildTimeSlotUpdateWithWhereUniqueWithoutUsersInput : TimeSlotUpdateWithWhereUniqueWithoutUsersInputRequiredFields -> TimeSlotUpdateWithWhereUniqueWithoutUsersInput
+buildTimeSlotUpdateWithWhereUniqueWithoutUsersInput required =
+
+    { where_ = required.where_, data = required.data }
+
+type alias TimeSlotUpdateWithWhereUniqueWithoutUsersInputRequiredFields =
+    { where_ : TimeSlotWhereUniqueInput, data : TimeSlotUpdateWithoutUsersDataInput }
+
+
+
+{-| Type for the TimeSlotUpdateWithWhereUniqueWithoutUsersInput input object.
+-}
+type alias TimeSlotUpdateWithWhereUniqueWithoutUsersInput =
+    { where_ : TimeSlotWhereUniqueInput, data : TimeSlotUpdateWithoutUsersDataInput }
+    
+
+{-| Encode a TimeSlotUpdateWithWhereUniqueWithoutUsersInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpdateWithWhereUniqueWithoutUsersInput : TimeSlotUpdateWithWhereUniqueWithoutUsersInput -> Value
+encodeTimeSlotUpdateWithWhereUniqueWithoutUsersInput input =
+    Encode.maybeObject
+        [ ( "where", (encodeTimeSlotWhereUniqueInput)  input.where_ |> Just ), ( "data", (encodeTimeSlotUpdateWithoutUsersDataInput)  input.data |> Just ) ]
+
+
+buildTimeSlotUpdateWithoutUsersDataInput : (TimeSlotUpdateWithoutUsersDataInputOptionalFields -> TimeSlotUpdateWithoutUsersDataInputOptionalFields) -> TimeSlotUpdateWithoutUsersDataInput
+buildTimeSlotUpdateWithoutUsersDataInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { time = Absent }
+    in
+    { time = optionals.time }
+
+
+type alias TimeSlotUpdateWithoutUsersDataInputOptionalFields =
+    { time : (OptionalArgument String) }
+
+
+{-| Type for the TimeSlotUpdateWithoutUsersDataInput input object.
+-}
+type alias TimeSlotUpdateWithoutUsersDataInput =
+    { time : (OptionalArgument String) }
+    
+
+{-| Encode a TimeSlotUpdateWithoutUsersDataInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpdateWithoutUsersDataInput : TimeSlotUpdateWithoutUsersDataInput -> Value
+encodeTimeSlotUpdateWithoutUsersDataInput input =
+    Encode.maybeObject
+        [ ( "time", (Encode.string)  |> Encode.optional input.time ) ]
+
+
+buildTimeSlotUpsertWithWhereUniqueWithoutUsersInput : TimeSlotUpsertWithWhereUniqueWithoutUsersInputRequiredFields -> TimeSlotUpsertWithWhereUniqueWithoutUsersInput
+buildTimeSlotUpsertWithWhereUniqueWithoutUsersInput required =
+
+    { where_ = required.where_, update = required.update, create = required.create }
+
+type alias TimeSlotUpsertWithWhereUniqueWithoutUsersInputRequiredFields =
+    { where_ : TimeSlotWhereUniqueInput, update : TimeSlotUpdateWithoutUsersDataInput, create : TimeSlotCreateWithoutUsersInput }
+
+
+
+{-| Type for the TimeSlotUpsertWithWhereUniqueWithoutUsersInput input object.
+-}
+type alias TimeSlotUpsertWithWhereUniqueWithoutUsersInput =
+    { where_ : TimeSlotWhereUniqueInput, update : TimeSlotUpdateWithoutUsersDataInput, create : TimeSlotCreateWithoutUsersInput }
+    
+
+{-| Encode a TimeSlotUpsertWithWhereUniqueWithoutUsersInput into a value that can be used as an argument.
+-}
+encodeTimeSlotUpsertWithWhereUniqueWithoutUsersInput : TimeSlotUpsertWithWhereUniqueWithoutUsersInput -> Value
+encodeTimeSlotUpsertWithWhereUniqueWithoutUsersInput input =
+    Encode.maybeObject
+        [ ( "where", (encodeTimeSlotWhereUniqueInput)  input.where_ |> Just ), ( "update", (encodeTimeSlotUpdateWithoutUsersDataInput)  input.update |> Just ), ( "create", (encodeTimeSlotCreateWithoutUsersInput)  input.create |> Just ) ]
+
+
+buildTimeSlotWhereInput : (TimeSlotWhereInputOptionalFields -> TimeSlotWhereInputOptionalFields) -> TimeSlotWhereInput
+buildTimeSlotWhereInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, time = Absent, time_not = Absent, time_in = Absent, time_not_in = Absent, time_lt = Absent, time_lte = Absent, time_gt = Absent, time_gte = Absent, time_contains = Absent, time_not_contains = Absent, time_starts_with = Absent, time_not_starts_with = Absent, time_ends_with = Absent, time_not_ends_with = Absent, users_every = Absent, users_some = Absent, users_none = Absent }
+    in
+    TimeSlotWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, time = optionals.time, time_not = optionals.time_not, time_in = optionals.time_in, time_not_in = optionals.time_not_in, time_lt = optionals.time_lt, time_lte = optionals.time_lte, time_gt = optionals.time_gt, time_gte = optionals.time_gte, time_contains = optionals.time_contains, time_not_contains = optionals.time_not_contains, time_starts_with = optionals.time_starts_with, time_not_starts_with = optionals.time_not_starts_with, time_ends_with = optionals.time_ends_with, time_not_ends_with = optionals.time_not_ends_with, users_every = optionals.users_every, users_some = optionals.users_some, users_none = optionals.users_none }
+
+
+type alias TimeSlotWhereInputOptionalFields =
+    { and : (OptionalArgument (List TimeSlotWhereInput)), or : (OptionalArgument (List TimeSlotWhereInput)), not : (OptionalArgument (List TimeSlotWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String), time_not : (OptionalArgument String), time_in : (OptionalArgument (List String)), time_not_in : (OptionalArgument (List String)), time_lt : (OptionalArgument String), time_lte : (OptionalArgument String), time_gt : (OptionalArgument String), time_gte : (OptionalArgument String), time_contains : (OptionalArgument String), time_not_contains : (OptionalArgument String), time_starts_with : (OptionalArgument String), time_not_starts_with : (OptionalArgument String), time_ends_with : (OptionalArgument String), time_not_ends_with : (OptionalArgument String), users_every : (OptionalArgument UserWhereInput), users_some : (OptionalArgument UserWhereInput), users_none : (OptionalArgument UserWhereInput) }
+
+
+{-| Type alias for the `TimeSlotWhereInput` attributes. Note that this type
+needs to use the `TimeSlotWhereInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias TimeSlotWhereInputRaw =
+    { and : (OptionalArgument (List TimeSlotWhereInput)), or : (OptionalArgument (List TimeSlotWhereInput)), not : (OptionalArgument (List TimeSlotWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String), time_not : (OptionalArgument String), time_in : (OptionalArgument (List String)), time_not_in : (OptionalArgument (List String)), time_lt : (OptionalArgument String), time_lte : (OptionalArgument String), time_gt : (OptionalArgument String), time_gte : (OptionalArgument String), time_contains : (OptionalArgument String), time_not_contains : (OptionalArgument String), time_starts_with : (OptionalArgument String), time_not_starts_with : (OptionalArgument String), time_ends_with : (OptionalArgument String), time_not_ends_with : (OptionalArgument String), users_every : (OptionalArgument UserWhereInput), users_some : (OptionalArgument UserWhereInput), users_none : (OptionalArgument UserWhereInput) }
+
+
+{-| Type for the TimeSlotWhereInput input object.
+-}
+type TimeSlotWhereInput
+    = TimeSlotWhereInput TimeSlotWhereInputRaw
+    
+
+{-| Encode a TimeSlotWhereInput into a value that can be used as an argument.
+-}
+encodeTimeSlotWhereInput : TimeSlotWhereInput -> Value
+encodeTimeSlotWhereInput (TimeSlotWhereInput input) =
+    Encode.maybeObject
+        [ ( "AND", (encodeTimeSlotWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeTimeSlotWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeTimeSlotWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "time", (Encode.string)  |> Encode.optional input.time ), ( "time_not", (Encode.string)  |> Encode.optional input.time_not ), ( "time_in", (Encode.string |> Encode.list)  |> Encode.optional input.time_in ), ( "time_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.time_not_in ), ( "time_lt", (Encode.string)  |> Encode.optional input.time_lt ), ( "time_lte", (Encode.string)  |> Encode.optional input.time_lte ), ( "time_gt", (Encode.string)  |> Encode.optional input.time_gt ), ( "time_gte", (Encode.string)  |> Encode.optional input.time_gte ), ( "time_contains", (Encode.string)  |> Encode.optional input.time_contains ), ( "time_not_contains", (Encode.string)  |> Encode.optional input.time_not_contains ), ( "time_starts_with", (Encode.string)  |> Encode.optional input.time_starts_with ), ( "time_not_starts_with", (Encode.string)  |> Encode.optional input.time_not_starts_with ), ( "time_ends_with", (Encode.string)  |> Encode.optional input.time_ends_with ), ( "time_not_ends_with", (Encode.string)  |> Encode.optional input.time_not_ends_with ), ( "users_every", (encodeUserWhereInput)  |> Encode.optional input.users_every ), ( "users_some", (encodeUserWhereInput)  |> Encode.optional input.users_some ), ( "users_none", (encodeUserWhereInput)  |> Encode.optional input.users_none ) ]
+
+
+buildTimeSlotWhereUniqueInput : (TimeSlotWhereUniqueInputOptionalFields -> TimeSlotWhereUniqueInputOptionalFields) -> TimeSlotWhereUniqueInput
+buildTimeSlotWhereUniqueInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { id = Absent, time = Absent }
+    in
+    { id = optionals.id, time = optionals.time }
+
+
+type alias TimeSlotWhereUniqueInputOptionalFields =
+    { id : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String) }
+
+
+{-| Type for the TimeSlotWhereUniqueInput input object.
+-}
+type alias TimeSlotWhereUniqueInput =
+    { id : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String) }
+    
+
+{-| Encode a TimeSlotWhereUniqueInput into a value that can be used as an argument.
+-}
+encodeTimeSlotWhereUniqueInput : TimeSlotWhereUniqueInput -> Value
+encodeTimeSlotWhereUniqueInput input =
+    Encode.maybeObject
+        [ ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "time", (Encode.string)  |> Encode.optional input.time ) ]
+
+
 buildUserCreateInput : UserCreateInputRequiredFields -> (UserCreateInputOptionalFields -> UserCreateInputOptionalFields) -> UserCreateInput
 buildUserCreateInput required fillOptionals =
 
@@ -516,14 +1007,14 @@ buildUserCreateInput required fillOptionals =
         optionals =
             
             fillOptionals
-                { interests = Absent }
+                { interests = Absent, availability = Absent }
     in
-    UserCreateInput{ name = required.name, interests = optionals.interests }
+    UserCreateInput{ name = required.name, interests = optionals.interests, availability = optionals.availability }
 
 type alias UserCreateInputRequiredFields =
     { name : String }
 type alias UserCreateInputOptionalFields =
-    { interests : (OptionalArgument InterestCreateManyWithoutInterestedUsersInput) }
+    { interests : (OptionalArgument InterestCreateManyWithoutInterestedUsersInput), availability : (OptionalArgument TimeSlotCreateManyWithoutUsersInput) }
 
 
 {-| Type alias for the `UserCreateInput` attributes. Note that this type
@@ -532,7 +1023,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias UserCreateInputRaw =
-    { name : String, interests : (OptionalArgument InterestCreateManyWithoutInterestedUsersInput) }
+    { name : String, interests : (OptionalArgument InterestCreateManyWithoutInterestedUsersInput), availability : (OptionalArgument TimeSlotCreateManyWithoutUsersInput) }
 
 
 {-| Type for the UserCreateInput input object.
@@ -546,7 +1037,46 @@ type UserCreateInput
 encodeUserCreateInput : UserCreateInput -> Value
 encodeUserCreateInput (UserCreateInput input) =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  input.name |> Just ), ( "interests", (encodeInterestCreateManyWithoutInterestedUsersInput)  |> Encode.optional input.interests ) ]
+        [ ( "name", (Encode.string)  input.name |> Just ), ( "interests", (encodeInterestCreateManyWithoutInterestedUsersInput)  |> Encode.optional input.interests ), ( "availability", (encodeTimeSlotCreateManyWithoutUsersInput)  |> Encode.optional input.availability ) ]
+
+
+buildUserCreateManyWithoutAvailabilityInput : (UserCreateManyWithoutAvailabilityInputOptionalFields -> UserCreateManyWithoutAvailabilityInputOptionalFields) -> UserCreateManyWithoutAvailabilityInput
+buildUserCreateManyWithoutAvailabilityInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { create = Absent, connect = Absent }
+    in
+    UserCreateManyWithoutAvailabilityInput{ create = optionals.create, connect = optionals.connect }
+
+
+type alias UserCreateManyWithoutAvailabilityInputOptionalFields =
+    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)) }
+
+
+{-| Type alias for the `UserCreateManyWithoutAvailabilityInput` attributes. Note that this type
+needs to use the `UserCreateManyWithoutAvailabilityInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserCreateManyWithoutAvailabilityInputRaw =
+    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)) }
+
+
+{-| Type for the UserCreateManyWithoutAvailabilityInput input object.
+-}
+type UserCreateManyWithoutAvailabilityInput
+    = UserCreateManyWithoutAvailabilityInput UserCreateManyWithoutAvailabilityInputRaw
+    
+
+{-| Encode a UserCreateManyWithoutAvailabilityInput into a value that can be used as an argument.
+-}
+encodeUserCreateManyWithoutAvailabilityInput : UserCreateManyWithoutAvailabilityInput -> Value
+encodeUserCreateManyWithoutAvailabilityInput (UserCreateManyWithoutAvailabilityInput input) =
+    Encode.maybeObject
+        [ ( "create", (encodeUserCreateWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ) ]
 
 
 buildUserCreateManyWithoutInterestsInput : (UserCreateManyWithoutInterestsInputOptionalFields -> UserCreateManyWithoutInterestsInputOptionalFields) -> UserCreateManyWithoutInterestsInput
@@ -558,49 +1088,114 @@ buildUserCreateManyWithoutInterestsInput fillOptionals =
             fillOptionals
                 { create = Absent, connect = Absent }
     in
-    { create = optionals.create, connect = optionals.connect }
+    UserCreateManyWithoutInterestsInput{ create = optionals.create, connect = optionals.connect }
 
 
 type alias UserCreateManyWithoutInterestsInputOptionalFields =
     { create : (OptionalArgument (List UserCreateWithoutInterestsInput)), connect : (OptionalArgument (List UserWhereUniqueInput)) }
 
 
+{-| Type alias for the `UserCreateManyWithoutInterestsInput` attributes. Note that this type
+needs to use the `UserCreateManyWithoutInterestsInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserCreateManyWithoutInterestsInputRaw =
+    { create : (OptionalArgument (List UserCreateWithoutInterestsInput)), connect : (OptionalArgument (List UserWhereUniqueInput)) }
+
+
 {-| Type for the UserCreateManyWithoutInterestsInput input object.
 -}
-type alias UserCreateManyWithoutInterestsInput =
-    { create : (OptionalArgument (List UserCreateWithoutInterestsInput)), connect : (OptionalArgument (List UserWhereUniqueInput)) }
+type UserCreateManyWithoutInterestsInput
+    = UserCreateManyWithoutInterestsInput UserCreateManyWithoutInterestsInputRaw
     
 
 {-| Encode a UserCreateManyWithoutInterestsInput into a value that can be used as an argument.
 -}
 encodeUserCreateManyWithoutInterestsInput : UserCreateManyWithoutInterestsInput -> Value
-encodeUserCreateManyWithoutInterestsInput input =
+encodeUserCreateManyWithoutInterestsInput (UserCreateManyWithoutInterestsInput input) =
     Encode.maybeObject
         [ ( "create", (encodeUserCreateWithoutInterestsInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ) ]
 
 
-buildUserCreateWithoutInterestsInput : UserCreateWithoutInterestsInputRequiredFields -> UserCreateWithoutInterestsInput
-buildUserCreateWithoutInterestsInput required =
+buildUserCreateWithoutAvailabilityInput : UserCreateWithoutAvailabilityInputRequiredFields -> (UserCreateWithoutAvailabilityInputOptionalFields -> UserCreateWithoutAvailabilityInputOptionalFields) -> UserCreateWithoutAvailabilityInput
+buildUserCreateWithoutAvailabilityInput required fillOptionals =
 
-    { name = required.name }
+    let
+        optionals =
+            
+            fillOptionals
+                { interests = Absent }
+    in
+    UserCreateWithoutAvailabilityInput{ name = required.name, interests = optionals.interests }
+
+type alias UserCreateWithoutAvailabilityInputRequiredFields =
+    { name : String }
+type alias UserCreateWithoutAvailabilityInputOptionalFields =
+    { interests : (OptionalArgument InterestCreateManyWithoutInterestedUsersInput) }
+
+
+{-| Type alias for the `UserCreateWithoutAvailabilityInput` attributes. Note that this type
+needs to use the `UserCreateWithoutAvailabilityInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserCreateWithoutAvailabilityInputRaw =
+    { name : String, interests : (OptionalArgument InterestCreateManyWithoutInterestedUsersInput) }
+
+
+{-| Type for the UserCreateWithoutAvailabilityInput input object.
+-}
+type UserCreateWithoutAvailabilityInput
+    = UserCreateWithoutAvailabilityInput UserCreateWithoutAvailabilityInputRaw
+    
+
+{-| Encode a UserCreateWithoutAvailabilityInput into a value that can be used as an argument.
+-}
+encodeUserCreateWithoutAvailabilityInput : UserCreateWithoutAvailabilityInput -> Value
+encodeUserCreateWithoutAvailabilityInput (UserCreateWithoutAvailabilityInput input) =
+    Encode.maybeObject
+        [ ( "name", (Encode.string)  input.name |> Just ), ( "interests", (encodeInterestCreateManyWithoutInterestedUsersInput)  |> Encode.optional input.interests ) ]
+
+
+buildUserCreateWithoutInterestsInput : UserCreateWithoutInterestsInputRequiredFields -> (UserCreateWithoutInterestsInputOptionalFields -> UserCreateWithoutInterestsInputOptionalFields) -> UserCreateWithoutInterestsInput
+buildUserCreateWithoutInterestsInput required fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { availability = Absent }
+    in
+    UserCreateWithoutInterestsInput{ name = required.name, availability = optionals.availability }
 
 type alias UserCreateWithoutInterestsInputRequiredFields =
     { name : String }
+type alias UserCreateWithoutInterestsInputOptionalFields =
+    { availability : (OptionalArgument TimeSlotCreateManyWithoutUsersInput) }
 
+
+{-| Type alias for the `UserCreateWithoutInterestsInput` attributes. Note that this type
+needs to use the `UserCreateWithoutInterestsInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserCreateWithoutInterestsInputRaw =
+    { name : String, availability : (OptionalArgument TimeSlotCreateManyWithoutUsersInput) }
 
 
 {-| Type for the UserCreateWithoutInterestsInput input object.
 -}
-type alias UserCreateWithoutInterestsInput =
-    { name : String }
+type UserCreateWithoutInterestsInput
+    = UserCreateWithoutInterestsInput UserCreateWithoutInterestsInputRaw
     
 
 {-| Encode a UserCreateWithoutInterestsInput into a value that can be used as an argument.
 -}
 encodeUserCreateWithoutInterestsInput : UserCreateWithoutInterestsInput -> Value
-encodeUserCreateWithoutInterestsInput input =
+encodeUserCreateWithoutInterestsInput (UserCreateWithoutInterestsInput input) =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  input.name |> Just ) ]
+        [ ( "name", (Encode.string)  input.name |> Just ), ( "availability", (encodeTimeSlotCreateManyWithoutUsersInput)  |> Encode.optional input.availability ) ]
 
 
 buildUserScalarWhereInput : (UserScalarWhereInputOptionalFields -> UserScalarWhereInputOptionalFields) -> UserScalarWhereInput
@@ -688,13 +1283,13 @@ buildUserUpdateInput fillOptionals =
         optionals =
             
             fillOptionals
-                { name = Absent, interests = Absent }
+                { name = Absent, interests = Absent, availability = Absent }
     in
-    UserUpdateInput{ name = optionals.name, interests = optionals.interests }
+    UserUpdateInput{ name = optionals.name, interests = optionals.interests, availability = optionals.availability }
 
 
 type alias UserUpdateInputOptionalFields =
-    { name : (OptionalArgument String), interests : (OptionalArgument InterestUpdateManyWithoutInterestedUsersInput) }
+    { name : (OptionalArgument String), interests : (OptionalArgument InterestUpdateManyWithoutInterestedUsersInput), availability : (OptionalArgument TimeSlotUpdateManyWithoutUsersInput) }
 
 
 {-| Type alias for the `UserUpdateInput` attributes. Note that this type
@@ -703,7 +1298,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias UserUpdateInputRaw =
-    { name : (OptionalArgument String), interests : (OptionalArgument InterestUpdateManyWithoutInterestedUsersInput) }
+    { name : (OptionalArgument String), interests : (OptionalArgument InterestUpdateManyWithoutInterestedUsersInput), availability : (OptionalArgument TimeSlotUpdateManyWithoutUsersInput) }
 
 
 {-| Type for the UserUpdateInput input object.
@@ -717,7 +1312,7 @@ type UserUpdateInput
 encodeUserUpdateInput : UserUpdateInput -> Value
 encodeUserUpdateInput (UserUpdateInput input) =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  |> Encode.optional input.name ), ( "interests", (encodeInterestUpdateManyWithoutInterestedUsersInput)  |> Encode.optional input.interests ) ]
+        [ ( "name", (Encode.string)  |> Encode.optional input.name ), ( "interests", (encodeInterestUpdateManyWithoutInterestedUsersInput)  |> Encode.optional input.interests ), ( "availability", (encodeTimeSlotUpdateManyWithoutUsersInput)  |> Encode.optional input.availability ) ]
 
 
 buildUserUpdateManyDataInput : (UserUpdateManyDataInputOptionalFields -> UserUpdateManyDataInputOptionalFields) -> UserUpdateManyDataInput
@@ -813,6 +1408,45 @@ encodeUserUpdateManyWithWhereNestedInput (UserUpdateManyWithWhereNestedInput inp
         [ ( "where", (encodeUserScalarWhereInput)  input.where_ |> Just ), ( "data", (encodeUserUpdateManyDataInput)  input.data |> Just ) ]
 
 
+buildUserUpdateManyWithoutAvailabilityInput : (UserUpdateManyWithoutAvailabilityInputOptionalFields -> UserUpdateManyWithoutAvailabilityInputOptionalFields) -> UserUpdateManyWithoutAvailabilityInput
+buildUserUpdateManyWithoutAvailabilityInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, updateMany = Absent, deleteMany = Absent, upsert = Absent }
+    in
+    UserUpdateManyWithoutAvailabilityInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, updateMany = optionals.updateMany, deleteMany = optionals.deleteMany, upsert = optionals.upsert }
+
+
+type alias UserUpdateManyWithoutAvailabilityInputOptionalFields =
+    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutAvailabilityInput)), updateMany : (OptionalArgument (List UserUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List UserScalarWhereInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutAvailabilityInput)) }
+
+
+{-| Type alias for the `UserUpdateManyWithoutAvailabilityInput` attributes. Note that this type
+needs to use the `UserUpdateManyWithoutAvailabilityInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserUpdateManyWithoutAvailabilityInputRaw =
+    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutAvailabilityInput)), updateMany : (OptionalArgument (List UserUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List UserScalarWhereInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutAvailabilityInput)) }
+
+
+{-| Type for the UserUpdateManyWithoutAvailabilityInput input object.
+-}
+type UserUpdateManyWithoutAvailabilityInput
+    = UserUpdateManyWithoutAvailabilityInput UserUpdateManyWithoutAvailabilityInputRaw
+    
+
+{-| Encode a UserUpdateManyWithoutAvailabilityInput into a value that can be used as an argument.
+-}
+encodeUserUpdateManyWithoutAvailabilityInput : UserUpdateManyWithoutAvailabilityInput -> Value
+encodeUserUpdateManyWithoutAvailabilityInput (UserUpdateManyWithoutAvailabilityInput input) =
+    Encode.maybeObject
+        [ ( "create", (encodeUserCreateWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeUserUpdateWithWhereUniqueWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.update ), ( "updateMany", (encodeUserUpdateManyWithWhereNestedInput |> Encode.list)  |> Encode.optional input.updateMany ), ( "deleteMany", (encodeUserScalarWhereInput |> Encode.list)  |> Encode.optional input.deleteMany ), ( "upsert", (encodeUserUpsertWithWhereUniqueWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.upsert ) ]
+
+
 buildUserUpdateManyWithoutInterestsInput : (UserUpdateManyWithoutInterestsInputOptionalFields -> UserUpdateManyWithoutInterestsInputOptionalFields) -> UserUpdateManyWithoutInterestsInput
 buildUserUpdateManyWithoutInterestsInput fillOptionals =
 
@@ -852,28 +1486,109 @@ encodeUserUpdateManyWithoutInterestsInput (UserUpdateManyWithoutInterestsInput i
         [ ( "create", (encodeUserCreateWithoutInterestsInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeUserUpdateWithWhereUniqueWithoutInterestsInput |> Encode.list)  |> Encode.optional input.update ), ( "updateMany", (encodeUserUpdateManyWithWhereNestedInput |> Encode.list)  |> Encode.optional input.updateMany ), ( "deleteMany", (encodeUserScalarWhereInput |> Encode.list)  |> Encode.optional input.deleteMany ), ( "upsert", (encodeUserUpsertWithWhereUniqueWithoutInterestsInput |> Encode.list)  |> Encode.optional input.upsert ) ]
 
 
+buildUserUpdateWithWhereUniqueWithoutAvailabilityInput : UserUpdateWithWhereUniqueWithoutAvailabilityInputRequiredFields -> UserUpdateWithWhereUniqueWithoutAvailabilityInput
+buildUserUpdateWithWhereUniqueWithoutAvailabilityInput required =
+
+    UserUpdateWithWhereUniqueWithoutAvailabilityInput{ where_ = required.where_, data = required.data }
+
+type alias UserUpdateWithWhereUniqueWithoutAvailabilityInputRequiredFields =
+    { where_ : UserWhereUniqueInput, data : UserUpdateWithoutAvailabilityDataInput }
+
+
+
+{-| Type alias for the `UserUpdateWithWhereUniqueWithoutAvailabilityInput` attributes. Note that this type
+needs to use the `UserUpdateWithWhereUniqueWithoutAvailabilityInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserUpdateWithWhereUniqueWithoutAvailabilityInputRaw =
+    { where_ : UserWhereUniqueInput, data : UserUpdateWithoutAvailabilityDataInput }
+
+
+{-| Type for the UserUpdateWithWhereUniqueWithoutAvailabilityInput input object.
+-}
+type UserUpdateWithWhereUniqueWithoutAvailabilityInput
+    = UserUpdateWithWhereUniqueWithoutAvailabilityInput UserUpdateWithWhereUniqueWithoutAvailabilityInputRaw
+    
+
+{-| Encode a UserUpdateWithWhereUniqueWithoutAvailabilityInput into a value that can be used as an argument.
+-}
+encodeUserUpdateWithWhereUniqueWithoutAvailabilityInput : UserUpdateWithWhereUniqueWithoutAvailabilityInput -> Value
+encodeUserUpdateWithWhereUniqueWithoutAvailabilityInput (UserUpdateWithWhereUniqueWithoutAvailabilityInput input) =
+    Encode.maybeObject
+        [ ( "where", (encodeUserWhereUniqueInput)  input.where_ |> Just ), ( "data", (encodeUserUpdateWithoutAvailabilityDataInput)  input.data |> Just ) ]
+
+
 buildUserUpdateWithWhereUniqueWithoutInterestsInput : UserUpdateWithWhereUniqueWithoutInterestsInputRequiredFields -> UserUpdateWithWhereUniqueWithoutInterestsInput
 buildUserUpdateWithWhereUniqueWithoutInterestsInput required =
 
-    { where_ = required.where_, data = required.data }
+    UserUpdateWithWhereUniqueWithoutInterestsInput{ where_ = required.where_, data = required.data }
 
 type alias UserUpdateWithWhereUniqueWithoutInterestsInputRequiredFields =
     { where_ : UserWhereUniqueInput, data : UserUpdateWithoutInterestsDataInput }
 
 
 
+{-| Type alias for the `UserUpdateWithWhereUniqueWithoutInterestsInput` attributes. Note that this type
+needs to use the `UserUpdateWithWhereUniqueWithoutInterestsInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserUpdateWithWhereUniqueWithoutInterestsInputRaw =
+    { where_ : UserWhereUniqueInput, data : UserUpdateWithoutInterestsDataInput }
+
+
 {-| Type for the UserUpdateWithWhereUniqueWithoutInterestsInput input object.
 -}
-type alias UserUpdateWithWhereUniqueWithoutInterestsInput =
-    { where_ : UserWhereUniqueInput, data : UserUpdateWithoutInterestsDataInput }
+type UserUpdateWithWhereUniqueWithoutInterestsInput
+    = UserUpdateWithWhereUniqueWithoutInterestsInput UserUpdateWithWhereUniqueWithoutInterestsInputRaw
     
 
 {-| Encode a UserUpdateWithWhereUniqueWithoutInterestsInput into a value that can be used as an argument.
 -}
 encodeUserUpdateWithWhereUniqueWithoutInterestsInput : UserUpdateWithWhereUniqueWithoutInterestsInput -> Value
-encodeUserUpdateWithWhereUniqueWithoutInterestsInput input =
+encodeUserUpdateWithWhereUniqueWithoutInterestsInput (UserUpdateWithWhereUniqueWithoutInterestsInput input) =
     Encode.maybeObject
         [ ( "where", (encodeUserWhereUniqueInput)  input.where_ |> Just ), ( "data", (encodeUserUpdateWithoutInterestsDataInput)  input.data |> Just ) ]
+
+
+buildUserUpdateWithoutAvailabilityDataInput : (UserUpdateWithoutAvailabilityDataInputOptionalFields -> UserUpdateWithoutAvailabilityDataInputOptionalFields) -> UserUpdateWithoutAvailabilityDataInput
+buildUserUpdateWithoutAvailabilityDataInput fillOptionals =
+
+    let
+        optionals =
+            
+            fillOptionals
+                { name = Absent, interests = Absent }
+    in
+    UserUpdateWithoutAvailabilityDataInput{ name = optionals.name, interests = optionals.interests }
+
+
+type alias UserUpdateWithoutAvailabilityDataInputOptionalFields =
+    { name : (OptionalArgument String), interests : (OptionalArgument InterestUpdateManyWithoutInterestedUsersInput) }
+
+
+{-| Type alias for the `UserUpdateWithoutAvailabilityDataInput` attributes. Note that this type
+needs to use the `UserUpdateWithoutAvailabilityDataInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserUpdateWithoutAvailabilityDataInputRaw =
+    { name : (OptionalArgument String), interests : (OptionalArgument InterestUpdateManyWithoutInterestedUsersInput) }
+
+
+{-| Type for the UserUpdateWithoutAvailabilityDataInput input object.
+-}
+type UserUpdateWithoutAvailabilityDataInput
+    = UserUpdateWithoutAvailabilityDataInput UserUpdateWithoutAvailabilityDataInputRaw
+    
+
+{-| Encode a UserUpdateWithoutAvailabilityDataInput into a value that can be used as an argument.
+-}
+encodeUserUpdateWithoutAvailabilityDataInput : UserUpdateWithoutAvailabilityDataInput -> Value
+encodeUserUpdateWithoutAvailabilityDataInput (UserUpdateWithoutAvailabilityDataInput input) =
+    Encode.maybeObject
+        [ ( "name", (Encode.string)  |> Encode.optional input.name ), ( "interests", (encodeInterestUpdateManyWithoutInterestedUsersInput)  |> Encode.optional input.interests ) ]
 
 
 buildUserUpdateWithoutInterestsDataInput : (UserUpdateWithoutInterestsDataInputOptionalFields -> UserUpdateWithoutInterestsDataInputOptionalFields) -> UserUpdateWithoutInterestsDataInput
@@ -883,49 +1598,100 @@ buildUserUpdateWithoutInterestsDataInput fillOptionals =
         optionals =
             
             fillOptionals
-                { name = Absent }
+                { name = Absent, availability = Absent }
     in
-    { name = optionals.name }
+    UserUpdateWithoutInterestsDataInput{ name = optionals.name, availability = optionals.availability }
 
 
 type alias UserUpdateWithoutInterestsDataInputOptionalFields =
-    { name : (OptionalArgument String) }
+    { name : (OptionalArgument String), availability : (OptionalArgument TimeSlotUpdateManyWithoutUsersInput) }
+
+
+{-| Type alias for the `UserUpdateWithoutInterestsDataInput` attributes. Note that this type
+needs to use the `UserUpdateWithoutInterestsDataInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserUpdateWithoutInterestsDataInputRaw =
+    { name : (OptionalArgument String), availability : (OptionalArgument TimeSlotUpdateManyWithoutUsersInput) }
 
 
 {-| Type for the UserUpdateWithoutInterestsDataInput input object.
 -}
-type alias UserUpdateWithoutInterestsDataInput =
-    { name : (OptionalArgument String) }
+type UserUpdateWithoutInterestsDataInput
+    = UserUpdateWithoutInterestsDataInput UserUpdateWithoutInterestsDataInputRaw
     
 
 {-| Encode a UserUpdateWithoutInterestsDataInput into a value that can be used as an argument.
 -}
 encodeUserUpdateWithoutInterestsDataInput : UserUpdateWithoutInterestsDataInput -> Value
-encodeUserUpdateWithoutInterestsDataInput input =
+encodeUserUpdateWithoutInterestsDataInput (UserUpdateWithoutInterestsDataInput input) =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  |> Encode.optional input.name ) ]
+        [ ( "name", (Encode.string)  |> Encode.optional input.name ), ( "availability", (encodeTimeSlotUpdateManyWithoutUsersInput)  |> Encode.optional input.availability ) ]
+
+
+buildUserUpsertWithWhereUniqueWithoutAvailabilityInput : UserUpsertWithWhereUniqueWithoutAvailabilityInputRequiredFields -> UserUpsertWithWhereUniqueWithoutAvailabilityInput
+buildUserUpsertWithWhereUniqueWithoutAvailabilityInput required =
+
+    UserUpsertWithWhereUniqueWithoutAvailabilityInput{ where_ = required.where_, update = required.update, create = required.create }
+
+type alias UserUpsertWithWhereUniqueWithoutAvailabilityInputRequiredFields =
+    { where_ : UserWhereUniqueInput, update : UserUpdateWithoutAvailabilityDataInput, create : UserCreateWithoutAvailabilityInput }
+
+
+
+{-| Type alias for the `UserUpsertWithWhereUniqueWithoutAvailabilityInput` attributes. Note that this type
+needs to use the `UserUpsertWithWhereUniqueWithoutAvailabilityInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserUpsertWithWhereUniqueWithoutAvailabilityInputRaw =
+    { where_ : UserWhereUniqueInput, update : UserUpdateWithoutAvailabilityDataInput, create : UserCreateWithoutAvailabilityInput }
+
+
+{-| Type for the UserUpsertWithWhereUniqueWithoutAvailabilityInput input object.
+-}
+type UserUpsertWithWhereUniqueWithoutAvailabilityInput
+    = UserUpsertWithWhereUniqueWithoutAvailabilityInput UserUpsertWithWhereUniqueWithoutAvailabilityInputRaw
+    
+
+{-| Encode a UserUpsertWithWhereUniqueWithoutAvailabilityInput into a value that can be used as an argument.
+-}
+encodeUserUpsertWithWhereUniqueWithoutAvailabilityInput : UserUpsertWithWhereUniqueWithoutAvailabilityInput -> Value
+encodeUserUpsertWithWhereUniqueWithoutAvailabilityInput (UserUpsertWithWhereUniqueWithoutAvailabilityInput input) =
+    Encode.maybeObject
+        [ ( "where", (encodeUserWhereUniqueInput)  input.where_ |> Just ), ( "update", (encodeUserUpdateWithoutAvailabilityDataInput)  input.update |> Just ), ( "create", (encodeUserCreateWithoutAvailabilityInput)  input.create |> Just ) ]
 
 
 buildUserUpsertWithWhereUniqueWithoutInterestsInput : UserUpsertWithWhereUniqueWithoutInterestsInputRequiredFields -> UserUpsertWithWhereUniqueWithoutInterestsInput
 buildUserUpsertWithWhereUniqueWithoutInterestsInput required =
 
-    { where_ = required.where_, update = required.update, create = required.create }
+    UserUpsertWithWhereUniqueWithoutInterestsInput{ where_ = required.where_, update = required.update, create = required.create }
 
 type alias UserUpsertWithWhereUniqueWithoutInterestsInputRequiredFields =
     { where_ : UserWhereUniqueInput, update : UserUpdateWithoutInterestsDataInput, create : UserCreateWithoutInterestsInput }
 
 
 
+{-| Type alias for the `UserUpsertWithWhereUniqueWithoutInterestsInput` attributes. Note that this type
+needs to use the `UserUpsertWithWhereUniqueWithoutInterestsInput` type (not just a plain type alias) because it has
+references to itself either directly (recursive) or indirectly (circular). See
+<https://github.com/dillonkearns/elm-graphql/issues/33>.
+-}
+type alias UserUpsertWithWhereUniqueWithoutInterestsInputRaw =
+    { where_ : UserWhereUniqueInput, update : UserUpdateWithoutInterestsDataInput, create : UserCreateWithoutInterestsInput }
+
+
 {-| Type for the UserUpsertWithWhereUniqueWithoutInterestsInput input object.
 -}
-type alias UserUpsertWithWhereUniqueWithoutInterestsInput =
-    { where_ : UserWhereUniqueInput, update : UserUpdateWithoutInterestsDataInput, create : UserCreateWithoutInterestsInput }
+type UserUpsertWithWhereUniqueWithoutInterestsInput
+    = UserUpsertWithWhereUniqueWithoutInterestsInput UserUpsertWithWhereUniqueWithoutInterestsInputRaw
     
 
 {-| Encode a UserUpsertWithWhereUniqueWithoutInterestsInput into a value that can be used as an argument.
 -}
 encodeUserUpsertWithWhereUniqueWithoutInterestsInput : UserUpsertWithWhereUniqueWithoutInterestsInput -> Value
-encodeUserUpsertWithWhereUniqueWithoutInterestsInput input =
+encodeUserUpsertWithWhereUniqueWithoutInterestsInput (UserUpsertWithWhereUniqueWithoutInterestsInput input) =
     Encode.maybeObject
         [ ( "where", (encodeUserWhereUniqueInput)  input.where_ |> Just ), ( "update", (encodeUserUpdateWithoutInterestsDataInput)  input.update |> Just ), ( "create", (encodeUserCreateWithoutInterestsInput)  input.create |> Just ) ]
 
@@ -937,13 +1703,13 @@ buildUserWhereInput fillOptionals =
         optionals =
             
             fillOptionals
-                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, name = Absent, name_not = Absent, name_in = Absent, name_not_in = Absent, name_lt = Absent, name_lte = Absent, name_gt = Absent, name_gte = Absent, name_contains = Absent, name_not_contains = Absent, name_starts_with = Absent, name_not_starts_with = Absent, name_ends_with = Absent, name_not_ends_with = Absent, interests_every = Absent, interests_some = Absent, interests_none = Absent }
+                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, name = Absent, name_not = Absent, name_in = Absent, name_not_in = Absent, name_lt = Absent, name_lte = Absent, name_gt = Absent, name_gte = Absent, name_contains = Absent, name_not_contains = Absent, name_starts_with = Absent, name_not_starts_with = Absent, name_ends_with = Absent, name_not_ends_with = Absent, interests_every = Absent, interests_some = Absent, interests_none = Absent, availability_every = Absent, availability_some = Absent, availability_none = Absent }
     in
-    UserWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, name = optionals.name, name_not = optionals.name_not, name_in = optionals.name_in, name_not_in = optionals.name_not_in, name_lt = optionals.name_lt, name_lte = optionals.name_lte, name_gt = optionals.name_gt, name_gte = optionals.name_gte, name_contains = optionals.name_contains, name_not_contains = optionals.name_not_contains, name_starts_with = optionals.name_starts_with, name_not_starts_with = optionals.name_not_starts_with, name_ends_with = optionals.name_ends_with, name_not_ends_with = optionals.name_not_ends_with, interests_every = optionals.interests_every, interests_some = optionals.interests_some, interests_none = optionals.interests_none }
+    UserWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, name = optionals.name, name_not = optionals.name_not, name_in = optionals.name_in, name_not_in = optionals.name_not_in, name_lt = optionals.name_lt, name_lte = optionals.name_lte, name_gt = optionals.name_gt, name_gte = optionals.name_gte, name_contains = optionals.name_contains, name_not_contains = optionals.name_not_contains, name_starts_with = optionals.name_starts_with, name_not_starts_with = optionals.name_not_starts_with, name_ends_with = optionals.name_ends_with, name_not_ends_with = optionals.name_not_ends_with, interests_every = optionals.interests_every, interests_some = optionals.interests_some, interests_none = optionals.interests_none, availability_every = optionals.availability_every, availability_some = optionals.availability_some, availability_none = optionals.availability_none }
 
 
 type alias UserWhereInputOptionalFields =
-    { and : (OptionalArgument (List UserWhereInput)), or : (OptionalArgument (List UserWhereInput)), not : (OptionalArgument (List UserWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interests_every : (OptionalArgument InterestWhereInput), interests_some : (OptionalArgument InterestWhereInput), interests_none : (OptionalArgument InterestWhereInput) }
+    { and : (OptionalArgument (List UserWhereInput)), or : (OptionalArgument (List UserWhereInput)), not : (OptionalArgument (List UserWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interests_every : (OptionalArgument InterestWhereInput), interests_some : (OptionalArgument InterestWhereInput), interests_none : (OptionalArgument InterestWhereInput), availability_every : (OptionalArgument TimeSlotWhereInput), availability_some : (OptionalArgument TimeSlotWhereInput), availability_none : (OptionalArgument TimeSlotWhereInput) }
 
 
 {-| Type alias for the `UserWhereInput` attributes. Note that this type
@@ -952,7 +1718,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias UserWhereInputRaw =
-    { and : (OptionalArgument (List UserWhereInput)), or : (OptionalArgument (List UserWhereInput)), not : (OptionalArgument (List UserWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interests_every : (OptionalArgument InterestWhereInput), interests_some : (OptionalArgument InterestWhereInput), interests_none : (OptionalArgument InterestWhereInput) }
+    { and : (OptionalArgument (List UserWhereInput)), or : (OptionalArgument (List UserWhereInput)), not : (OptionalArgument (List UserWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interests_every : (OptionalArgument InterestWhereInput), interests_some : (OptionalArgument InterestWhereInput), interests_none : (OptionalArgument InterestWhereInput), availability_every : (OptionalArgument TimeSlotWhereInput), availability_some : (OptionalArgument TimeSlotWhereInput), availability_none : (OptionalArgument TimeSlotWhereInput) }
 
 
 {-| Type for the UserWhereInput input object.
@@ -966,7 +1732,7 @@ type UserWhereInput
 encodeUserWhereInput : UserWhereInput -> Value
 encodeUserWhereInput (UserWhereInput input) =
     Encode.maybeObject
-        [ ( "AND", (encodeUserWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeUserWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeUserWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "name", (Encode.string)  |> Encode.optional input.name ), ( "name_not", (Encode.string)  |> Encode.optional input.name_not ), ( "name_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_in ), ( "name_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_not_in ), ( "name_lt", (Encode.string)  |> Encode.optional input.name_lt ), ( "name_lte", (Encode.string)  |> Encode.optional input.name_lte ), ( "name_gt", (Encode.string)  |> Encode.optional input.name_gt ), ( "name_gte", (Encode.string)  |> Encode.optional input.name_gte ), ( "name_contains", (Encode.string)  |> Encode.optional input.name_contains ), ( "name_not_contains", (Encode.string)  |> Encode.optional input.name_not_contains ), ( "name_starts_with", (Encode.string)  |> Encode.optional input.name_starts_with ), ( "name_not_starts_with", (Encode.string)  |> Encode.optional input.name_not_starts_with ), ( "name_ends_with", (Encode.string)  |> Encode.optional input.name_ends_with ), ( "name_not_ends_with", (Encode.string)  |> Encode.optional input.name_not_ends_with ), ( "interests_every", (encodeInterestWhereInput)  |> Encode.optional input.interests_every ), ( "interests_some", (encodeInterestWhereInput)  |> Encode.optional input.interests_some ), ( "interests_none", (encodeInterestWhereInput)  |> Encode.optional input.interests_none ) ]
+        [ ( "AND", (encodeUserWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeUserWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeUserWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "name", (Encode.string)  |> Encode.optional input.name ), ( "name_not", (Encode.string)  |> Encode.optional input.name_not ), ( "name_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_in ), ( "name_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_not_in ), ( "name_lt", (Encode.string)  |> Encode.optional input.name_lt ), ( "name_lte", (Encode.string)  |> Encode.optional input.name_lte ), ( "name_gt", (Encode.string)  |> Encode.optional input.name_gt ), ( "name_gte", (Encode.string)  |> Encode.optional input.name_gte ), ( "name_contains", (Encode.string)  |> Encode.optional input.name_contains ), ( "name_not_contains", (Encode.string)  |> Encode.optional input.name_not_contains ), ( "name_starts_with", (Encode.string)  |> Encode.optional input.name_starts_with ), ( "name_not_starts_with", (Encode.string)  |> Encode.optional input.name_not_starts_with ), ( "name_ends_with", (Encode.string)  |> Encode.optional input.name_ends_with ), ( "name_not_ends_with", (Encode.string)  |> Encode.optional input.name_not_ends_with ), ( "interests_every", (encodeInterestWhereInput)  |> Encode.optional input.interests_every ), ( "interests_some", (encodeInterestWhereInput)  |> Encode.optional input.interests_some ), ( "interests_none", (encodeInterestWhereInput)  |> Encode.optional input.interests_none ), ( "availability_every", (encodeTimeSlotWhereInput)  |> Encode.optional input.availability_every ), ( "availability_some", (encodeTimeSlotWhereInput)  |> Encode.optional input.availability_some ), ( "availability_none", (encodeTimeSlotWhereInput)  |> Encode.optional input.availability_none ) ]
 
 
 buildUserWhereUniqueInput : (UserWhereUniqueInputOptionalFields -> UserWhereUniqueInputOptionalFields) -> UserWhereUniqueInput

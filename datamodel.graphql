@@ -2,10 +2,17 @@ type User {
   id: ID! @unique
   name: String! @unique
   interests: [Interest!]!
+  availability: [TimeSlot!]!
 }
 
 type Interest {
   id: ID! @unique
   name: String! @unique
   interestedUsers: [User!]!
+}
+
+type TimeSlot {
+  id: ID! @unique
+  time: String! @unique
+  users: [User!]!
 }

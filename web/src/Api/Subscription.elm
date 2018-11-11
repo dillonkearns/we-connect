@@ -68,3 +68,23 @@ interest fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "interest" optionalArgs (object_) (identity >> Decode.nullable)
+
+
+type alias TimeSlotOptionalArguments = { where_ : OptionalArgument Api.InputObject.TimeSlotSubscriptionWhereInput }
+
+{-|
+
+  - where_ - 
+
+-}
+timeSlot : (TimeSlotOptionalArguments -> TimeSlotOptionalArguments) -> SelectionSet decodesTo Api.Object.TimeSlotSubscriptionPayload -> Field (Maybe decodesTo) RootSubscription
+timeSlot fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeTimeSlotSubscriptionWhereInput) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "timeSlot" optionalArgs (object_) (identity >> Decode.nullable)

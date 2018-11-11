@@ -16,6 +16,7 @@ import Api.InputObject
 import Json.Decode as Decode
 import Graphql.Internal.Encode as Encode exposing (Value)
 import Api.Enum.InterestOrderByInput
+import Api.Enum.TimeSlotOrderByInput
 
 
 {-| Select fields to build up a SelectionSet for this object.
@@ -51,3 +52,23 @@ interests fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "interests" optionalArgs (object_) (identity >> Decode.list >> Decode.nullable)
+
+
+type alias AvailabilityOptionalArguments = { where_ : OptionalArgument Api.InputObject.TimeSlotWhereInput, orderBy : OptionalArgument Api.Enum.TimeSlotOrderByInput.TimeSlotOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
+
+{-|
+
+  - where_ - 
+
+-}
+availability : (AvailabilityOptionalArguments -> AvailabilityOptionalArguments) -> SelectionSet decodesTo Api.Object.TimeSlot -> Field (Maybe (List decodesTo)) Api.Object.User
+availability fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent, orderBy = Absent, skip = Absent, after = Absent, before = Absent, first = Absent, last = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeTimeSlotWhereInput), Argument.optional "orderBy" filledInOptionals.orderBy ((Encode.enum Api.Enum.TimeSlotOrderByInput.toString)), Argument.optional "skip" filledInOptionals.skip (Encode.int), Argument.optional "after" filledInOptionals.after (Encode.string), Argument.optional "before" filledInOptionals.before (Encode.string), Argument.optional "first" filledInOptionals.first (Encode.int), Argument.optional "last" filledInOptionals.last (Encode.int) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "availability" optionalArgs (object_) (identity >> Decode.list >> Decode.nullable)

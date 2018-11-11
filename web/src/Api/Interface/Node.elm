@@ -34,6 +34,11 @@ onInterest (SelectionSet fields decoder) =
     FragmentSelectionSet "Interest" fields decoder
 
 
+onTimeSlot : SelectionSet decodesTo Api.Object.TimeSlot -> FragmentSelectionSet decodesTo Api.Interface.Node
+onTimeSlot (SelectionSet fields decoder) =
+    FragmentSelectionSet "TimeSlot" fields decoder
+
+
 onUser : SelectionSet decodesTo Api.Object.User -> FragmentSelectionSet decodesTo Api.Interface.Node
 onUser (SelectionSet fields decoder) =
     FragmentSelectionSet "User" fields decoder

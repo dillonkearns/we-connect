@@ -7,6 +7,10 @@ type AggregateInterest
     = AggregateInterest
 
 
+type AggregateTimeSlot
+    = AggregateTimeSlot
+
+
 type AggregateUser
     = AggregateUser
 
@@ -37,6 +41,26 @@ type InterestSubscriptionPayload
 
 type PageInfo
     = PageInfo
+
+
+type TimeSlot
+    = TimeSlot
+
+
+type TimeSlotConnection
+    = TimeSlotConnection
+
+
+type TimeSlotEdge
+    = TimeSlotEdge
+
+
+type TimeSlotPreviousValues
+    = TimeSlotPreviousValues
+
+
+type TimeSlotSubscriptionPayload
+    = TimeSlotSubscriptionPayload
 
 
 type User

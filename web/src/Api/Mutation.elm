@@ -44,6 +44,13 @@ createInterest requiredArgs object_ =
       Object.selectionField "createInterest" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeInterestCreateInput) ] (object_) (identity)
 
 
+type alias CreateTimeSlotRequiredArguments = { data : Api.InputObject.TimeSlotCreateInput }
+
+createTimeSlot : CreateTimeSlotRequiredArguments -> SelectionSet decodesTo Api.Object.TimeSlot -> Field decodesTo RootMutation
+createTimeSlot requiredArgs object_ =
+      Object.selectionField "createTimeSlot" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeTimeSlotCreateInput) ] (object_) (identity)
+
+
 type alias UpdateUserRequiredArguments = { data : Api.InputObject.UserUpdateInput, where_ : Api.InputObject.UserWhereUniqueInput }
 
 updateUser : UpdateUserRequiredArguments -> SelectionSet decodesTo Api.Object.User -> Field (Maybe decodesTo) RootMutation
@@ -56,6 +63,13 @@ type alias UpdateInterestRequiredArguments = { data : Api.InputObject.InterestUp
 updateInterest : UpdateInterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field (Maybe decodesTo) RootMutation
 updateInterest requiredArgs object_ =
       Object.selectionField "updateInterest" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeInterestUpdateInput), Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
+
+
+type alias UpdateTimeSlotRequiredArguments = { data : Api.InputObject.TimeSlotUpdateInput, where_ : Api.InputObject.TimeSlotWhereUniqueInput }
+
+updateTimeSlot : UpdateTimeSlotRequiredArguments -> SelectionSet decodesTo Api.Object.TimeSlot -> Field (Maybe decodesTo) RootMutation
+updateTimeSlot requiredArgs object_ =
+      Object.selectionField "updateTimeSlot" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeTimeSlotUpdateInput), Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeTimeSlotWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
 
 
 type alias DeleteUserRequiredArguments = { where_ : Api.InputObject.UserWhereUniqueInput }
@@ -72,6 +86,13 @@ deleteInterest requiredArgs object_ =
       Object.selectionField "deleteInterest" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
 
 
+type alias DeleteTimeSlotRequiredArguments = { where_ : Api.InputObject.TimeSlotWhereUniqueInput }
+
+deleteTimeSlot : DeleteTimeSlotRequiredArguments -> SelectionSet decodesTo Api.Object.TimeSlot -> Field (Maybe decodesTo) RootMutation
+deleteTimeSlot requiredArgs object_ =
+      Object.selectionField "deleteTimeSlot" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeTimeSlotWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
+
+
 type alias UpsertUserRequiredArguments = { where_ : Api.InputObject.UserWhereUniqueInput, create : Api.InputObject.UserCreateInput, update : Api.InputObject.UserUpdateInput }
 
 upsertUser : UpsertUserRequiredArguments -> SelectionSet decodesTo Api.Object.User -> Field decodesTo RootMutation
@@ -84,6 +105,13 @@ type alias UpsertInterestRequiredArguments = { where_ : Api.InputObject.Interest
 upsertInterest : UpsertInterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field decodesTo RootMutation
 upsertInterest requiredArgs object_ =
       Object.selectionField "upsertInterest" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput), Argument.required "create" requiredArgs.create (Api.InputObject.encodeInterestCreateInput), Argument.required "update" requiredArgs.update (Api.InputObject.encodeInterestUpdateInput) ] (object_) (identity)
+
+
+type alias UpsertTimeSlotRequiredArguments = { where_ : Api.InputObject.TimeSlotWhereUniqueInput, create : Api.InputObject.TimeSlotCreateInput, update : Api.InputObject.TimeSlotUpdateInput }
+
+upsertTimeSlot : UpsertTimeSlotRequiredArguments -> SelectionSet decodesTo Api.Object.TimeSlot -> Field decodesTo RootMutation
+upsertTimeSlot requiredArgs object_ =
+      Object.selectionField "upsertTimeSlot" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeTimeSlotWhereUniqueInput), Argument.required "create" requiredArgs.create (Api.InputObject.encodeTimeSlotCreateInput), Argument.required "update" requiredArgs.update (Api.InputObject.encodeTimeSlotUpdateInput) ] (object_) (identity)
 
 
 type alias UpdateManyUsersOptionalArguments = { where_ : OptionalArgument Api.InputObject.UserWhereInput }
@@ -130,6 +158,28 @@ updateManyInterests fillInOptionals requiredArgs object_ =
       Object.selectionField "updateManyInterests" (optionalArgs ++ [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeInterestUpdateManyMutationInput) ]) (object_) (identity)
 
 
+type alias UpdateManyTimeSlotsOptionalArguments = { where_ : OptionalArgument Api.InputObject.TimeSlotWhereInput }
+
+type alias UpdateManyTimeSlotsRequiredArguments = { data : Api.InputObject.TimeSlotUpdateManyMutationInput }
+
+{-|
+
+  - where_ - 
+
+-}
+updateManyTimeSlots : (UpdateManyTimeSlotsOptionalArguments -> UpdateManyTimeSlotsOptionalArguments) -> UpdateManyTimeSlotsRequiredArguments -> SelectionSet decodesTo Api.Object.BatchPayload -> Field decodesTo RootMutation
+updateManyTimeSlots fillInOptionals requiredArgs object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeTimeSlotWhereInput) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "updateManyTimeSlots" (optionalArgs ++ [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeTimeSlotUpdateManyMutationInput) ]) (object_) (identity)
+
+
 type alias DeleteManyUsersOptionalArguments = { where_ : OptionalArgument Api.InputObject.UserWhereInput }
 
 {-|
@@ -168,3 +218,23 @@ deleteManyInterests fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "deleteManyInterests" optionalArgs (object_) (identity)
+
+
+type alias DeleteManyTimeSlotsOptionalArguments = { where_ : OptionalArgument Api.InputObject.TimeSlotWhereInput }
+
+{-|
+
+  - where_ - 
+
+-}
+deleteManyTimeSlots : (DeleteManyTimeSlotsOptionalArguments -> DeleteManyTimeSlotsOptionalArguments) -> SelectionSet decodesTo Api.Object.BatchPayload -> Field decodesTo RootMutation
+deleteManyTimeSlots fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeTimeSlotWhereInput) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "deleteManyTimeSlots" optionalArgs (object_) (identity)

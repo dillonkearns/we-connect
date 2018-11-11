@@ -23,8 +23,10 @@ import Json.Decode as Decode exposing (Decoder)
 import Graphql.Internal.Encode as Encode exposing (Value)
 import Api.Enum.UserOrderByInput
 import Api.Enum.InterestOrderByInput
+import Api.Enum.TimeSlotOrderByInput
 import Api.Enum.UserOrderByInput
 import Api.Enum.InterestOrderByInput
+import Api.Enum.TimeSlotOrderByInput
 
 
 {-| Select fields to build up a top-level query. The request can be sent with
@@ -73,6 +75,26 @@ interests fillInOptionals object_ =
       Object.selectionField "interests" optionalArgs (object_) (identity >> Decode.nullable >> Decode.list)
 
 
+type alias TimeSlotsOptionalArguments = { where_ : OptionalArgument Api.InputObject.TimeSlotWhereInput, orderBy : OptionalArgument Api.Enum.TimeSlotOrderByInput.TimeSlotOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
+
+{-|
+
+  - where_ - 
+
+-}
+timeSlots : (TimeSlotsOptionalArguments -> TimeSlotsOptionalArguments) -> SelectionSet decodesTo Api.Object.TimeSlot -> Field (List (Maybe decodesTo)) RootQuery
+timeSlots fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent, orderBy = Absent, skip = Absent, after = Absent, before = Absent, first = Absent, last = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeTimeSlotWhereInput), Argument.optional "orderBy" filledInOptionals.orderBy ((Encode.enum Api.Enum.TimeSlotOrderByInput.toString)), Argument.optional "skip" filledInOptionals.skip (Encode.int), Argument.optional "after" filledInOptionals.after (Encode.string), Argument.optional "before" filledInOptionals.before (Encode.string), Argument.optional "first" filledInOptionals.first (Encode.int), Argument.optional "last" filledInOptionals.last (Encode.int) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "timeSlots" optionalArgs (object_) (identity >> Decode.nullable >> Decode.list)
+
+
 type alias UserRequiredArguments = { where_ : Api.InputObject.UserWhereUniqueInput }
 
 user : UserRequiredArguments -> SelectionSet decodesTo Api.Object.User -> Field (Maybe decodesTo) RootQuery
@@ -85,6 +107,13 @@ type alias InterestRequiredArguments = { where_ : Api.InputObject.InterestWhereU
 interest : InterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field (Maybe decodesTo) RootQuery
 interest requiredArgs object_ =
       Object.selectionField "interest" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
+
+
+type alias TimeSlotRequiredArguments = { where_ : Api.InputObject.TimeSlotWhereUniqueInput }
+
+timeSlot : TimeSlotRequiredArguments -> SelectionSet decodesTo Api.Object.TimeSlot -> Field (Maybe decodesTo) RootQuery
+timeSlot requiredArgs object_ =
+      Object.selectionField "timeSlot" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeTimeSlotWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
 
 
 type alias UsersConnectionOptionalArguments = { where_ : OptionalArgument Api.InputObject.UserWhereInput, orderBy : OptionalArgument Api.Enum.UserOrderByInput.UserOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
@@ -125,6 +154,26 @@ interestsConnection fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "interestsConnection" optionalArgs (object_) (identity)
+
+
+type alias TimeSlotsConnectionOptionalArguments = { where_ : OptionalArgument Api.InputObject.TimeSlotWhereInput, orderBy : OptionalArgument Api.Enum.TimeSlotOrderByInput.TimeSlotOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
+
+{-|
+
+  - where_ - 
+
+-}
+timeSlotsConnection : (TimeSlotsConnectionOptionalArguments -> TimeSlotsConnectionOptionalArguments) -> SelectionSet decodesTo Api.Object.TimeSlotConnection -> Field decodesTo RootQuery
+timeSlotsConnection fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent, orderBy = Absent, skip = Absent, after = Absent, before = Absent, first = Absent, last = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeTimeSlotWhereInput), Argument.optional "orderBy" filledInOptionals.orderBy ((Encode.enum Api.Enum.TimeSlotOrderByInput.toString)), Argument.optional "skip" filledInOptionals.skip (Encode.int), Argument.optional "after" filledInOptionals.after (Encode.string), Argument.optional "before" filledInOptionals.before (Encode.string), Argument.optional "first" filledInOptionals.first (Encode.int), Argument.optional "last" filledInOptionals.last (Encode.int) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "timeSlotsConnection" optionalArgs (object_) (identity)
 
 
 type alias NodeRequiredArguments = { id : Api.Scalar.Id }
