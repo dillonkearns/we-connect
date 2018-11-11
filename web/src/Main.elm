@@ -18,6 +18,7 @@ type Msg
     | SetUsername
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
     | AddInterest Interest
+    | GotInterests (Result.Result (Graphql.Http.Error (List Interest)) (List Interest))
 
 
 type Username
@@ -26,11 +27,14 @@ type Username
 
 
 type alias Model =
-    { username : Username }
+    { username : Username
+    , interests : List Interest
+    }
 
 
 init flags =
     ( { username = Entering ""
+      , interests = []
       }
     , Cmd.none
     )
@@ -56,7 +60,7 @@ mainView model =
 
         Entered username ->
             Element.column [ Element.spacing 10 ]
-                [ Element.text "Please select your interests..."
+                [ Element.text ("Your interests so far: " ++ Debug.toString model.interests)
                 , interestsView model
                 ]
 
@@ -110,21 +114,32 @@ update msg model =
 
         SetUsername ->
             ( { model | username = setUsername model.username }
-            , createUser (getUsername model.username)
+            , Cmd.batch
+                [ createUser (getUsername model.username)
+                , getInterests (getUsername model.username)
+                ]
             )
 
         NoOp _ ->
             ( model, Cmd.none )
 
         AddInterest interest ->
-            ( model, addInterest (getUsername model.username) interest )
+            ( model, addInterest model.username interest )
+
+        GotInterests interestsResult ->
+            case interestsResult of
+                Ok interests ->
+                    ( { model | interests = interests }, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
 
 
-addInterest : String -> Interest -> Cmd Msg
-addInterest userId interest =
-    Request.Interests.addInterest "" interest
+addInterest : Username -> Interest -> Cmd Msg
+addInterest username interest =
+    Request.Interests.addInterest (getUsername username) interest
         |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
-        |> Graphql.Http.send NoOp
+        |> Graphql.Http.send GotInterests
 
 
 createUser : String -> Cmd Msg
@@ -132,6 +147,13 @@ createUser username =
     Request.Interests.createUser username
         |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
         |> Graphql.Http.send NoOp
+
+
+getInterests : String -> Cmd Msg
+getInterests username =
+    Request.Interests.getInterests username
+        |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.send GotInterests
 
 
 setUsername username =
