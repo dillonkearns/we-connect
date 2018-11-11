@@ -107,11 +107,20 @@ mainView model =
 timeSlotsView : List Request.TimeSlot.TimeSlot -> Element Msg
 timeSlotsView timeSlots =
     Element.column [ Element.spacing 10 ]
-        (timeSlots
-            |> List.map .time
-            |> List.map Element.text
-            |> List.map button
-        )
+        (timeSlots |> List.map timeSlotView)
+
+
+timeSlotView : Request.TimeSlot.TimeSlot -> Element Msg
+timeSlotView timeSlot =
+    if timeSlot.userIsAvailable then
+        (timeSlot.time ++ " ✔")
+            |> Element.text
+            |> button
+
+    else
+        timeSlot.time
+            |> Element.text
+            |> button
 
 
 usernameView username =
