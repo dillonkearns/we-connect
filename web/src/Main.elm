@@ -18,6 +18,7 @@ type Msg
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
     | AddInterest String
     | GotInterests (Result.Result (Graphql.Http.Error (List String)) (List String))
+    | GotAllInterests (Result.Result (Graphql.Http.Error (List String)) (List String))
 
 
 type Username
@@ -38,7 +39,7 @@ init flags =
       , userInterests = []
       , allInterests = []
       }
-    , Cmd.none
+    , getAllInterests
     )
 
 
@@ -84,7 +85,7 @@ interests =
 
 
 interestsView model =
-    interests
+    model.allInterests
         |> List.map interestButton
         |> Element.column
             [ Element.spacing 10
@@ -139,6 +140,14 @@ update msg model =
                 _ ->
                     ( model, Cmd.none )
 
+        GotAllInterests interestsResult ->
+            case interestsResult of
+                Ok latestInterests ->
+                    ( { model | allInterests = latestInterests }, Cmd.none )
+
+                _ ->
+                    ( model, Cmd.none )
+
 
 addInterest : Username -> List String -> String -> Cmd Msg
 addInterest username currentInterests interest =
@@ -159,6 +168,13 @@ getUserInterests username =
     Request.Interests.getUserInterests username
         |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
         |> Graphql.Http.send GotInterests
+
+
+getAllInterests : Cmd Msg
+getAllInterests =
+    Request.Interests.getInterests
+        |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.send GotAllInterests
 
 
 setUsername username =
