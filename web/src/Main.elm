@@ -127,18 +127,11 @@ usernameView username =
 
 interestsView : List Request.Interests.Interest -> List String -> Element Msg
 interestsView allInterests userInterests =
-    -- case RemoteData.map2 Tuple.pair model.allInterests model.userInterests of
-    -- RemoteData.Success ( allInterests, userInterests ) ->
     allInterests
         |> List.map (interestButton userInterests)
         |> Element.column
             [ Element.spacing 10
             ]
-
-
-
--- _ ->
---     Element.text "..."
 
 
 interestButton : List String -> Request.Interests.Interest -> Element Msg
