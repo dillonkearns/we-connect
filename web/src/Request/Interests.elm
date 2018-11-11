@@ -34,13 +34,13 @@ getInterests username =
         |> fieldSelection
 
 
-addInterest : String -> Interest -> SelectionSet (List Interest) RootMutation
-addInterest userName interest =
+addInterest : String -> List Interest -> Interest -> SelectionSet (List Interest) RootMutation
+addInterest userName interests interest =
     Api.Mutation.updateUser
         { data =
             { interests =
                 Present
-                    { set = Present [ interest ]
+                    { set = Present (interest :: interests)
                     }
             , name = Absent
 

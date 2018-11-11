@@ -124,7 +124,7 @@ update msg model =
             ( model, Cmd.none )
 
         AddInterest interest ->
-            ( model, addInterest model.username interest )
+            ( model, addInterest model.username model.interests interest )
 
         GotInterests interestsResult ->
             case interestsResult of
@@ -135,9 +135,9 @@ update msg model =
                     ( model, Cmd.none )
 
 
-addInterest : Username -> Interest -> Cmd Msg
-addInterest username interest =
-    Request.Interests.addInterest (getUsername username) interest
+addInterest : Username -> List Interest -> Interest -> Cmd Msg
+addInterest username currentInterests interest =
+    Request.Interests.addInterest (getUsername username) currentInterests interest
         |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
         |> Graphql.Http.send GotInterests
 
