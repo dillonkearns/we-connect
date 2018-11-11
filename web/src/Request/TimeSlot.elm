@@ -1,12 +1,15 @@
-module Request.TimeSlot exposing (TimeSlot, getAll)
+module Request.TimeSlot exposing (TimeSlot, getAll, signup)
 
+import Api.InputObject
+import Api.Mutation
 import Api.Object
 import Api.Object.TimeSlot
 import Api.Object.User
 import Api.Query
 import Graphql.Field as Field exposing (Field)
-import Graphql.Operation exposing (RootQuery)
-import Graphql.SelectionSet exposing (SelectionSet, fieldSelection, hardcoded, with)
+import Graphql.Operation exposing (RootMutation, RootQuery)
+import Graphql.OptionalArgument exposing (OptionalArgument(..))
+import Graphql.SelectionSet as SelectionSet exposing (SelectionSet, fieldSelection, hardcoded, with)
 
 
 type alias TimeSlot =
@@ -19,6 +22,39 @@ getAll : SelectionSet (List TimeSlot) RootQuery
 getAll =
     Api.Query.timeSlots identity timeSlotsSelection
         |> Field.nonNullElementsOrFail
+        |> fieldSelection
+
+
+signup : String -> String -> SelectionSet (List TimeSlot) RootMutation
+signup username timeDescription =
+    Api.Mutation.updateUser
+        { where_ =
+            Api.InputObject.buildUserWhereUniqueInput
+                (\input -> { input | name = Present username })
+        , data =
+            Api.InputObject.buildUserUpdateInput
+                (\input ->
+                    { input
+                        | availability =
+                            Present
+                                (Api.InputObject.buildTimeSlotUpdateManyWithoutUsersInput
+                                    (\input2 ->
+                                        { input2
+                                            | connect =
+                                                Present
+                                                    [ Api.InputObject.buildTimeSlotWhereUniqueInput
+                                                        (\input3 ->
+                                                            { input3 | time = Present timeDescription }
+                                                        )
+                                                    ]
+                                        }
+                                    )
+                                )
+                    }
+                )
+        }
+        SelectionSet.empty
+        |> Field.map (\_ -> [])
         |> fieldSelection
 
 

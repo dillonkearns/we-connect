@@ -20,6 +20,7 @@ type Msg
     | SetUsername
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
     | AddInterest String
+    | SignupForTime String
     | GotInterests (RemoteData (Graphql.Http.Error ()) (List String))
     | GotAllInterests (RemoteData (Graphql.Http.Error ()) (List Request.Interests.Interest))
     | GotTimeSlots (RemoteData (Graphql.Http.Error ()) (List Request.TimeSlot.TimeSlot))
@@ -121,6 +122,7 @@ timeSlotView timeSlot =
         timeSlot.time
             |> Element.text
             |> button
+            |> Element.el [ Element.Events.onClick (SignupForTime timeSlot.time) ]
 
 
 usernameView username =
@@ -196,6 +198,9 @@ update msg model =
         AddInterest interest ->
             ( model, addInterest model.username interest )
 
+        SignupForTime timeDescription ->
+            ( model, signupForTime (getUsername model.username) timeDescription )
+
         GotInterests interestsResult ->
             ( { model | userInterests = interestsResult }, Cmd.none )
 
@@ -238,6 +243,13 @@ getTimeSlots : Cmd Msg
 getTimeSlots =
     Request.TimeSlot.getAll
         |> Graphql.Http.queryRequest apiUrl
+        |> Graphql.Http.send (mapError >> GotTimeSlots)
+
+
+signupForTime : String -> String -> Cmd Msg
+signupForTime username timeDescription =
+    Request.TimeSlot.signup username timeDescription
+        |> Graphql.Http.mutationRequest apiUrl
         |> Graphql.Http.send (mapError >> GotTimeSlots)
 
 
