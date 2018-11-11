@@ -1,5 +1,6 @@
 module Main exposing (main)
 
+import Api.Object exposing (Interest)
 import Browser exposing (Document)
 import Element exposing (Element)
 import Element.Background
@@ -78,6 +79,13 @@ view model =
     }
 
 
+type alias SuccessData =
+    { allInterests : List Request.Interests.Interest
+    , userInterests : List String
+    , timeSlots : List String
+    }
+
+
 mainView : Model -> Element Msg
 mainView model =
     case model.username of
@@ -85,24 +93,24 @@ mainView model =
             usernameView usernameInput
 
         Entered username ->
-            Element.row [ Element.spacing 20 ]
-                [ interestsView model
-                , timeSlotsView model
-                ]
+            case RemoteData.map3 SuccessData model.allInterests model.userInterests model.timeSlots of
+                RemoteData.Success { allInterests, userInterests, timeSlots } ->
+                    Element.row [ Element.spacing 20 ]
+                        [ interestsView allInterests userInterests
+                        , timeSlotsView timeSlots
+                        ]
+
+                _ ->
+                    Element.text "Loading..."
 
 
-timeSlotsView : Model -> Element Msg
-timeSlotsView model =
-    case model.timeSlots of
-        RemoteData.Success timeSlots ->
-            Element.column [ Element.spacing 10 ]
-                (timeSlots
-                    |> List.map Element.text
-                    |> List.map button
-                )
-
-        _ ->
-            Element.text "..."
+timeSlotsView : List String -> Element Msg
+timeSlotsView timeSlots =
+    Element.column [ Element.spacing 10 ]
+        (timeSlots
+            |> List.map Element.text
+            |> List.map button
+        )
 
 
 usernameView username =
@@ -117,18 +125,20 @@ usernameView username =
         ]
 
 
-interestsView : Model -> Element Msg
-interestsView model =
-    case RemoteData.map2 Tuple.pair model.allInterests model.userInterests of
-        RemoteData.Success ( allInterests, userInterests ) ->
-            allInterests
-                |> List.map (interestButton userInterests)
-                |> Element.column
-                    [ Element.spacing 10
-                    ]
+interestsView : List Request.Interests.Interest -> List String -> Element Msg
+interestsView allInterests userInterests =
+    -- case RemoteData.map2 Tuple.pair model.allInterests model.userInterests of
+    -- RemoteData.Success ( allInterests, userInterests ) ->
+    allInterests
+        |> List.map (interestButton userInterests)
+        |> Element.column
+            [ Element.spacing 10
+            ]
 
-        _ ->
-            Element.text "..."
+
+
+-- _ ->
+--     Element.text "..."
 
 
 interestButton : List String -> Request.Interests.Interest -> Element Msg
