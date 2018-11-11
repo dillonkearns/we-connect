@@ -28,12 +28,15 @@ type Username
 type alias Model =
     { username : Username
     , userInterests : List String
+    , allInterests : List String
     }
 
 
+init : () -> ( Model, Cmd Msg )
 init flags =
     ( { username = Entering ""
       , userInterests = []
+      , allInterests = []
       }
     , Cmd.none
     )

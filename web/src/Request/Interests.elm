@@ -1,4 +1,4 @@
-module Request.Interests exposing (addInterest, createUser, getUserInterests)
+module Request.Interests exposing (addInterest, createUser, getInterests, getUserInterests)
 
 import Api.InputObject
 import Api.Mutation
@@ -24,6 +24,16 @@ createUser username =
             Api.InputObject.buildUserCreateInput { name = username } identity
         }
         SelectionSet.empty
+        |> fieldSelection
+
+
+getInterests : SelectionSet (List String) RootQuery
+getInterests =
+    Api.Query.interests identity
+        (Api.Object.Interest.name
+            |> fieldSelection
+        )
+        |> Field.nonNullElementsOrFail
         |> fieldSelection
 
 
