@@ -25,7 +25,7 @@ getAll =
         |> fieldSelection
 
 
-signup : String -> String -> SelectionSet (List TimeSlot) RootMutation
+signup : String -> String -> SelectionSet () RootMutation
 signup username timeDescription =
     Api.Mutation.updateUser
         { where_ =
@@ -54,7 +54,7 @@ signup username timeDescription =
                 )
         }
         SelectionSet.empty
-        |> Field.map (\_ -> [])
+        |> Field.map (\_ -> ())
         |> fieldSelection
 
 

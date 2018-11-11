@@ -18,7 +18,8 @@ import View.Navbar
 type Msg
     = EditedUsername String
     | SetUsername
-    | NoOp (Result.Result (Graphql.Http.Error ()) ())
+    | NoOp (RemoteData (Graphql.Http.Error ()) ())
+    | SignedUpForTime (RemoteData (Graphql.Http.Error ()) ())
     | AddInterest String
     | SignupForTime String
     | GotInterests (RemoteData (Graphql.Http.Error ()) (List String))
@@ -210,6 +211,14 @@ update msg model =
         GotTimeSlots timeSlotsResponse ->
             ( { model | timeSlots = timeSlotsResponse }, Cmd.none )
 
+        SignedUpForTime response ->
+            case response of
+                RemoteData.Success _ ->
+                    ( model, getTimeSlots )
+
+                _ ->
+                    ( model, Cmd.none )
+
 
 addInterest : Username -> String -> Cmd Msg
 addInterest username interest =
@@ -222,7 +231,7 @@ createUser : String -> Cmd Msg
 createUser username =
     Request.Interests.createUser username
         |> Graphql.Http.mutationRequest apiUrl
-        |> Graphql.Http.send NoOp
+        |> Graphql.Http.send (mapError >> NoOp)
 
 
 getUserInterests : String -> Cmd Msg
@@ -250,7 +259,7 @@ signupForTime : String -> String -> Cmd Msg
 signupForTime username timeDescription =
     Request.TimeSlot.signup username timeDescription
         |> Graphql.Http.mutationRequest apiUrl
-        |> Graphql.Http.send (mapError >> GotTimeSlots)
+        |> Graphql.Http.send (mapError >> SignedUpForTime)
 
 
 setUsername username =
