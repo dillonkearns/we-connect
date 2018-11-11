@@ -65,7 +65,7 @@ init flags =
       }
     , Cmd.batch
         [ getAllInterests
-        , getTimeSlots
+        , getTimeSlots Nothing
         , getUserInterests (getUsername username)
         ]
     )
@@ -223,6 +223,7 @@ update msg model =
                 [ createUser (getUsername model.username)
                 , getUserInterests (getUsername model.username)
                 , getMatches (getUsername model.username)
+                , getTimeSlots (getUsername model.username |> Just)
                 ]
             )
 
@@ -247,7 +248,7 @@ update msg model =
         SignedUpForTime response ->
             case response of
                 RemoteData.Success _ ->
-                    ( model, getTimeSlots )
+                    ( model, getTimeSlots (getUsername model.username |> Just) )
 
                 _ ->
                     ( model, Cmd.none )
@@ -284,9 +285,9 @@ getAllInterests =
         |> Graphql.Http.send (mapError >> GotAllInterests)
 
 
-getTimeSlots : Cmd Msg
-getTimeSlots =
-    Request.TimeSlot.getAll
+getTimeSlots : Maybe String -> Cmd Msg
+getTimeSlots username =
+    Request.TimeSlot.getAll username
         |> Graphql.Http.queryRequest apiUrl
         |> Graphql.Http.send (mapError >> GotTimeSlots)
 

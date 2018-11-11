@@ -113,9 +113,16 @@ timeSlotSelection =
             )
 
 
-getAll : SelectionSet (List TimeSlot) RootQuery
-getAll =
-    Api.Query.timeSlots identity timeSlotsSelection
+getAll : Maybe String -> SelectionSet (List TimeSlot) RootQuery
+getAll username =
+    Api.Query.timeSlots
+        (\input ->
+            { input
+                | where_ =
+                    Absent
+            }
+        )
+        (timeSlotsSelection username)
         |> Field.nonNullElementsOrFail
         |> fieldSelection
 
@@ -153,18 +160,26 @@ signup username timeDescription =
         |> fieldSelection
 
 
-timeSlotsSelection : SelectionSet TimeSlot Api.Object.TimeSlot
-timeSlotsSelection =
+timeSlotsSelection : Maybe String -> SelectionSet TimeSlot Api.Object.TimeSlot
+timeSlotsSelection username =
     Api.Object.TimeSlot.selection TimeSlot
         |> with Api.Object.TimeSlot.time
-        |> with userIsAvailableField
+        |> with (userIsAvailableField username)
 
 
-userIsAvailableField : Field Bool Api.Object.TimeSlot
-userIsAvailableField =
+userIsAvailableField : Maybe String -> Field Bool Api.Object.TimeSlot
+userIsAvailableField maybeUsername =
     Api.Object.TimeSlot.users identity
-        (Api.Object.User.id
+        (Api.Object.User.name
             |> fieldSelection
         )
         |> Field.nonNullOrFail
-        |> Field.map (\list -> not (List.isEmpty list))
+        |> Field.map
+            (\list ->
+                case maybeUsername of
+                    Just username ->
+                        List.member username list
+
+                    Nothing ->
+                        False
+            )
