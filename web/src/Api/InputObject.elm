@@ -256,19 +256,19 @@ buildUserWhereUniqueInput fillOptionals =
         optionals =
             
             fillOptionals
-                { id = Absent }
+                { id = Absent, name = Absent }
     in
-    { id = optionals.id }
+    { id = optionals.id, name = optionals.name }
 
 
 type alias UserWhereUniqueInputOptionalFields =
-    { id : (OptionalArgument Api.Scalar.Id) }
+    { id : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String) }
 
 
 {-| Type for the UserWhereUniqueInput input object.
 -}
 type alias UserWhereUniqueInput =
-    { id : (OptionalArgument Api.Scalar.Id) }
+    { id : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String) }
     
 
 {-| Encode a UserWhereUniqueInput into a value that can be used as an argument.
@@ -276,4 +276,4 @@ type alias UserWhereUniqueInput =
 encodeUserWhereUniqueInput : UserWhereUniqueInput -> Value
 encodeUserWhereUniqueInput input =
     Encode.maybeObject
-        [ ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ) ]
+        [ ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "name", (Encode.string)  |> Encode.optional input.name ) ]
