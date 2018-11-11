@@ -10,8 +10,8 @@ titleColor =
     Element.rgba255 0 200 200 1
 
 
-view =
-    Element.text "WeConnect"
+view username =
+    Element.text ("WeConnect - " ++ username)
         |> Element.el
             [ Element.Font.color titleColor
             , Element.Font.bold

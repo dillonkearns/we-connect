@@ -22,7 +22,8 @@ sessionStorage.redirect; if (redirect && redirect != location.href) {
 history.replaceState(null, null, redirect); } })();
 </script>
   <script>
-  let app = Elm.Main.init()
+  let username = window.location.search.substring(1);
+  let app = Elm.Main.init({flags: {username: username}})
 </script>
 </body>
 </html>

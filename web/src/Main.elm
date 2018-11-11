@@ -49,15 +49,22 @@ type alias Model =
     }
 
 
-init : () -> ( Model, Cmd Msg )
+type alias Flags =
+    { username : String }
+
+
+init : { username : String } -> ( Model, Cmd Msg )
 init flags =
     let
         username =
-            -- Entered "Dillon"
-            Entering ""
+            case flags.username of
+                "" ->
+                    Entering ""
+
+                actualUsername ->
+                    Entered actualUsername
     in
-    ( { -- username = Entering ""
-        username = username
+    ( { username = username
       , userInterests = RemoteData.Loading
       , allInterests = RemoteData.Loading
       , timeSlots = RemoteData.Loading
@@ -77,7 +84,7 @@ view model =
     , body =
         [ Element.layout [ Element.padding 30 ]
             (Element.column [ Element.spacing 20 ]
-                [ View.Navbar.view
+                [ View.Navbar.view (getUsername model.username)
                 , mainView model
                 ]
             )
@@ -333,7 +340,7 @@ apiUrl =
     "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
 
 
-main : Program () Model Msg
+main : Program Flags Model Msg
 main =
     Browser.document
         { init = init
