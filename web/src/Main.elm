@@ -117,7 +117,7 @@ update msg model =
             ( model, Cmd.none )
 
         AddInterest interest ->
-            ( model, addInterest "" interest )
+            ( model, addInterest (getUsername model.username) interest )
 
 
 addInterest : String -> Interest -> Cmd Msg

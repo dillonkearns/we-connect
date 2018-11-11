@@ -20,7 +20,7 @@ createUser username =
 
 
 addInterest : String -> Interest -> SelectionSet () RootMutation
-addInterest userId interest =
+addInterest userName interest =
     Api.Mutation.updateUser
         { data =
             { interests =
@@ -31,7 +31,7 @@ addInterest userId interest =
 
             -- { name : (OptionalArgument String), interests : (OptionalArgument UserUpdateinterestsInput) }
             }
-        , where_ = { id = Present (Api.Scalar.Id "cjocc8rc86vau0911tsg20zvl") }
+        , where_ = { id = Absent, name = Present userName }
         }
         SelectionSet.empty
         |> fieldSelection
