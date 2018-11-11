@@ -63,12 +63,19 @@ userInterestsToSlotCounts userInterests availabilities =
             (\availability ->
                 { time = availability.time
                 , things =
-                    [ { interest = ""
-                      , count = -1
-                      }
-                    ]
+                    List.map (userInterestWithCount availability) userInterests
                 }
             )
+
+
+userInterestWithCount : Availability -> String -> { interest : String, count : Int }
+userInterestWithCount availability userInterest =
+    { interest = userInterest
+    , count =
+        availability.interests
+            |> List.filter (\lists -> List.member userInterest lists)
+            |> List.length
+    }
 
 
 matches : String -> SelectionSet (List Availability) RootQuery

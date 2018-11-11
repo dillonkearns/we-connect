@@ -53,7 +53,8 @@ init : () -> ( Model, Cmd Msg )
 init flags =
     let
         username =
-            Entered "Dillon"
+            -- Entered "Dillon"
+            Entering ""
     in
     ( { -- username = Entering ""
         username = username
@@ -66,7 +67,6 @@ init flags =
         [ getAllInterests
         , getTimeSlots
         , getUserInterests (getUsername username)
-        , getMatches (getUsername username)
         ]
     )
 
@@ -222,6 +222,7 @@ update msg model =
             , Cmd.batch
                 [ createUser (getUsername model.username)
                 , getUserInterests (getUsername model.username)
+                , getMatches (getUsername model.username)
                 ]
             )
 
