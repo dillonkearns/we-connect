@@ -25,10 +25,7 @@ type alias Availability =
     }
 
 
-
--- matches : String -> SelectionSet (List Availability) RootQuery
-
-
+matches : String -> SelectionSet (List Availability) RootQuery
 matches username =
     Api.Query.user
         { where_ =
@@ -39,10 +36,7 @@ matches username =
         |> fieldSelection
 
 
-
--- userSelection : SelectionSet (List (List (List String))) Api.Object.User
-
-
+userSelection : SelectionSet (List Availability) Api.Object.User
 userSelection =
     (Api.Object.User.availability identity
         timeSlotSelection
@@ -51,15 +45,19 @@ userSelection =
         |> fieldSelection
 
 
+timeSlotSelection : SelectionSet Availability Api.Object.TimeSlot
 timeSlotSelection =
-    Api.Object.TimeSlot.users identity
-        (Api.Object.User.interests identity
-            (Api.Object.Interest.name |> fieldSelection)
-            |> Field.nonNullOrFail
-            |> fieldSelection
-        )
-        |> Field.nonNullOrFail
-        |> fieldSelection
+    Api.Object.TimeSlot.selection Availability
+        |> with Api.Object.TimeSlot.time
+        |> with
+            (Api.Object.TimeSlot.users identity
+                (Api.Object.User.interests identity
+                    (Api.Object.Interest.name |> fieldSelection)
+                    |> Field.nonNullOrFail
+                    |> fieldSelection
+                )
+                |> Field.nonNullOrFail
+            )
 
 
 getAll : SelectionSet (List TimeSlot) RootQuery
