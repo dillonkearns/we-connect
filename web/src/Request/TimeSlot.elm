@@ -18,6 +18,27 @@ type alias TimeSlot =
     }
 
 
+type alias Availability =
+    { time : String
+    , interests : List (List String)
+    }
+
+
+matches : String -> SelectionSet (List Availability) RootQuery
+matches username =
+    Api.Query.user
+        { where_ =
+            { id = Absent, name = Present username }
+        }
+        (Api.Object.User.availability identity
+            (SelectionSet.empty |> SelectionSet.map (\_ -> { time = "", interests = [] }))
+            |> Field.nonNullOrFail
+            |> fieldSelection
+        )
+        |> Field.nonNullOrFail
+        |> fieldSelection
+
+
 getAll : SelectionSet (List TimeSlot) RootQuery
 getAll =
     Api.Query.timeSlots identity timeSlotsSelection
