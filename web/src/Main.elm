@@ -1,13 +1,14 @@
 module Main exposing (main)
 
-import Browser
-import Element
+import Browser exposing (Document)
+import Element exposing (Element)
 import Element.Background
 import Element.Border
 import Element.Events
 import Element.Input
 import Graphql.Http
 import Html
+import RemoteData exposing (RemoteData)
 import Request.Interests
 import View.Navbar
 
@@ -18,7 +19,14 @@ type Msg
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
     | AddInterest String
     | GotInterests (Result.Result (Graphql.Http.Error (List String)) (List String))
-    | GotAllInterests (Result.Result (Graphql.Http.Error (List String)) (List String))
+    | GotAllInterests (RemoteData (Graphql.Http.Error ()) (List String))
+
+
+mapError : Result (Graphql.Http.Error something) something -> RemoteData (Graphql.Http.Error ()) something
+mapError result =
+    result
+        |> RemoteData.fromResult
+        |> RemoteData.mapError Graphql.Http.ignoreParsedErrorData
 
 
 type Username
@@ -29,7 +37,7 @@ type Username
 type alias Model =
     { username : Username
     , userInterests : List String
-    , allInterests : List String
+    , allInterests : RemoteData (Graphql.Http.Error ()) (List String)
     }
 
 
@@ -37,12 +45,13 @@ init : () -> ( Model, Cmd Msg )
 init flags =
     ( { username = Entering ""
       , userInterests = []
-      , allInterests = []
+      , allInterests = RemoteData.Loading
       }
     , getAllInterests
     )
 
 
+view : Model -> Document Msg
 view model =
     { title = "WeConnect"
     , body =
@@ -56,6 +65,7 @@ view model =
     }
 
 
+mainView : Model -> Element Msg
 mainView model =
     case model.username of
         Entering usernameInput ->
@@ -80,14 +90,21 @@ usernameView username =
         ]
 
 
+interestsView : Model -> Element Msg
 interestsView model =
-    model.allInterests
-        |> List.map (interestButton model.userInterests)
-        |> Element.column
-            [ Element.spacing 10
-            ]
+    case model.allInterests of
+        RemoteData.Success allInterests ->
+            allInterests
+                |> List.map (interestButton model.userInterests)
+                |> Element.column
+                    [ Element.spacing 10
+                    ]
+
+        _ ->
+            Element.text "..."
 
 
+interestButton : List String -> String -> Element Msg
 interestButton userInterests interest =
     if List.member interest userInterests then
         ("✔ " ++ interest)
@@ -118,6 +135,7 @@ button content =
             ]
 
 
+update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
         EditedUsername usernameInput ->
@@ -146,12 +164,7 @@ update msg model =
                     ( model, Cmd.none )
 
         GotAllInterests interestsResult ->
-            case interestsResult of
-                Ok latestInterests ->
-                    ( { model | allInterests = latestInterests }, Cmd.none )
-
-                _ ->
-                    ( model, Cmd.none )
+            ( { model | allInterests = interestsResult }, Cmd.none )
 
 
 addInterest : Username -> List String -> String -> Cmd Msg
@@ -179,7 +192,7 @@ getAllInterests : Cmd Msg
 getAllInterests =
     Request.Interests.getInterests
         |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
-        |> Graphql.Http.send GotAllInterests
+        |> Graphql.Http.send (mapError >> GotAllInterests)
 
 
 setUsername username =
