@@ -62,8 +62,8 @@ interestNameSelection =
     Api.Object.Interest.name |> fieldSelection
 
 
-addInterest : String -> List Interest -> Interest -> SelectionSet (List Interest) RootMutation
-addInterest username interests interest =
+addInterest : String -> Interest -> SelectionSet (List Interest) RootMutation
+addInterest username interest =
     Api.Mutation.updateUser
         { data =
             Api.InputObject.buildUserUpdateInput

@@ -18,7 +18,7 @@ type Msg
     | SetUsername
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
     | AddInterest String
-    | GotInterests (Result.Result (Graphql.Http.Error (List String)) (List String))
+    | GotInterests (RemoteData (Graphql.Http.Error ()) (List String))
     | GotAllInterests (RemoteData (Graphql.Http.Error ()) (List String))
 
 
@@ -36,7 +36,7 @@ type Username
 
 type alias Model =
     { username : Username
-    , userInterests : List String
+    , userInterests : RemoteData (Graphql.Http.Error ()) (List String)
     , allInterests : RemoteData (Graphql.Http.Error ()) (List String)
     }
 
@@ -44,7 +44,7 @@ type alias Model =
 init : () -> ( Model, Cmd Msg )
 init flags =
     ( { username = Entering ""
-      , userInterests = []
+      , userInterests = RemoteData.Loading
       , allInterests = RemoteData.Loading
       }
     , getAllInterests
@@ -72,10 +72,7 @@ mainView model =
             usernameView usernameInput
 
         Entered username ->
-            Element.column [ Element.spacing 10 ]
-                [ Element.text ("Your interests so far: " ++ Debug.toString model.userInterests)
-                , interestsView model
-                ]
+            interestsView model
 
 
 usernameView username =
@@ -92,10 +89,10 @@ usernameView username =
 
 interestsView : Model -> Element Msg
 interestsView model =
-    case model.allInterests of
-        RemoteData.Success allInterests ->
+    case RemoteData.map2 Tuple.pair model.allInterests model.userInterests of
+        RemoteData.Success ( allInterests, userInterests ) ->
             allInterests
-                |> List.map (interestButton model.userInterests)
+                |> List.map (interestButton userInterests)
                 |> Element.column
                     [ Element.spacing 10
                     ]
@@ -153,25 +150,20 @@ update msg model =
             ( model, Cmd.none )
 
         AddInterest interest ->
-            ( model, addInterest model.username model.userInterests interest )
+            ( model, addInterest model.username interest )
 
         GotInterests interestsResult ->
-            case interestsResult of
-                Ok latestInterests ->
-                    ( { model | userInterests = latestInterests }, Cmd.none )
-
-                _ ->
-                    ( model, Cmd.none )
+            ( { model | userInterests = interestsResult }, Cmd.none )
 
         GotAllInterests interestsResult ->
             ( { model | allInterests = interestsResult }, Cmd.none )
 
 
-addInterest : Username -> List String -> String -> Cmd Msg
-addInterest username currentInterests interest =
-    Request.Interests.addInterest (getUsername username) currentInterests interest
+addInterest : Username -> String -> Cmd Msg
+addInterest username interest =
+    Request.Interests.addInterest (getUsername username) interest
         |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
-        |> Graphql.Http.send GotInterests
+        |> Graphql.Http.send (mapError >> GotInterests)
 
 
 createUser : String -> Cmd Msg
@@ -185,7 +177,7 @@ getUserInterests : String -> Cmd Msg
 getUserInterests username =
     Request.Interests.getUserInterests username
         |> Graphql.Http.queryRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
-        |> Graphql.Http.send GotInterests
+        |> Graphql.Http.send (mapError >> GotInterests)
 
 
 getAllInterests : Cmd Msg
