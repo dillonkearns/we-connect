@@ -1,6 +1,6 @@
 module Main exposing (main)
 
-import Api.Enum.Interest
+import Api.Enum.Interest exposing (Interest)
 import Browser
 import Element
 import Element.Background
@@ -17,6 +17,7 @@ type Msg
     = EditedUsername String
     | SetUsername
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
+    | AddInterest Interest
 
 
 type Username
@@ -85,6 +86,7 @@ interestButton interest =
         |> Debug.toString
         |> Element.text
         |> button
+        |> Element.el [ Element.Events.onClick (AddInterest interest) ]
 
 
 button content =
@@ -113,6 +115,16 @@ update msg model =
 
         NoOp _ ->
             ( model, Cmd.none )
+
+        AddInterest interest ->
+            ( model, addInterest "" interest )
+
+
+addInterest : String -> Interest -> Cmd Msg
+addInterest userId interest =
+    Request.Interests.addInterest "" interest
+        |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+        |> Graphql.Http.send NoOp
 
 
 createUser : String -> Cmd Msg
