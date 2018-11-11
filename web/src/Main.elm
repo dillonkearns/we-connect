@@ -82,17 +82,26 @@ usernameView username =
 
 interestsView model =
     model.allInterests
-        |> List.map interestButton
+        |> List.map (interestButton model.userInterests)
         |> Element.column
             [ Element.spacing 10
             ]
 
 
-interestButton interest =
-    interest
-        |> Element.text
-        |> button
-        |> Element.el [ Element.Events.onClick (AddInterest interest) ]
+interestButton userInterests interest =
+    if List.member interest userInterests then
+        ("✔ " ++ interest)
+            |> Element.text
+            |> button
+            |> Element.el
+                [ Element.Events.onClick (AddInterest interest) ]
+
+    else
+        interest
+            |> Element.text
+            |> button
+            |> Element.el
+                [ Element.Events.onClick (AddInterest interest) ]
 
 
 button content =
