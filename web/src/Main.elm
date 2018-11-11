@@ -85,14 +85,24 @@ mainView model =
             usernameView usernameInput
 
         Entered username ->
-            Element.row []
+            Element.row [ Element.spacing 20 ]
                 [ interestsView model
                 , timeSlotsView model
                 ]
 
 
+timeSlotsView : Model -> Element Msg
 timeSlotsView model =
-    Element.text "Time slots..."
+    case model.timeSlots of
+        RemoteData.Success timeSlots ->
+            Element.column [ Element.spacing 10 ]
+                (timeSlots
+                    |> List.map Element.text
+                    |> List.map button
+                )
+
+        _ ->
+            Element.text "..."
 
 
 usernameView username =
