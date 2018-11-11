@@ -29,6 +29,11 @@ commonSelection constructor =
 selection : (Maybe typeSpecific -> a -> constructor) -> List (FragmentSelectionSet typeSpecific Api.Interface.Node) -> SelectionSet (a -> constructor) Api.Interface.Node
 selection constructor typeSpecificDecoders =
     Object.interfaceSelection typeSpecificDecoders constructor
+onInterest : SelectionSet decodesTo Api.Object.Interest -> FragmentSelectionSet decodesTo Api.Interface.Node
+onInterest (SelectionSet fields decoder) =
+    FragmentSelectionSet "Interest" fields decoder
+
+
 onUser : SelectionSet decodesTo Api.Object.User -> FragmentSelectionSet decodesTo Api.Interface.Node
 onUser (SelectionSet fields decoder) =
     FragmentSelectionSet "User" fields decoder

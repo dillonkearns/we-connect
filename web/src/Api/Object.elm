@@ -3,12 +3,36 @@
 module Api.Object exposing (..)
 
 
+type AggregateInterest
+    = AggregateInterest
+
+
 type AggregateUser
     = AggregateUser
 
 
 type BatchPayload
     = BatchPayload
+
+
+type Interest
+    = Interest
+
+
+type InterestConnection
+    = InterestConnection
+
+
+type InterestEdge
+    = InterestEdge
+
+
+type InterestPreviousValues
+    = InterestPreviousValues
+
+
+type InterestSubscriptionPayload
+    = InterestSubscriptionPayload
 
 
 type PageInfo

@@ -37,11 +37,25 @@ createUser requiredArgs object_ =
       Object.selectionField "createUser" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeUserCreateInput) ] (object_) (identity)
 
 
+type alias CreateInterestRequiredArguments = { data : Api.InputObject.InterestCreateInput }
+
+createInterest : CreateInterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field decodesTo RootMutation
+createInterest requiredArgs object_ =
+      Object.selectionField "createInterest" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeInterestCreateInput) ] (object_) (identity)
+
+
 type alias UpdateUserRequiredArguments = { data : Api.InputObject.UserUpdateInput, where_ : Api.InputObject.UserWhereUniqueInput }
 
 updateUser : UpdateUserRequiredArguments -> SelectionSet decodesTo Api.Object.User -> Field (Maybe decodesTo) RootMutation
 updateUser requiredArgs object_ =
       Object.selectionField "updateUser" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeUserUpdateInput), Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeUserWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
+
+
+type alias UpdateInterestRequiredArguments = { data : Api.InputObject.InterestUpdateInput, where_ : Api.InputObject.InterestWhereUniqueInput }
+
+updateInterest : UpdateInterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field (Maybe decodesTo) RootMutation
+updateInterest requiredArgs object_ =
+      Object.selectionField "updateInterest" [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeInterestUpdateInput), Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
 
 
 type alias DeleteUserRequiredArguments = { where_ : Api.InputObject.UserWhereUniqueInput }
@@ -51,11 +65,25 @@ deleteUser requiredArgs object_ =
       Object.selectionField "deleteUser" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeUserWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
 
 
+type alias DeleteInterestRequiredArguments = { where_ : Api.InputObject.InterestWhereUniqueInput }
+
+deleteInterest : DeleteInterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field (Maybe decodesTo) RootMutation
+deleteInterest requiredArgs object_ =
+      Object.selectionField "deleteInterest" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
+
+
 type alias UpsertUserRequiredArguments = { where_ : Api.InputObject.UserWhereUniqueInput, create : Api.InputObject.UserCreateInput, update : Api.InputObject.UserUpdateInput }
 
 upsertUser : UpsertUserRequiredArguments -> SelectionSet decodesTo Api.Object.User -> Field decodesTo RootMutation
 upsertUser requiredArgs object_ =
       Object.selectionField "upsertUser" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeUserWhereUniqueInput), Argument.required "create" requiredArgs.create (Api.InputObject.encodeUserCreateInput), Argument.required "update" requiredArgs.update (Api.InputObject.encodeUserUpdateInput) ] (object_) (identity)
+
+
+type alias UpsertInterestRequiredArguments = { where_ : Api.InputObject.InterestWhereUniqueInput, create : Api.InputObject.InterestCreateInput, update : Api.InputObject.InterestUpdateInput }
+
+upsertInterest : UpsertInterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field decodesTo RootMutation
+upsertInterest requiredArgs object_ =
+      Object.selectionField "upsertInterest" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput), Argument.required "create" requiredArgs.create (Api.InputObject.encodeInterestCreateInput), Argument.required "update" requiredArgs.update (Api.InputObject.encodeInterestUpdateInput) ] (object_) (identity)
 
 
 type alias UpdateManyUsersOptionalArguments = { where_ : OptionalArgument Api.InputObject.UserWhereInput }
@@ -80,6 +108,28 @@ updateManyUsers fillInOptionals requiredArgs object_ =
       Object.selectionField "updateManyUsers" (optionalArgs ++ [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeUserUpdateManyMutationInput) ]) (object_) (identity)
 
 
+type alias UpdateManyInterestsOptionalArguments = { where_ : OptionalArgument Api.InputObject.InterestWhereInput }
+
+type alias UpdateManyInterestsRequiredArguments = { data : Api.InputObject.InterestUpdateManyMutationInput }
+
+{-|
+
+  - where_ - 
+
+-}
+updateManyInterests : (UpdateManyInterestsOptionalArguments -> UpdateManyInterestsOptionalArguments) -> UpdateManyInterestsRequiredArguments -> SelectionSet decodesTo Api.Object.BatchPayload -> Field decodesTo RootMutation
+updateManyInterests fillInOptionals requiredArgs object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeInterestWhereInput) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "updateManyInterests" (optionalArgs ++ [ Argument.required "data" requiredArgs.data (Api.InputObject.encodeInterestUpdateManyMutationInput) ]) (object_) (identity)
+
+
 type alias DeleteManyUsersOptionalArguments = { where_ : OptionalArgument Api.InputObject.UserWhereInput }
 
 {-|
@@ -98,3 +148,23 @@ deleteManyUsers fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "deleteManyUsers" optionalArgs (object_) (identity)
+
+
+type alias DeleteManyInterestsOptionalArguments = { where_ : OptionalArgument Api.InputObject.InterestWhereInput }
+
+{-|
+
+  - where_ - 
+
+-}
+deleteManyInterests : (DeleteManyInterestsOptionalArguments -> DeleteManyInterestsOptionalArguments) -> SelectionSet decodesTo Api.Object.BatchPayload -> Field decodesTo RootMutation
+deleteManyInterests fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeInterestWhereInput) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "deleteManyInterests" optionalArgs (object_) (identity)

@@ -48,3 +48,23 @@ user fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "user" optionalArgs (object_) (identity >> Decode.nullable)
+
+
+type alias InterestOptionalArguments = { where_ : OptionalArgument Api.InputObject.InterestSubscriptionWhereInput }
+
+{-|
+
+  - where_ - 
+
+-}
+interest : (InterestOptionalArguments -> InterestOptionalArguments) -> SelectionSet decodesTo Api.Object.InterestSubscriptionPayload -> Field (Maybe decodesTo) RootSubscription
+interest fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeInterestSubscriptionWhereInput) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "interest" optionalArgs (object_) (identity >> Decode.nullable)

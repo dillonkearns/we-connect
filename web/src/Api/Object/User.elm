@@ -15,7 +15,7 @@ import Api.Scalar
 import Api.InputObject
 import Json.Decode as Decode
 import Graphql.Internal.Encode as Encode exposing (Value)
-import Api.Enum.Interest
+import Api.Enum.InterestOrderByInput
 
 
 {-| Select fields to build up a SelectionSet for this object.
@@ -33,6 +33,21 @@ name =
       Object.fieldDecoder "name" [] (Decode.string)
 
 
-interests : Field (List Api.Enum.Interest.Interest) Api.Object.User
-interests =
-      Object.fieldDecoder "interests" [] (Api.Enum.Interest.decoder |> Decode.list)
+type alias InterestsOptionalArguments = { where_ : OptionalArgument Api.InputObject.InterestWhereInput, orderBy : OptionalArgument Api.Enum.InterestOrderByInput.InterestOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
+
+{-|
+
+  - where_ - 
+
+-}
+interests : (InterestsOptionalArguments -> InterestsOptionalArguments) -> SelectionSet decodesTo Api.Object.Interest -> Field (Maybe (List decodesTo)) Api.Object.User
+interests fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent, orderBy = Absent, skip = Absent, after = Absent, before = Absent, first = Absent, last = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeInterestWhereInput), Argument.optional "orderBy" filledInOptionals.orderBy ((Encode.enum Api.Enum.InterestOrderByInput.toString)), Argument.optional "skip" filledInOptionals.skip (Encode.int), Argument.optional "after" filledInOptionals.after (Encode.string), Argument.optional "before" filledInOptionals.before (Encode.string), Argument.optional "first" filledInOptionals.first (Encode.int), Argument.optional "last" filledInOptionals.last (Encode.int) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "interests" optionalArgs (object_) (identity >> Decode.list >> Decode.nullable)

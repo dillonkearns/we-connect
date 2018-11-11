@@ -22,7 +22,9 @@ import Graphql.Operation exposing (RootMutation, RootQuery, RootSubscription)
 import Json.Decode as Decode exposing (Decoder)
 import Graphql.Internal.Encode as Encode exposing (Value)
 import Api.Enum.UserOrderByInput
+import Api.Enum.InterestOrderByInput
 import Api.Enum.UserOrderByInput
+import Api.Enum.InterestOrderByInput
 
 
 {-| Select fields to build up a top-level query. The request can be sent with
@@ -51,11 +53,38 @@ users fillInOptionals object_ =
       Object.selectionField "users" optionalArgs (object_) (identity >> Decode.nullable >> Decode.list)
 
 
+type alias InterestsOptionalArguments = { where_ : OptionalArgument Api.InputObject.InterestWhereInput, orderBy : OptionalArgument Api.Enum.InterestOrderByInput.InterestOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
+
+{-|
+
+  - where_ - 
+
+-}
+interests : (InterestsOptionalArguments -> InterestsOptionalArguments) -> SelectionSet decodesTo Api.Object.Interest -> Field (List (Maybe decodesTo)) RootQuery
+interests fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent, orderBy = Absent, skip = Absent, after = Absent, before = Absent, first = Absent, last = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeInterestWhereInput), Argument.optional "orderBy" filledInOptionals.orderBy ((Encode.enum Api.Enum.InterestOrderByInput.toString)), Argument.optional "skip" filledInOptionals.skip (Encode.int), Argument.optional "after" filledInOptionals.after (Encode.string), Argument.optional "before" filledInOptionals.before (Encode.string), Argument.optional "first" filledInOptionals.first (Encode.int), Argument.optional "last" filledInOptionals.last (Encode.int) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "interests" optionalArgs (object_) (identity >> Decode.nullable >> Decode.list)
+
+
 type alias UserRequiredArguments = { where_ : Api.InputObject.UserWhereUniqueInput }
 
 user : UserRequiredArguments -> SelectionSet decodesTo Api.Object.User -> Field (Maybe decodesTo) RootQuery
 user requiredArgs object_ =
       Object.selectionField "user" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeUserWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
+
+
+type alias InterestRequiredArguments = { where_ : Api.InputObject.InterestWhereUniqueInput }
+
+interest : InterestRequiredArguments -> SelectionSet decodesTo Api.Object.Interest -> Field (Maybe decodesTo) RootQuery
+interest requiredArgs object_ =
+      Object.selectionField "interest" [ Argument.required "where" requiredArgs.where_ (Api.InputObject.encodeInterestWhereUniqueInput) ] (object_) (identity >> Decode.nullable)
 
 
 type alias UsersConnectionOptionalArguments = { where_ : OptionalArgument Api.InputObject.UserWhereInput, orderBy : OptionalArgument Api.Enum.UserOrderByInput.UserOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
@@ -76,6 +105,26 @@ usersConnection fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "usersConnection" optionalArgs (object_) (identity)
+
+
+type alias InterestsConnectionOptionalArguments = { where_ : OptionalArgument Api.InputObject.InterestWhereInput, orderBy : OptionalArgument Api.Enum.InterestOrderByInput.InterestOrderByInput, skip : OptionalArgument Int, after : OptionalArgument String, before : OptionalArgument String, first : OptionalArgument Int, last : OptionalArgument Int }
+
+{-|
+
+  - where_ - 
+
+-}
+interestsConnection : (InterestsConnectionOptionalArguments -> InterestsConnectionOptionalArguments) -> SelectionSet decodesTo Api.Object.InterestConnection -> Field decodesTo RootQuery
+interestsConnection fillInOptionals object_ =
+    let
+        filledInOptionals =
+            fillInOptionals { where_ = Absent, orderBy = Absent, skip = Absent, after = Absent, before = Absent, first = Absent, last = Absent }
+
+        optionalArgs =
+            [ Argument.optional "where" filledInOptionals.where_ (Api.InputObject.encodeInterestWhereInput), Argument.optional "orderBy" filledInOptionals.orderBy ((Encode.enum Api.Enum.InterestOrderByInput.toString)), Argument.optional "skip" filledInOptionals.skip (Encode.int), Argument.optional "after" filledInOptionals.after (Encode.string), Argument.optional "before" filledInOptionals.before (Encode.string), Argument.optional "first" filledInOptionals.first (Encode.int), Argument.optional "last" filledInOptionals.last (Encode.int) ]
+                |> List.filterMap identity
+    in
+      Object.selectionField "interestsConnection" optionalArgs (object_) (identity)
 
 
 type alias NodeRequiredArguments = { id : Api.Scalar.Id }

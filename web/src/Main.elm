@@ -1,6 +1,5 @@
 module Main exposing (main)
 
-import Api.Enum.Interest exposing (Interest)
 import Browser
 import Element
 import Element.Background
@@ -17,8 +16,8 @@ type Msg
     = EditedUsername String
     | SetUsername
     | NoOp (Result.Result (Graphql.Http.Error ()) ())
-    | AddInterest Interest
-    | GotInterests (Result.Result (Graphql.Http.Error (List Interest)) (List Interest))
+    | AddInterest String
+    | GotInterests (Result.Result (Graphql.Http.Error (List String)) (List String))
 
 
 type Username
@@ -28,7 +27,7 @@ type Username
 
 type alias Model =
     { username : Username
-    , interests : List Interest
+    , interests : List String
     }
 
 
@@ -77,8 +76,12 @@ usernameView username =
         ]
 
 
+interests =
+    [ "Golf", "Tennis" ]
+
+
 interestsView model =
-    Api.Enum.Interest.list
+    interests
         |> List.map interestButton
         |> Element.column
             [ Element.spacing 10
@@ -87,7 +90,6 @@ interestsView model =
 
 interestButton interest =
     interest
-        |> Debug.toString
         |> Element.text
         |> button
         |> Element.el [ Element.Events.onClick (AddInterest interest) ]
@@ -128,14 +130,14 @@ update msg model =
 
         GotInterests interestsResult ->
             case interestsResult of
-                Ok interests ->
-                    ( { model | interests = interests }, Cmd.none )
+                Ok latestInterests ->
+                    ( { model | interests = latestInterests }, Cmd.none )
 
                 _ ->
                     ( model, Cmd.none )
 
 
-addInterest : Username -> List Interest -> Interest -> Cmd Msg
+addInterest : Username -> List String -> String -> Cmd Msg
 addInterest username currentInterests interest =
     Request.Interests.addInterest (getUsername username) currentInterests interest
         |> Graphql.Http.mutationRequest "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"

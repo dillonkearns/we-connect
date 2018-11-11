@@ -4,9 +4,8 @@ type User {
   interests: [Interest!]!
 }
 
-enum Interest {
-  Golf
-  Tennis
-  Surfing
-  Beach
+type Interest {
+  id: ID! @unique
+  name: String! @unique
+  interestedUsers: [User!]!
 }
