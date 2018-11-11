@@ -1,6 +1,7 @@
 module Main exposing (main)
 
 import Browser
+import Element
 import Html
 
 
@@ -10,8 +11,13 @@ init flags =
 
 view model =
     { title = "WeConnect"
-    , body = [ Html.text "Hello!" ]
+    , body =
+        [ Element.layout [] (mainView model) ]
     }
+
+
+mainView model =
+    Element.text "123"
 
 
 update msg model =
