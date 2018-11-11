@@ -41,18 +41,20 @@ matches username =
 
 userSelection : SelectionSet (List (List (List String))) Api.Object.User
 userSelection =
-    Api.Object.User.availability identity
-        (Api.Object.TimeSlot.users identity
-            (Api.Object.User.interests identity
-                (Api.Object.Interest.name |> fieldSelection)
+    Api.Object.User.selection identity
+        |> with
+            (Api.Object.User.availability identity
+                (Api.Object.TimeSlot.users identity
+                    (Api.Object.User.interests identity
+                        (Api.Object.Interest.name |> fieldSelection)
+                        |> Field.nonNullOrFail
+                        |> fieldSelection
+                    )
+                    |> Field.nonNullOrFail
+                    |> fieldSelection
+                )
                 |> Field.nonNullOrFail
-                |> fieldSelection
             )
-            |> Field.nonNullOrFail
-            |> fieldSelection
-        )
-        |> Field.nonNullOrFail
-        |> fieldSelection
 
 
 getAll : SelectionSet (List TimeSlot) RootQuery
