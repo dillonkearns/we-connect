@@ -3,6 +3,7 @@ module Request.TimeSlot exposing (TimeSlot, getAll, signup)
 import Api.InputObject
 import Api.Mutation
 import Api.Object
+import Api.Object.Interest
 import Api.Object.TimeSlot
 import Api.Object.User
 import Api.Query
@@ -24,14 +25,29 @@ type alias Availability =
     }
 
 
-matches : String -> SelectionSet (List Availability) RootQuery
+
+-- matches : String -> SelectionSet (List Availability) RootQuery
+
+
 matches username =
     Api.Query.user
         { where_ =
             { id = Absent, name = Present username }
         }
-        (Api.Object.User.availability identity
-            (SelectionSet.empty |> SelectionSet.map (\_ -> { time = "", interests = [] }))
+        userSelection
+        |> Field.nonNullOrFail
+        |> fieldSelection
+
+
+userSelection : SelectionSet (List (List (List String))) Api.Object.User
+userSelection =
+    Api.Object.User.availability identity
+        (Api.Object.TimeSlot.users identity
+            (Api.Object.User.interests identity
+                (Api.Object.Interest.name |> fieldSelection)
+                |> Field.nonNullOrFail
+                |> fieldSelection
+            )
             |> Field.nonNullOrFail
             |> fieldSelection
         )
