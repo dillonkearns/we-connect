@@ -74,7 +74,6 @@ interestsView model =
         |> List.map interestButton
         |> Element.column
             [ Element.spacing 10
-            , Element.centerX
             ]
 
 
