@@ -82,7 +82,7 @@ view model =
 type alias SuccessData =
     { allInterests : List Request.Interests.Interest
     , userInterests : List String
-    , timeSlots : List String
+    , timeSlots : List Request.TimeSlot.TimeSlot
     }
 
 
@@ -104,10 +104,11 @@ mainView model =
                     Element.text "Loading..."
 
 
-timeSlotsView : List String -> Element Msg
+timeSlotsView : List Request.TimeSlot.TimeSlot -> Element Msg
 timeSlotsView timeSlots =
     Element.column [ Element.spacing 10 ]
         (timeSlots
+            |> List.map .time
             |> List.map Element.text
             |> List.map button
         )
