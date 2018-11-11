@@ -1,4 +1,12 @@
 type User {
   id: ID! @unique
   name: String!
+  interests: [Interest!]!
+}
+
+enum Interest {
+  Golf
+  Tennis
+  Surfing
+  Beach
 }
