@@ -92,7 +92,7 @@ view model =
             ]
             (Element.column [ Element.spacing 20, Element.width Element.fill ]
                 [ View.Navbar.view (getUsername model.username)
-                , mainView model
+                , Element.el [ Element.padding 30 ] (mainView model)
                 ]
             )
         ]
@@ -130,7 +130,6 @@ mainView model =
                     in
                     Element.row
                         [ Element.spacing 20
-                        , Element.padding 30
                         ]
                         [ interestsView allInterests userInterests
                         , timeSlotsOrConfirmation timeSlots userInterests model.matches
@@ -232,7 +231,7 @@ usernameView username =
             { onChange = EditedUsername
             , text = username
             , placeholder = Nothing
-            , label = Element.text "Username" |> Element.Input.labelAbove []
+            , label = Element.text "Username" |> Element.el [ Element.Font.color (Element.rgba255 255 255 255 1.0) ] |> Element.Input.labelAbove []
             }
         , "Enter" |> Element.text |> button |> Element.el [ Element.Events.onClick SetUsername ]
         ]
