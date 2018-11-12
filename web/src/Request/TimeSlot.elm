@@ -1,4 +1,4 @@
-module Request.TimeSlot exposing (Availability, TimeSlot, availableSlots, getAll, matches, signup, userInterestsToSlotCounts)
+module Request.TimeSlot exposing (Availability, TimeSlot, availableSlots, getAll, matches, meetsMinimum, signup, userInterestsToSlotCounts)
 
 import Api.InputObject
 import Api.Mutation
@@ -54,6 +54,12 @@ whereUserIsAvailable : List String -> List Availability -> List Availability
 whereUserIsAvailable userAvailableTimes availabilities =
     availabilities
         |> List.filter (\availability -> List.member availability.time userAvailableTimes)
+
+
+meetsMinimum : List { time : String, things : List { interest : String, count : Int } } -> List { time : String, things : List { interest : String, count : Int } }
+meetsMinimum availabilities =
+    availabilities
+        |> List.filter (\availability -> List.any (\thing -> thing.count > 2) availability.things)
 
 
 userInterestsToSlotCounts : List String -> List Availability -> List { time : String, things : List { interest : String, count : Int } }
