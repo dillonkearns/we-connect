@@ -153,7 +153,7 @@ timeSlotsOrConfirmation timeSlots userInterests matches =
     case matches of
         RemoteData.Success matchData ->
             if List.length (matchData |> Request.TimeSlot.userInterestsToSlotCounts userInterests |> Request.TimeSlot.meetsMinimum) > 0 then
-                slotConfirmationView (Request.TimeSlot.userInterestsToSlotCounts userInterests matchData)
+                slotConfirmationView (Request.TimeSlot.userInterestsToSlotCounts userInterests matchData |> Request.TimeSlot.meetsMinimum)
 
             else
                 timeSlotsView timeSlots
