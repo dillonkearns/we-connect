@@ -13,6 +13,7 @@ import Html
 import RemoteData exposing (RemoteData)
 import Request.Interests
 import Request.TimeSlot
+import View.FontAwesome
 import View.Navbar
 
 
@@ -247,6 +248,7 @@ interestsView allInterests userInterests =
         |> List.map (interestButton userInterests)
         |> Element.column
             [ Element.spacing 10
+            , Element.width Element.fill
             ]
 
 
@@ -260,8 +262,10 @@ interestButton userInterests interest =
                 []
 
     else
-        interest.name
-            |> Element.text
+        Element.row [ Element.spacing 20 ]
+            [ View.FontAwesome.icon "fas fa-dumbbell"
+            , Element.text interest.name
+            ]
             |> button
             |> Element.el
                 [ Element.Events.onClick (AddInterest interest.name) ]
