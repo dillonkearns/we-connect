@@ -21,7 +21,7 @@ import Graphql.SelectionSet exposing (SelectionSet)
 import Graphql.Operation exposing (RootMutation, RootQuery, RootSubscription)
 import Json.Decode as Decode exposing (Decoder)
 import Graphql.Internal.Encode as Encode exposing (Value)
-
+import Api.Enum.PrismaDatabase
 
 
 {-| Select fields to build up a top-level mutation. The request can be sent with
@@ -238,3 +238,20 @@ deleteManyTimeSlots fillInOptionals object_ =
                 |> List.filterMap identity
     in
       Object.selectionField "deleteManyTimeSlots" optionalArgs (object_) (identity)
+
+
+type alias ExecuteRawOptionalArguments = { database : OptionalArgument Api.Enum.PrismaDatabase.PrismaDatabase }
+
+type alias ExecuteRawRequiredArguments = { query : String }
+
+executeRaw : (ExecuteRawOptionalArguments -> ExecuteRawOptionalArguments) -> ExecuteRawRequiredArguments -> Field Api.Scalar.Json RootMutation
+executeRaw fillInOptionals requiredArgs =
+    let
+        filledInOptionals =
+            fillInOptionals { database = Absent }
+
+        optionalArgs =
+            [ Argument.optional "database" filledInOptionals.database ((Encode.enum Api.Enum.PrismaDatabase.toString)) ]
+                |> List.filterMap identity
+    in
+      Object.fieldDecoder "executeRaw" (optionalArgs ++ [ Argument.required "query" requiredArgs.query (Encode.string) ]) (Object.scalarDecoder |> Decode.map Api.Scalar.Json)

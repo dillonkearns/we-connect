@@ -72,8 +72,14 @@ init flags =
       }
     , Cmd.batch
         [ getAllInterests
-        , getTimeSlots Nothing
-        , getUserInterests (getUsername username)
+        , if flags.username == "" then
+            Cmd.none
+
+          else
+            Cmd.batch
+                [ createUser flags.username
+                , getTimeSlots Nothing
+                ]
         ]
     )
 
@@ -127,8 +133,13 @@ mainView model =
                         , slotCountsView userInterests model.matches
                         ]
 
-                _ ->
+                RemoteData.Loading ->
                     Element.text "Loading..."
+
+                status ->
+                    status
+                        |> Debug.toString
+                        |> Element.text
 
 
 slotCountsView userInterests timeSlots =
@@ -337,7 +348,8 @@ subscriptions model =
 
 apiUrl : String
 apiUrl =
-    "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+    -- "https://eu1.prisma.sh/dillon-kearns-bf5811/we-connect/dev"
+    "http://localhost:4466/"
 
 
 main : Program Flags Model Msg

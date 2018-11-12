@@ -7,5 +7,9 @@ type Id
     = Id String
 
 
+type Json
+    = Json String
+
+
 type Long
     = Long String

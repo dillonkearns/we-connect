@@ -114,45 +114,6 @@ encodeInterestCreateWithoutInterestedUsersInput input =
         [ ( "name", (Encode.string)  input.name |> Just ) ]
 
 
-buildInterestScalarWhereInput : (InterestScalarWhereInputOptionalFields -> InterestScalarWhereInputOptionalFields) -> InterestScalarWhereInput
-buildInterestScalarWhereInput fillOptionals =
-
-    let
-        optionals =
-            
-            fillOptionals
-                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, name = Absent, name_not = Absent, name_in = Absent, name_not_in = Absent, name_lt = Absent, name_lte = Absent, name_gt = Absent, name_gte = Absent, name_contains = Absent, name_not_contains = Absent, name_starts_with = Absent, name_not_starts_with = Absent, name_ends_with = Absent, name_not_ends_with = Absent }
-    in
-    InterestScalarWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, name = optionals.name, name_not = optionals.name_not, name_in = optionals.name_in, name_not_in = optionals.name_not_in, name_lt = optionals.name_lt, name_lte = optionals.name_lte, name_gt = optionals.name_gt, name_gte = optionals.name_gte, name_contains = optionals.name_contains, name_not_contains = optionals.name_not_contains, name_starts_with = optionals.name_starts_with, name_not_starts_with = optionals.name_not_starts_with, name_ends_with = optionals.name_ends_with, name_not_ends_with = optionals.name_not_ends_with }
-
-
-type alias InterestScalarWhereInputOptionalFields =
-    { and : (OptionalArgument (List InterestScalarWhereInput)), or : (OptionalArgument (List InterestScalarWhereInput)), not : (OptionalArgument (List InterestScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String) }
-
-
-{-| Type alias for the `InterestScalarWhereInput` attributes. Note that this type
-needs to use the `InterestScalarWhereInput` type (not just a plain type alias) because it has
-references to itself either directly (recursive) or indirectly (circular). See
-<https://github.com/dillonkearns/elm-graphql/issues/33>.
--}
-type alias InterestScalarWhereInputRaw =
-    { and : (OptionalArgument (List InterestScalarWhereInput)), or : (OptionalArgument (List InterestScalarWhereInput)), not : (OptionalArgument (List InterestScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String) }
-
-
-{-| Type for the InterestScalarWhereInput input object.
--}
-type InterestScalarWhereInput
-    = InterestScalarWhereInput InterestScalarWhereInputRaw
-    
-
-{-| Encode a InterestScalarWhereInput into a value that can be used as an argument.
--}
-encodeInterestScalarWhereInput : InterestScalarWhereInput -> Value
-encodeInterestScalarWhereInput (InterestScalarWhereInput input) =
-    Encode.maybeObject
-        [ ( "AND", (encodeInterestScalarWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeInterestScalarWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeInterestScalarWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "name", (Encode.string)  |> Encode.optional input.name ), ( "name_not", (Encode.string)  |> Encode.optional input.name_not ), ( "name_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_in ), ( "name_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_not_in ), ( "name_lt", (Encode.string)  |> Encode.optional input.name_lt ), ( "name_lte", (Encode.string)  |> Encode.optional input.name_lte ), ( "name_gt", (Encode.string)  |> Encode.optional input.name_gt ), ( "name_gte", (Encode.string)  |> Encode.optional input.name_gte ), ( "name_contains", (Encode.string)  |> Encode.optional input.name_contains ), ( "name_not_contains", (Encode.string)  |> Encode.optional input.name_not_contains ), ( "name_starts_with", (Encode.string)  |> Encode.optional input.name_starts_with ), ( "name_not_starts_with", (Encode.string)  |> Encode.optional input.name_not_starts_with ), ( "name_ends_with", (Encode.string)  |> Encode.optional input.name_ends_with ), ( "name_not_ends_with", (Encode.string)  |> Encode.optional input.name_not_ends_with ) ]
-
-
 buildInterestSubscriptionWhereInput : (InterestSubscriptionWhereInputOptionalFields -> InterestSubscriptionWhereInputOptionalFields) -> InterestSubscriptionWhereInput
 buildInterestSubscriptionWhereInput fillOptionals =
 
@@ -231,36 +192,6 @@ encodeInterestUpdateInput (InterestUpdateInput input) =
         [ ( "name", (Encode.string)  |> Encode.optional input.name ), ( "interestedUsers", (encodeUserUpdateManyWithoutInterestsInput)  |> Encode.optional input.interestedUsers ) ]
 
 
-buildInterestUpdateManyDataInput : (InterestUpdateManyDataInputOptionalFields -> InterestUpdateManyDataInputOptionalFields) -> InterestUpdateManyDataInput
-buildInterestUpdateManyDataInput fillOptionals =
-
-    let
-        optionals =
-            
-            fillOptionals
-                { name = Absent }
-    in
-    { name = optionals.name }
-
-
-type alias InterestUpdateManyDataInputOptionalFields =
-    { name : (OptionalArgument String) }
-
-
-{-| Type for the InterestUpdateManyDataInput input object.
--}
-type alias InterestUpdateManyDataInput =
-    { name : (OptionalArgument String) }
-    
-
-{-| Encode a InterestUpdateManyDataInput into a value that can be used as an argument.
--}
-encodeInterestUpdateManyDataInput : InterestUpdateManyDataInput -> Value
-encodeInterestUpdateManyDataInput input =
-    Encode.maybeObject
-        [ ( "name", (Encode.string)  |> Encode.optional input.name ) ]
-
-
 buildInterestUpdateManyMutationInput : (InterestUpdateManyMutationInputOptionalFields -> InterestUpdateManyMutationInputOptionalFields) -> InterestUpdateManyMutationInput
 buildInterestUpdateManyMutationInput fillOptionals =
 
@@ -291,39 +222,6 @@ encodeInterestUpdateManyMutationInput input =
         [ ( "name", (Encode.string)  |> Encode.optional input.name ) ]
 
 
-buildInterestUpdateManyWithWhereNestedInput : InterestUpdateManyWithWhereNestedInputRequiredFields -> InterestUpdateManyWithWhereNestedInput
-buildInterestUpdateManyWithWhereNestedInput required =
-
-    InterestUpdateManyWithWhereNestedInput{ where_ = required.where_, data = required.data }
-
-type alias InterestUpdateManyWithWhereNestedInputRequiredFields =
-    { where_ : InterestScalarWhereInput, data : InterestUpdateManyDataInput }
-
-
-
-{-| Type alias for the `InterestUpdateManyWithWhereNestedInput` attributes. Note that this type
-needs to use the `InterestUpdateManyWithWhereNestedInput` type (not just a plain type alias) because it has
-references to itself either directly (recursive) or indirectly (circular). See
-<https://github.com/dillonkearns/elm-graphql/issues/33>.
--}
-type alias InterestUpdateManyWithWhereNestedInputRaw =
-    { where_ : InterestScalarWhereInput, data : InterestUpdateManyDataInput }
-
-
-{-| Type for the InterestUpdateManyWithWhereNestedInput input object.
--}
-type InterestUpdateManyWithWhereNestedInput
-    = InterestUpdateManyWithWhereNestedInput InterestUpdateManyWithWhereNestedInputRaw
-    
-
-{-| Encode a InterestUpdateManyWithWhereNestedInput into a value that can be used as an argument.
--}
-encodeInterestUpdateManyWithWhereNestedInput : InterestUpdateManyWithWhereNestedInput -> Value
-encodeInterestUpdateManyWithWhereNestedInput (InterestUpdateManyWithWhereNestedInput input) =
-    Encode.maybeObject
-        [ ( "where", (encodeInterestScalarWhereInput)  input.where_ |> Just ), ( "data", (encodeInterestUpdateManyDataInput)  input.data |> Just ) ]
-
-
 buildInterestUpdateManyWithoutInterestedUsersInput : (InterestUpdateManyWithoutInterestedUsersInputOptionalFields -> InterestUpdateManyWithoutInterestedUsersInputOptionalFields) -> InterestUpdateManyWithoutInterestedUsersInput
 buildInterestUpdateManyWithoutInterestedUsersInput fillOptionals =
 
@@ -331,13 +229,13 @@ buildInterestUpdateManyWithoutInterestedUsersInput fillOptionals =
         optionals =
             
             fillOptionals
-                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, updateMany = Absent, deleteMany = Absent, upsert = Absent }
+                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, upsert = Absent }
     in
-    InterestUpdateManyWithoutInterestedUsersInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, updateMany = optionals.updateMany, deleteMany = optionals.deleteMany, upsert = optionals.upsert }
+    InterestUpdateManyWithoutInterestedUsersInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, upsert = optionals.upsert }
 
 
 type alias InterestUpdateManyWithoutInterestedUsersInputOptionalFields =
-    { create : (OptionalArgument (List InterestCreateWithoutInterestedUsersInput)), connect : (OptionalArgument (List InterestWhereUniqueInput)), disconnect : (OptionalArgument (List InterestWhereUniqueInput)), delete : (OptionalArgument (List InterestWhereUniqueInput)), update : (OptionalArgument (List InterestUpdateWithWhereUniqueWithoutInterestedUsersInput)), updateMany : (OptionalArgument (List InterestUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List InterestScalarWhereInput)), upsert : (OptionalArgument (List InterestUpsertWithWhereUniqueWithoutInterestedUsersInput)) }
+    { create : (OptionalArgument (List InterestCreateWithoutInterestedUsersInput)), connect : (OptionalArgument (List InterestWhereUniqueInput)), disconnect : (OptionalArgument (List InterestWhereUniqueInput)), delete : (OptionalArgument (List InterestWhereUniqueInput)), update : (OptionalArgument (List InterestUpdateWithWhereUniqueWithoutInterestedUsersInput)), upsert : (OptionalArgument (List InterestUpsertWithWhereUniqueWithoutInterestedUsersInput)) }
 
 
 {-| Type alias for the `InterestUpdateManyWithoutInterestedUsersInput` attributes. Note that this type
@@ -346,7 +244,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias InterestUpdateManyWithoutInterestedUsersInputRaw =
-    { create : (OptionalArgument (List InterestCreateWithoutInterestedUsersInput)), connect : (OptionalArgument (List InterestWhereUniqueInput)), disconnect : (OptionalArgument (List InterestWhereUniqueInput)), delete : (OptionalArgument (List InterestWhereUniqueInput)), update : (OptionalArgument (List InterestUpdateWithWhereUniqueWithoutInterestedUsersInput)), updateMany : (OptionalArgument (List InterestUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List InterestScalarWhereInput)), upsert : (OptionalArgument (List InterestUpsertWithWhereUniqueWithoutInterestedUsersInput)) }
+    { create : (OptionalArgument (List InterestCreateWithoutInterestedUsersInput)), connect : (OptionalArgument (List InterestWhereUniqueInput)), disconnect : (OptionalArgument (List InterestWhereUniqueInput)), delete : (OptionalArgument (List InterestWhereUniqueInput)), update : (OptionalArgument (List InterestUpdateWithWhereUniqueWithoutInterestedUsersInput)), upsert : (OptionalArgument (List InterestUpsertWithWhereUniqueWithoutInterestedUsersInput)) }
 
 
 {-| Type for the InterestUpdateManyWithoutInterestedUsersInput input object.
@@ -360,7 +258,7 @@ type InterestUpdateManyWithoutInterestedUsersInput
 encodeInterestUpdateManyWithoutInterestedUsersInput : InterestUpdateManyWithoutInterestedUsersInput -> Value
 encodeInterestUpdateManyWithoutInterestedUsersInput (InterestUpdateManyWithoutInterestedUsersInput input) =
     Encode.maybeObject
-        [ ( "create", (encodeInterestCreateWithoutInterestedUsersInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeInterestWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeInterestWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeInterestWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeInterestUpdateWithWhereUniqueWithoutInterestedUsersInput |> Encode.list)  |> Encode.optional input.update ), ( "updateMany", (encodeInterestUpdateManyWithWhereNestedInput |> Encode.list)  |> Encode.optional input.updateMany ), ( "deleteMany", (encodeInterestScalarWhereInput |> Encode.list)  |> Encode.optional input.deleteMany ), ( "upsert", (encodeInterestUpsertWithWhereUniqueWithoutInterestedUsersInput |> Encode.list)  |> Encode.optional input.upsert ) ]
+        [ ( "create", (encodeInterestCreateWithoutInterestedUsersInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeInterestWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeInterestWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeInterestWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeInterestUpdateWithWhereUniqueWithoutInterestedUsersInput |> Encode.list)  |> Encode.optional input.update ), ( "upsert", (encodeInterestUpsertWithWhereUniqueWithoutInterestedUsersInput |> Encode.list)  |> Encode.optional input.upsert ) ]
 
 
 buildInterestUpdateWithWhereUniqueWithoutInterestedUsersInput : InterestUpdateWithWhereUniqueWithoutInterestedUsersInputRequiredFields -> InterestUpdateWithWhereUniqueWithoutInterestedUsersInput
@@ -604,45 +502,6 @@ encodeTimeSlotCreateWithoutUsersInput input =
         [ ( "time", (Encode.string)  input.time |> Just ) ]
 
 
-buildTimeSlotScalarWhereInput : (TimeSlotScalarWhereInputOptionalFields -> TimeSlotScalarWhereInputOptionalFields) -> TimeSlotScalarWhereInput
-buildTimeSlotScalarWhereInput fillOptionals =
-
-    let
-        optionals =
-            
-            fillOptionals
-                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, time = Absent, time_not = Absent, time_in = Absent, time_not_in = Absent, time_lt = Absent, time_lte = Absent, time_gt = Absent, time_gte = Absent, time_contains = Absent, time_not_contains = Absent, time_starts_with = Absent, time_not_starts_with = Absent, time_ends_with = Absent, time_not_ends_with = Absent }
-    in
-    TimeSlotScalarWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, time = optionals.time, time_not = optionals.time_not, time_in = optionals.time_in, time_not_in = optionals.time_not_in, time_lt = optionals.time_lt, time_lte = optionals.time_lte, time_gt = optionals.time_gt, time_gte = optionals.time_gte, time_contains = optionals.time_contains, time_not_contains = optionals.time_not_contains, time_starts_with = optionals.time_starts_with, time_not_starts_with = optionals.time_not_starts_with, time_ends_with = optionals.time_ends_with, time_not_ends_with = optionals.time_not_ends_with }
-
-
-type alias TimeSlotScalarWhereInputOptionalFields =
-    { and : (OptionalArgument (List TimeSlotScalarWhereInput)), or : (OptionalArgument (List TimeSlotScalarWhereInput)), not : (OptionalArgument (List TimeSlotScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String), time_not : (OptionalArgument String), time_in : (OptionalArgument (List String)), time_not_in : (OptionalArgument (List String)), time_lt : (OptionalArgument String), time_lte : (OptionalArgument String), time_gt : (OptionalArgument String), time_gte : (OptionalArgument String), time_contains : (OptionalArgument String), time_not_contains : (OptionalArgument String), time_starts_with : (OptionalArgument String), time_not_starts_with : (OptionalArgument String), time_ends_with : (OptionalArgument String), time_not_ends_with : (OptionalArgument String) }
-
-
-{-| Type alias for the `TimeSlotScalarWhereInput` attributes. Note that this type
-needs to use the `TimeSlotScalarWhereInput` type (not just a plain type alias) because it has
-references to itself either directly (recursive) or indirectly (circular). See
-<https://github.com/dillonkearns/elm-graphql/issues/33>.
--}
-type alias TimeSlotScalarWhereInputRaw =
-    { and : (OptionalArgument (List TimeSlotScalarWhereInput)), or : (OptionalArgument (List TimeSlotScalarWhereInput)), not : (OptionalArgument (List TimeSlotScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), time : (OptionalArgument String), time_not : (OptionalArgument String), time_in : (OptionalArgument (List String)), time_not_in : (OptionalArgument (List String)), time_lt : (OptionalArgument String), time_lte : (OptionalArgument String), time_gt : (OptionalArgument String), time_gte : (OptionalArgument String), time_contains : (OptionalArgument String), time_not_contains : (OptionalArgument String), time_starts_with : (OptionalArgument String), time_not_starts_with : (OptionalArgument String), time_ends_with : (OptionalArgument String), time_not_ends_with : (OptionalArgument String) }
-
-
-{-| Type for the TimeSlotScalarWhereInput input object.
--}
-type TimeSlotScalarWhereInput
-    = TimeSlotScalarWhereInput TimeSlotScalarWhereInputRaw
-    
-
-{-| Encode a TimeSlotScalarWhereInput into a value that can be used as an argument.
--}
-encodeTimeSlotScalarWhereInput : TimeSlotScalarWhereInput -> Value
-encodeTimeSlotScalarWhereInput (TimeSlotScalarWhereInput input) =
-    Encode.maybeObject
-        [ ( "AND", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "time", (Encode.string)  |> Encode.optional input.time ), ( "time_not", (Encode.string)  |> Encode.optional input.time_not ), ( "time_in", (Encode.string |> Encode.list)  |> Encode.optional input.time_in ), ( "time_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.time_not_in ), ( "time_lt", (Encode.string)  |> Encode.optional input.time_lt ), ( "time_lte", (Encode.string)  |> Encode.optional input.time_lte ), ( "time_gt", (Encode.string)  |> Encode.optional input.time_gt ), ( "time_gte", (Encode.string)  |> Encode.optional input.time_gte ), ( "time_contains", (Encode.string)  |> Encode.optional input.time_contains ), ( "time_not_contains", (Encode.string)  |> Encode.optional input.time_not_contains ), ( "time_starts_with", (Encode.string)  |> Encode.optional input.time_starts_with ), ( "time_not_starts_with", (Encode.string)  |> Encode.optional input.time_not_starts_with ), ( "time_ends_with", (Encode.string)  |> Encode.optional input.time_ends_with ), ( "time_not_ends_with", (Encode.string)  |> Encode.optional input.time_not_ends_with ) ]
-
-
 buildTimeSlotSubscriptionWhereInput : (TimeSlotSubscriptionWhereInputOptionalFields -> TimeSlotSubscriptionWhereInputOptionalFields) -> TimeSlotSubscriptionWhereInput
 buildTimeSlotSubscriptionWhereInput fillOptionals =
 
@@ -721,36 +580,6 @@ encodeTimeSlotUpdateInput (TimeSlotUpdateInput input) =
         [ ( "time", (Encode.string)  |> Encode.optional input.time ), ( "users", (encodeUserUpdateManyWithoutAvailabilityInput)  |> Encode.optional input.users ) ]
 
 
-buildTimeSlotUpdateManyDataInput : (TimeSlotUpdateManyDataInputOptionalFields -> TimeSlotUpdateManyDataInputOptionalFields) -> TimeSlotUpdateManyDataInput
-buildTimeSlotUpdateManyDataInput fillOptionals =
-
-    let
-        optionals =
-            
-            fillOptionals
-                { time = Absent }
-    in
-    { time = optionals.time }
-
-
-type alias TimeSlotUpdateManyDataInputOptionalFields =
-    { time : (OptionalArgument String) }
-
-
-{-| Type for the TimeSlotUpdateManyDataInput input object.
--}
-type alias TimeSlotUpdateManyDataInput =
-    { time : (OptionalArgument String) }
-    
-
-{-| Encode a TimeSlotUpdateManyDataInput into a value that can be used as an argument.
--}
-encodeTimeSlotUpdateManyDataInput : TimeSlotUpdateManyDataInput -> Value
-encodeTimeSlotUpdateManyDataInput input =
-    Encode.maybeObject
-        [ ( "time", (Encode.string)  |> Encode.optional input.time ) ]
-
-
 buildTimeSlotUpdateManyMutationInput : (TimeSlotUpdateManyMutationInputOptionalFields -> TimeSlotUpdateManyMutationInputOptionalFields) -> TimeSlotUpdateManyMutationInput
 buildTimeSlotUpdateManyMutationInput fillOptionals =
 
@@ -781,39 +610,6 @@ encodeTimeSlotUpdateManyMutationInput input =
         [ ( "time", (Encode.string)  |> Encode.optional input.time ) ]
 
 
-buildTimeSlotUpdateManyWithWhereNestedInput : TimeSlotUpdateManyWithWhereNestedInputRequiredFields -> TimeSlotUpdateManyWithWhereNestedInput
-buildTimeSlotUpdateManyWithWhereNestedInput required =
-
-    TimeSlotUpdateManyWithWhereNestedInput{ where_ = required.where_, data = required.data }
-
-type alias TimeSlotUpdateManyWithWhereNestedInputRequiredFields =
-    { where_ : TimeSlotScalarWhereInput, data : TimeSlotUpdateManyDataInput }
-
-
-
-{-| Type alias for the `TimeSlotUpdateManyWithWhereNestedInput` attributes. Note that this type
-needs to use the `TimeSlotUpdateManyWithWhereNestedInput` type (not just a plain type alias) because it has
-references to itself either directly (recursive) or indirectly (circular). See
-<https://github.com/dillonkearns/elm-graphql/issues/33>.
--}
-type alias TimeSlotUpdateManyWithWhereNestedInputRaw =
-    { where_ : TimeSlotScalarWhereInput, data : TimeSlotUpdateManyDataInput }
-
-
-{-| Type for the TimeSlotUpdateManyWithWhereNestedInput input object.
--}
-type TimeSlotUpdateManyWithWhereNestedInput
-    = TimeSlotUpdateManyWithWhereNestedInput TimeSlotUpdateManyWithWhereNestedInputRaw
-    
-
-{-| Encode a TimeSlotUpdateManyWithWhereNestedInput into a value that can be used as an argument.
--}
-encodeTimeSlotUpdateManyWithWhereNestedInput : TimeSlotUpdateManyWithWhereNestedInput -> Value
-encodeTimeSlotUpdateManyWithWhereNestedInput (TimeSlotUpdateManyWithWhereNestedInput input) =
-    Encode.maybeObject
-        [ ( "where", (encodeTimeSlotScalarWhereInput)  input.where_ |> Just ), ( "data", (encodeTimeSlotUpdateManyDataInput)  input.data |> Just ) ]
-
-
 buildTimeSlotUpdateManyWithoutUsersInput : (TimeSlotUpdateManyWithoutUsersInputOptionalFields -> TimeSlotUpdateManyWithoutUsersInputOptionalFields) -> TimeSlotUpdateManyWithoutUsersInput
 buildTimeSlotUpdateManyWithoutUsersInput fillOptionals =
 
@@ -821,13 +617,13 @@ buildTimeSlotUpdateManyWithoutUsersInput fillOptionals =
         optionals =
             
             fillOptionals
-                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, updateMany = Absent, deleteMany = Absent, upsert = Absent }
+                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, upsert = Absent }
     in
-    TimeSlotUpdateManyWithoutUsersInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, updateMany = optionals.updateMany, deleteMany = optionals.deleteMany, upsert = optionals.upsert }
+    TimeSlotUpdateManyWithoutUsersInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, upsert = optionals.upsert }
 
 
 type alias TimeSlotUpdateManyWithoutUsersInputOptionalFields =
-    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)), disconnect : (OptionalArgument (List TimeSlotWhereUniqueInput)), delete : (OptionalArgument (List TimeSlotWhereUniqueInput)), update : (OptionalArgument (List TimeSlotUpdateWithWhereUniqueWithoutUsersInput)), updateMany : (OptionalArgument (List TimeSlotUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List TimeSlotScalarWhereInput)), upsert : (OptionalArgument (List TimeSlotUpsertWithWhereUniqueWithoutUsersInput)) }
+    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)), disconnect : (OptionalArgument (List TimeSlotWhereUniqueInput)), delete : (OptionalArgument (List TimeSlotWhereUniqueInput)), update : (OptionalArgument (List TimeSlotUpdateWithWhereUniqueWithoutUsersInput)), upsert : (OptionalArgument (List TimeSlotUpsertWithWhereUniqueWithoutUsersInput)) }
 
 
 {-| Type alias for the `TimeSlotUpdateManyWithoutUsersInput` attributes. Note that this type
@@ -836,7 +632,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias TimeSlotUpdateManyWithoutUsersInputRaw =
-    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)), disconnect : (OptionalArgument (List TimeSlotWhereUniqueInput)), delete : (OptionalArgument (List TimeSlotWhereUniqueInput)), update : (OptionalArgument (List TimeSlotUpdateWithWhereUniqueWithoutUsersInput)), updateMany : (OptionalArgument (List TimeSlotUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List TimeSlotScalarWhereInput)), upsert : (OptionalArgument (List TimeSlotUpsertWithWhereUniqueWithoutUsersInput)) }
+    { create : (OptionalArgument (List TimeSlotCreateWithoutUsersInput)), connect : (OptionalArgument (List TimeSlotWhereUniqueInput)), disconnect : (OptionalArgument (List TimeSlotWhereUniqueInput)), delete : (OptionalArgument (List TimeSlotWhereUniqueInput)), update : (OptionalArgument (List TimeSlotUpdateWithWhereUniqueWithoutUsersInput)), upsert : (OptionalArgument (List TimeSlotUpsertWithWhereUniqueWithoutUsersInput)) }
 
 
 {-| Type for the TimeSlotUpdateManyWithoutUsersInput input object.
@@ -850,7 +646,7 @@ type TimeSlotUpdateManyWithoutUsersInput
 encodeTimeSlotUpdateManyWithoutUsersInput : TimeSlotUpdateManyWithoutUsersInput -> Value
 encodeTimeSlotUpdateManyWithoutUsersInput (TimeSlotUpdateManyWithoutUsersInput input) =
     Encode.maybeObject
-        [ ( "create", (encodeTimeSlotCreateWithoutUsersInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeTimeSlotUpdateWithWhereUniqueWithoutUsersInput |> Encode.list)  |> Encode.optional input.update ), ( "updateMany", (encodeTimeSlotUpdateManyWithWhereNestedInput |> Encode.list)  |> Encode.optional input.updateMany ), ( "deleteMany", (encodeTimeSlotScalarWhereInput |> Encode.list)  |> Encode.optional input.deleteMany ), ( "upsert", (encodeTimeSlotUpsertWithWhereUniqueWithoutUsersInput |> Encode.list)  |> Encode.optional input.upsert ) ]
+        [ ( "create", (encodeTimeSlotCreateWithoutUsersInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeTimeSlotWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeTimeSlotUpdateWithWhereUniqueWithoutUsersInput |> Encode.list)  |> Encode.optional input.update ), ( "upsert", (encodeTimeSlotUpsertWithWhereUniqueWithoutUsersInput |> Encode.list)  |> Encode.optional input.upsert ) ]
 
 
 buildTimeSlotUpdateWithWhereUniqueWithoutUsersInput : TimeSlotUpdateWithWhereUniqueWithoutUsersInputRequiredFields -> TimeSlotUpdateWithWhereUniqueWithoutUsersInput
@@ -1198,45 +994,6 @@ encodeUserCreateWithoutInterestsInput (UserCreateWithoutInterestsInput input) =
         [ ( "name", (Encode.string)  input.name |> Just ), ( "availability", (encodeTimeSlotCreateManyWithoutUsersInput)  |> Encode.optional input.availability ) ]
 
 
-buildUserScalarWhereInput : (UserScalarWhereInputOptionalFields -> UserScalarWhereInputOptionalFields) -> UserScalarWhereInput
-buildUserScalarWhereInput fillOptionals =
-
-    let
-        optionals =
-            
-            fillOptionals
-                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, name = Absent, name_not = Absent, name_in = Absent, name_not_in = Absent, name_lt = Absent, name_lte = Absent, name_gt = Absent, name_gte = Absent, name_contains = Absent, name_not_contains = Absent, name_starts_with = Absent, name_not_starts_with = Absent, name_ends_with = Absent, name_not_ends_with = Absent }
-    in
-    UserScalarWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, name = optionals.name, name_not = optionals.name_not, name_in = optionals.name_in, name_not_in = optionals.name_not_in, name_lt = optionals.name_lt, name_lte = optionals.name_lte, name_gt = optionals.name_gt, name_gte = optionals.name_gte, name_contains = optionals.name_contains, name_not_contains = optionals.name_not_contains, name_starts_with = optionals.name_starts_with, name_not_starts_with = optionals.name_not_starts_with, name_ends_with = optionals.name_ends_with, name_not_ends_with = optionals.name_not_ends_with }
-
-
-type alias UserScalarWhereInputOptionalFields =
-    { and : (OptionalArgument (List UserScalarWhereInput)), or : (OptionalArgument (List UserScalarWhereInput)), not : (OptionalArgument (List UserScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String) }
-
-
-{-| Type alias for the `UserScalarWhereInput` attributes. Note that this type
-needs to use the `UserScalarWhereInput` type (not just a plain type alias) because it has
-references to itself either directly (recursive) or indirectly (circular). See
-<https://github.com/dillonkearns/elm-graphql/issues/33>.
--}
-type alias UserScalarWhereInputRaw =
-    { and : (OptionalArgument (List UserScalarWhereInput)), or : (OptionalArgument (List UserScalarWhereInput)), not : (OptionalArgument (List UserScalarWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String) }
-
-
-{-| Type for the UserScalarWhereInput input object.
--}
-type UserScalarWhereInput
-    = UserScalarWhereInput UserScalarWhereInputRaw
-    
-
-{-| Encode a UserScalarWhereInput into a value that can be used as an argument.
--}
-encodeUserScalarWhereInput : UserScalarWhereInput -> Value
-encodeUserScalarWhereInput (UserScalarWhereInput input) =
-    Encode.maybeObject
-        [ ( "AND", (encodeUserScalarWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeUserScalarWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeUserScalarWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "name", (Encode.string)  |> Encode.optional input.name ), ( "name_not", (Encode.string)  |> Encode.optional input.name_not ), ( "name_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_in ), ( "name_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_not_in ), ( "name_lt", (Encode.string)  |> Encode.optional input.name_lt ), ( "name_lte", (Encode.string)  |> Encode.optional input.name_lte ), ( "name_gt", (Encode.string)  |> Encode.optional input.name_gt ), ( "name_gte", (Encode.string)  |> Encode.optional input.name_gte ), ( "name_contains", (Encode.string)  |> Encode.optional input.name_contains ), ( "name_not_contains", (Encode.string)  |> Encode.optional input.name_not_contains ), ( "name_starts_with", (Encode.string)  |> Encode.optional input.name_starts_with ), ( "name_not_starts_with", (Encode.string)  |> Encode.optional input.name_not_starts_with ), ( "name_ends_with", (Encode.string)  |> Encode.optional input.name_ends_with ), ( "name_not_ends_with", (Encode.string)  |> Encode.optional input.name_not_ends_with ) ]
-
-
 buildUserSubscriptionWhereInput : (UserSubscriptionWhereInputOptionalFields -> UserSubscriptionWhereInputOptionalFields) -> UserSubscriptionWhereInput
 buildUserSubscriptionWhereInput fillOptionals =
 
@@ -1315,36 +1072,6 @@ encodeUserUpdateInput (UserUpdateInput input) =
         [ ( "name", (Encode.string)  |> Encode.optional input.name ), ( "interests", (encodeInterestUpdateManyWithoutInterestedUsersInput)  |> Encode.optional input.interests ), ( "availability", (encodeTimeSlotUpdateManyWithoutUsersInput)  |> Encode.optional input.availability ) ]
 
 
-buildUserUpdateManyDataInput : (UserUpdateManyDataInputOptionalFields -> UserUpdateManyDataInputOptionalFields) -> UserUpdateManyDataInput
-buildUserUpdateManyDataInput fillOptionals =
-
-    let
-        optionals =
-            
-            fillOptionals
-                { name = Absent }
-    in
-    { name = optionals.name }
-
-
-type alias UserUpdateManyDataInputOptionalFields =
-    { name : (OptionalArgument String) }
-
-
-{-| Type for the UserUpdateManyDataInput input object.
--}
-type alias UserUpdateManyDataInput =
-    { name : (OptionalArgument String) }
-    
-
-{-| Encode a UserUpdateManyDataInput into a value that can be used as an argument.
--}
-encodeUserUpdateManyDataInput : UserUpdateManyDataInput -> Value
-encodeUserUpdateManyDataInput input =
-    Encode.maybeObject
-        [ ( "name", (Encode.string)  |> Encode.optional input.name ) ]
-
-
 buildUserUpdateManyMutationInput : (UserUpdateManyMutationInputOptionalFields -> UserUpdateManyMutationInputOptionalFields) -> UserUpdateManyMutationInput
 buildUserUpdateManyMutationInput fillOptionals =
 
@@ -1375,39 +1102,6 @@ encodeUserUpdateManyMutationInput input =
         [ ( "name", (Encode.string)  |> Encode.optional input.name ) ]
 
 
-buildUserUpdateManyWithWhereNestedInput : UserUpdateManyWithWhereNestedInputRequiredFields -> UserUpdateManyWithWhereNestedInput
-buildUserUpdateManyWithWhereNestedInput required =
-
-    UserUpdateManyWithWhereNestedInput{ where_ = required.where_, data = required.data }
-
-type alias UserUpdateManyWithWhereNestedInputRequiredFields =
-    { where_ : UserScalarWhereInput, data : UserUpdateManyDataInput }
-
-
-
-{-| Type alias for the `UserUpdateManyWithWhereNestedInput` attributes. Note that this type
-needs to use the `UserUpdateManyWithWhereNestedInput` type (not just a plain type alias) because it has
-references to itself either directly (recursive) or indirectly (circular). See
-<https://github.com/dillonkearns/elm-graphql/issues/33>.
--}
-type alias UserUpdateManyWithWhereNestedInputRaw =
-    { where_ : UserScalarWhereInput, data : UserUpdateManyDataInput }
-
-
-{-| Type for the UserUpdateManyWithWhereNestedInput input object.
--}
-type UserUpdateManyWithWhereNestedInput
-    = UserUpdateManyWithWhereNestedInput UserUpdateManyWithWhereNestedInputRaw
-    
-
-{-| Encode a UserUpdateManyWithWhereNestedInput into a value that can be used as an argument.
--}
-encodeUserUpdateManyWithWhereNestedInput : UserUpdateManyWithWhereNestedInput -> Value
-encodeUserUpdateManyWithWhereNestedInput (UserUpdateManyWithWhereNestedInput input) =
-    Encode.maybeObject
-        [ ( "where", (encodeUserScalarWhereInput)  input.where_ |> Just ), ( "data", (encodeUserUpdateManyDataInput)  input.data |> Just ) ]
-
-
 buildUserUpdateManyWithoutAvailabilityInput : (UserUpdateManyWithoutAvailabilityInputOptionalFields -> UserUpdateManyWithoutAvailabilityInputOptionalFields) -> UserUpdateManyWithoutAvailabilityInput
 buildUserUpdateManyWithoutAvailabilityInput fillOptionals =
 
@@ -1415,13 +1109,13 @@ buildUserUpdateManyWithoutAvailabilityInput fillOptionals =
         optionals =
             
             fillOptionals
-                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, updateMany = Absent, deleteMany = Absent, upsert = Absent }
+                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, upsert = Absent }
     in
-    UserUpdateManyWithoutAvailabilityInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, updateMany = optionals.updateMany, deleteMany = optionals.deleteMany, upsert = optionals.upsert }
+    UserUpdateManyWithoutAvailabilityInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, upsert = optionals.upsert }
 
 
 type alias UserUpdateManyWithoutAvailabilityInputOptionalFields =
-    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutAvailabilityInput)), updateMany : (OptionalArgument (List UserUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List UserScalarWhereInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutAvailabilityInput)) }
+    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutAvailabilityInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutAvailabilityInput)) }
 
 
 {-| Type alias for the `UserUpdateManyWithoutAvailabilityInput` attributes. Note that this type
@@ -1430,7 +1124,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias UserUpdateManyWithoutAvailabilityInputRaw =
-    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutAvailabilityInput)), updateMany : (OptionalArgument (List UserUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List UserScalarWhereInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutAvailabilityInput)) }
+    { create : (OptionalArgument (List UserCreateWithoutAvailabilityInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutAvailabilityInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutAvailabilityInput)) }
 
 
 {-| Type for the UserUpdateManyWithoutAvailabilityInput input object.
@@ -1444,7 +1138,7 @@ type UserUpdateManyWithoutAvailabilityInput
 encodeUserUpdateManyWithoutAvailabilityInput : UserUpdateManyWithoutAvailabilityInput -> Value
 encodeUserUpdateManyWithoutAvailabilityInput (UserUpdateManyWithoutAvailabilityInput input) =
     Encode.maybeObject
-        [ ( "create", (encodeUserCreateWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeUserUpdateWithWhereUniqueWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.update ), ( "updateMany", (encodeUserUpdateManyWithWhereNestedInput |> Encode.list)  |> Encode.optional input.updateMany ), ( "deleteMany", (encodeUserScalarWhereInput |> Encode.list)  |> Encode.optional input.deleteMany ), ( "upsert", (encodeUserUpsertWithWhereUniqueWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.upsert ) ]
+        [ ( "create", (encodeUserCreateWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeUserUpdateWithWhereUniqueWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.update ), ( "upsert", (encodeUserUpsertWithWhereUniqueWithoutAvailabilityInput |> Encode.list)  |> Encode.optional input.upsert ) ]
 
 
 buildUserUpdateManyWithoutInterestsInput : (UserUpdateManyWithoutInterestsInputOptionalFields -> UserUpdateManyWithoutInterestsInputOptionalFields) -> UserUpdateManyWithoutInterestsInput
@@ -1454,13 +1148,13 @@ buildUserUpdateManyWithoutInterestsInput fillOptionals =
         optionals =
             
             fillOptionals
-                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, updateMany = Absent, deleteMany = Absent, upsert = Absent }
+                { create = Absent, connect = Absent, disconnect = Absent, delete = Absent, update = Absent, upsert = Absent }
     in
-    UserUpdateManyWithoutInterestsInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, updateMany = optionals.updateMany, deleteMany = optionals.deleteMany, upsert = optionals.upsert }
+    UserUpdateManyWithoutInterestsInput{ create = optionals.create, connect = optionals.connect, disconnect = optionals.disconnect, delete = optionals.delete, update = optionals.update, upsert = optionals.upsert }
 
 
 type alias UserUpdateManyWithoutInterestsInputOptionalFields =
-    { create : (OptionalArgument (List UserCreateWithoutInterestsInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutInterestsInput)), updateMany : (OptionalArgument (List UserUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List UserScalarWhereInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutInterestsInput)) }
+    { create : (OptionalArgument (List UserCreateWithoutInterestsInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutInterestsInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutInterestsInput)) }
 
 
 {-| Type alias for the `UserUpdateManyWithoutInterestsInput` attributes. Note that this type
@@ -1469,7 +1163,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias UserUpdateManyWithoutInterestsInputRaw =
-    { create : (OptionalArgument (List UserCreateWithoutInterestsInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutInterestsInput)), updateMany : (OptionalArgument (List UserUpdateManyWithWhereNestedInput)), deleteMany : (OptionalArgument (List UserScalarWhereInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutInterestsInput)) }
+    { create : (OptionalArgument (List UserCreateWithoutInterestsInput)), connect : (OptionalArgument (List UserWhereUniqueInput)), disconnect : (OptionalArgument (List UserWhereUniqueInput)), delete : (OptionalArgument (List UserWhereUniqueInput)), update : (OptionalArgument (List UserUpdateWithWhereUniqueWithoutInterestsInput)), upsert : (OptionalArgument (List UserUpsertWithWhereUniqueWithoutInterestsInput)) }
 
 
 {-| Type for the UserUpdateManyWithoutInterestsInput input object.
@@ -1483,7 +1177,7 @@ type UserUpdateManyWithoutInterestsInput
 encodeUserUpdateManyWithoutInterestsInput : UserUpdateManyWithoutInterestsInput -> Value
 encodeUserUpdateManyWithoutInterestsInput (UserUpdateManyWithoutInterestsInput input) =
     Encode.maybeObject
-        [ ( "create", (encodeUserCreateWithoutInterestsInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeUserUpdateWithWhereUniqueWithoutInterestsInput |> Encode.list)  |> Encode.optional input.update ), ( "updateMany", (encodeUserUpdateManyWithWhereNestedInput |> Encode.list)  |> Encode.optional input.updateMany ), ( "deleteMany", (encodeUserScalarWhereInput |> Encode.list)  |> Encode.optional input.deleteMany ), ( "upsert", (encodeUserUpsertWithWhereUniqueWithoutInterestsInput |> Encode.list)  |> Encode.optional input.upsert ) ]
+        [ ( "create", (encodeUserCreateWithoutInterestsInput |> Encode.list)  |> Encode.optional input.create ), ( "connect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.connect ), ( "disconnect", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.disconnect ), ( "delete", (encodeUserWhereUniqueInput |> Encode.list)  |> Encode.optional input.delete ), ( "update", (encodeUserUpdateWithWhereUniqueWithoutInterestsInput |> Encode.list)  |> Encode.optional input.update ), ( "upsert", (encodeUserUpsertWithWhereUniqueWithoutInterestsInput |> Encode.list)  |> Encode.optional input.upsert ) ]
 
 
 buildUserUpdateWithWhereUniqueWithoutAvailabilityInput : UserUpdateWithWhereUniqueWithoutAvailabilityInputRequiredFields -> UserUpdateWithWhereUniqueWithoutAvailabilityInput
