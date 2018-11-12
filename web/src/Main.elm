@@ -174,7 +174,7 @@ slotConfirmationsView userInterests timeSlots =
 
 slotConfirmationView slotsData =
     Element.column [ Element.spacing 10 ]
-        [ Element.text "Your friends are waiting... Please confirm your seat!"
+        [ Element.text "Your friends are waiting... Please confirm your seat! ✅"
         , slotsData
             |> List.map slotView
             |> Element.column [ Element.spacing 10 ]
