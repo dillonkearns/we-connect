@@ -126,8 +126,10 @@ mainView model =
                     in
                     Element.row [ Element.spacing 20 ]
                         [ interestsView allInterests userInterests
-                        , timeSlotsView timeSlots
-                        , slotConfirmationsView userInterests model.matches
+                        , timeSlotsOrConfirmation timeSlots userInterests model.matches
+
+                        -- , timeSlotsView timeSlots
+                        -- , slotConfirmationsView userInterests model.matches
                         ]
 
                 RemoteData.Loading ->
@@ -137,6 +139,23 @@ mainView model =
                     status
                         |> Debug.toString
                         |> Element.text
+
+
+timeSlotsOrConfirmation timeSlots userInterests matches =
+    case matches of
+        RemoteData.Success matchData ->
+            if List.length matchData > 0 then
+                slotConfirmationView (Request.TimeSlot.userInterestsToSlotCounts userInterests matchData)
+
+            else
+                timeSlotsView timeSlots
+
+        _ ->
+            timeSlotsView timeSlots
+
+
+
+-- , slotConfirmationsView userInterests model.matches
 
 
 slotConfirmationsView userInterests timeSlots =
