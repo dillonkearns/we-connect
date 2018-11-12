@@ -59,14 +59,14 @@ getUserInterests username =
             }
         }
         interestsSelection
-        |> Field.nonNullOrFail
+        |> Field.map (Maybe.withDefault [])
         |> fieldSelection
 
 
 interestsSelection : SelectionSet (List String) Api.Object.User
 interestsSelection =
     Api.Object.User.interests identity interestNameSelection
-        |> Field.nonNullOrFail
+        |> Field.map (Maybe.withDefault [])
         |> fieldSelection
 
 
@@ -99,7 +99,7 @@ addInterest username interest =
         , where_ = { id = Absent, name = Present username }
         }
         interestsSelection
-        |> Field.nonNullOrFail
+        |> Field.map (Maybe.withDefault [])
         |> fieldSelection
 
 
