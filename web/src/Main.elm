@@ -85,7 +85,10 @@ view : Model -> Document Msg
 view model =
     { title = "WeConnect"
     , body =
-        [ Element.layout [ Element.padding 30 ]
+        [ Element.layout
+            [ Element.padding 30
+            , Element.Background.image "assets/bg2-darkest.jpg"
+            ]
             (Element.column [ Element.spacing 20 ]
                 [ View.Navbar.view (getUsername model.username)
                 , mainView model
