@@ -76,10 +76,7 @@ init flags =
             Cmd.none
 
           else
-            Cmd.batch
-                [ createUser flags.username
-                , getTimeSlots Nothing
-                ]
+            initialStuff username
         ]
     )
 
@@ -229,6 +226,15 @@ button content =
             ]
 
 
+initialStuff username =
+    Cmd.batch
+        [ createUser (getUsername username)
+        , getUserInterests (getUsername username)
+        , getMatches (getUsername username)
+        , getTimeSlots (getUsername username |> Just)
+        ]
+
+
 update : Msg -> Model -> ( Model, Cmd Msg )
 update msg model =
     case msg of
@@ -237,12 +243,7 @@ update msg model =
 
         SetUsername ->
             ( { model | username = setUsername model.username }
-            , Cmd.batch
-                [ createUser (getUsername model.username)
-                , getUserInterests (getUsername model.username)
-                , getMatches (getUsername model.username)
-                , getTimeSlots (getUsername model.username |> Just)
-                ]
+            , initialStuff model.username
             )
 
         NoOp _ ->
