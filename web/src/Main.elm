@@ -162,13 +162,20 @@ slotConfirmationView slotsData =
         ]
 
 
-
--- |> Debug.toString
--- |> Element.text
-
-
 slotView slotData =
-    slotData.time
+    let
+        best =
+            slotData.things
+                |> List.sortBy .count
+                |> List.head
+                |> Maybe.withDefault { interest = "", count = -1 }
+    in
+    best.interest
+        ++ ", "
+        ++ slotData.time
+        -- ++ " ("
+        -- ++ String.fromInt best.count
+        -- ++ " so far)"
         |> Element.text
         |> button
 
