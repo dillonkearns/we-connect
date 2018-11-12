@@ -6,6 +6,7 @@ import Element exposing (Element)
 import Element.Background
 import Element.Border
 import Element.Events
+import Element.Font
 import Element.Input
 import Graphql.Http
 import Html
@@ -87,7 +88,7 @@ view model =
     , body =
         [ Element.layout
             [ Element.padding 30
-            , Element.Background.image "assets/bg2-darkest.jpg"
+            , Element.Background.image "assets/bg2-darkest2.jpg"
             ]
             (Element.column [ Element.spacing 20 ]
                 [ View.Navbar.view (getUsername model.username)
@@ -266,6 +267,8 @@ button content =
             [ Element.Border.width 2
             , Element.padding 10
             , Element.Border.rounded 5
+            , Element.Font.bold
+            , Element.Font.size 28
             , Element.Background.color (Element.rgba255 0 200 200 1)
             , Element.pointer
             , Element.mouseOver
