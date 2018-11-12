@@ -260,13 +260,13 @@ interestButton userInterests interest =
         , Element.spaceEvenly
         ]
         (if List.member interest.name userInterests then
-            [ View.FontAwesome.icon "fas fa-dumbbell" |> Element.el []
+            [ View.FontAwesome.icon interest.icon |> Element.el []
             , Element.text interest.name
             , Element.text "✔"
             ]
 
          else
-            [ View.FontAwesome.icon "fas fa-dumbbell" |> Element.el []
+            [ View.FontAwesome.icon interest.icon |> Element.el []
             , Element.text interest.name
             , Element.text " "
             ]

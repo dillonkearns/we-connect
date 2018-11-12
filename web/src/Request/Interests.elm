@@ -25,6 +25,7 @@ createUser username =
 
 type alias Interest =
     { name : String
+    , icon : String
     , interestedCount : Int
     }
 
@@ -40,6 +41,7 @@ interestSelection : SelectionSet Interest Api.Object.Interest
 interestSelection =
     Api.Object.Interest.selection Interest
         |> with Api.Object.Interest.name
+        |> with Api.Object.Interest.icon
         |> with interestedUserCountSelection
 
 

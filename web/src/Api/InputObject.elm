@@ -29,10 +29,10 @@ buildInterestCreateInput required fillOptionals =
             fillOptionals
                 { interestedUsers = Absent }
     in
-    InterestCreateInput{ name = required.name, interestedUsers = optionals.interestedUsers }
+    InterestCreateInput{ icon = required.icon, name = required.name, interestedUsers = optionals.interestedUsers }
 
 type alias InterestCreateInputRequiredFields =
-    { name : String }
+    { icon : String, name : String }
 type alias InterestCreateInputOptionalFields =
     { interestedUsers : (OptionalArgument UserCreateManyWithoutInterestsInput) }
 
@@ -43,7 +43,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias InterestCreateInputRaw =
-    { name : String, interestedUsers : (OptionalArgument UserCreateManyWithoutInterestsInput) }
+    { icon : String, name : String, interestedUsers : (OptionalArgument UserCreateManyWithoutInterestsInput) }
 
 
 {-| Type for the InterestCreateInput input object.
@@ -57,7 +57,7 @@ type InterestCreateInput
 encodeInterestCreateInput : InterestCreateInput -> Value
 encodeInterestCreateInput (InterestCreateInput input) =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  input.name |> Just ), ( "interestedUsers", (encodeUserCreateManyWithoutInterestsInput)  |> Encode.optional input.interestedUsers ) ]
+        [ ( "icon", (Encode.string)  input.icon |> Just ), ( "name", (Encode.string)  input.name |> Just ), ( "interestedUsers", (encodeUserCreateManyWithoutInterestsInput)  |> Encode.optional input.interestedUsers ) ]
 
 
 buildInterestCreateManyWithoutInterestedUsersInput : (InterestCreateManyWithoutInterestedUsersInputOptionalFields -> InterestCreateManyWithoutInterestedUsersInputOptionalFields) -> InterestCreateManyWithoutInterestedUsersInput
@@ -93,17 +93,17 @@ encodeInterestCreateManyWithoutInterestedUsersInput input =
 buildInterestCreateWithoutInterestedUsersInput : InterestCreateWithoutInterestedUsersInputRequiredFields -> InterestCreateWithoutInterestedUsersInput
 buildInterestCreateWithoutInterestedUsersInput required =
 
-    { name = required.name }
+    { icon = required.icon, name = required.name }
 
 type alias InterestCreateWithoutInterestedUsersInputRequiredFields =
-    { name : String }
+    { icon : String, name : String }
 
 
 
 {-| Type for the InterestCreateWithoutInterestedUsersInput input object.
 -}
 type alias InterestCreateWithoutInterestedUsersInput =
-    { name : String }
+    { icon : String, name : String }
     
 
 {-| Encode a InterestCreateWithoutInterestedUsersInput into a value that can be used as an argument.
@@ -111,7 +111,7 @@ type alias InterestCreateWithoutInterestedUsersInput =
 encodeInterestCreateWithoutInterestedUsersInput : InterestCreateWithoutInterestedUsersInput -> Value
 encodeInterestCreateWithoutInterestedUsersInput input =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  input.name |> Just ) ]
+        [ ( "icon", (Encode.string)  input.icon |> Just ), ( "name", (Encode.string)  input.name |> Just ) ]
 
 
 buildInterestSubscriptionWhereInput : (InterestSubscriptionWhereInputOptionalFields -> InterestSubscriptionWhereInputOptionalFields) -> InterestSubscriptionWhereInput
@@ -160,13 +160,13 @@ buildInterestUpdateInput fillOptionals =
         optionals =
             
             fillOptionals
-                { name = Absent, interestedUsers = Absent }
+                { icon = Absent, name = Absent, interestedUsers = Absent }
     in
-    InterestUpdateInput{ name = optionals.name, interestedUsers = optionals.interestedUsers }
+    InterestUpdateInput{ icon = optionals.icon, name = optionals.name, interestedUsers = optionals.interestedUsers }
 
 
 type alias InterestUpdateInputOptionalFields =
-    { name : (OptionalArgument String), interestedUsers : (OptionalArgument UserUpdateManyWithoutInterestsInput) }
+    { icon : (OptionalArgument String), name : (OptionalArgument String), interestedUsers : (OptionalArgument UserUpdateManyWithoutInterestsInput) }
 
 
 {-| Type alias for the `InterestUpdateInput` attributes. Note that this type
@@ -175,7 +175,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias InterestUpdateInputRaw =
-    { name : (OptionalArgument String), interestedUsers : (OptionalArgument UserUpdateManyWithoutInterestsInput) }
+    { icon : (OptionalArgument String), name : (OptionalArgument String), interestedUsers : (OptionalArgument UserUpdateManyWithoutInterestsInput) }
 
 
 {-| Type for the InterestUpdateInput input object.
@@ -189,7 +189,7 @@ type InterestUpdateInput
 encodeInterestUpdateInput : InterestUpdateInput -> Value
 encodeInterestUpdateInput (InterestUpdateInput input) =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  |> Encode.optional input.name ), ( "interestedUsers", (encodeUserUpdateManyWithoutInterestsInput)  |> Encode.optional input.interestedUsers ) ]
+        [ ( "icon", (Encode.string)  |> Encode.optional input.icon ), ( "name", (Encode.string)  |> Encode.optional input.name ), ( "interestedUsers", (encodeUserUpdateManyWithoutInterestsInput)  |> Encode.optional input.interestedUsers ) ]
 
 
 buildInterestUpdateManyMutationInput : (InterestUpdateManyMutationInputOptionalFields -> InterestUpdateManyMutationInputOptionalFields) -> InterestUpdateManyMutationInput
@@ -199,19 +199,19 @@ buildInterestUpdateManyMutationInput fillOptionals =
         optionals =
             
             fillOptionals
-                { name = Absent }
+                { icon = Absent, name = Absent }
     in
-    { name = optionals.name }
+    { icon = optionals.icon, name = optionals.name }
 
 
 type alias InterestUpdateManyMutationInputOptionalFields =
-    { name : (OptionalArgument String) }
+    { icon : (OptionalArgument String), name : (OptionalArgument String) }
 
 
 {-| Type for the InterestUpdateManyMutationInput input object.
 -}
 type alias InterestUpdateManyMutationInput =
-    { name : (OptionalArgument String) }
+    { icon : (OptionalArgument String), name : (OptionalArgument String) }
     
 
 {-| Encode a InterestUpdateManyMutationInput into a value that can be used as an argument.
@@ -219,7 +219,7 @@ type alias InterestUpdateManyMutationInput =
 encodeInterestUpdateManyMutationInput : InterestUpdateManyMutationInput -> Value
 encodeInterestUpdateManyMutationInput input =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  |> Encode.optional input.name ) ]
+        [ ( "icon", (Encode.string)  |> Encode.optional input.icon ), ( "name", (Encode.string)  |> Encode.optional input.name ) ]
 
 
 buildInterestUpdateManyWithoutInterestedUsersInput : (InterestUpdateManyWithoutInterestedUsersInputOptionalFields -> InterestUpdateManyWithoutInterestedUsersInputOptionalFields) -> InterestUpdateManyWithoutInterestedUsersInput
@@ -292,19 +292,19 @@ buildInterestUpdateWithoutInterestedUsersDataInput fillOptionals =
         optionals =
             
             fillOptionals
-                { name = Absent }
+                { icon = Absent, name = Absent }
     in
-    { name = optionals.name }
+    { icon = optionals.icon, name = optionals.name }
 
 
 type alias InterestUpdateWithoutInterestedUsersDataInputOptionalFields =
-    { name : (OptionalArgument String) }
+    { icon : (OptionalArgument String), name : (OptionalArgument String) }
 
 
 {-| Type for the InterestUpdateWithoutInterestedUsersDataInput input object.
 -}
 type alias InterestUpdateWithoutInterestedUsersDataInput =
-    { name : (OptionalArgument String) }
+    { icon : (OptionalArgument String), name : (OptionalArgument String) }
     
 
 {-| Encode a InterestUpdateWithoutInterestedUsersDataInput into a value that can be used as an argument.
@@ -312,7 +312,7 @@ type alias InterestUpdateWithoutInterestedUsersDataInput =
 encodeInterestUpdateWithoutInterestedUsersDataInput : InterestUpdateWithoutInterestedUsersDataInput -> Value
 encodeInterestUpdateWithoutInterestedUsersDataInput input =
     Encode.maybeObject
-        [ ( "name", (Encode.string)  |> Encode.optional input.name ) ]
+        [ ( "icon", (Encode.string)  |> Encode.optional input.icon ), ( "name", (Encode.string)  |> Encode.optional input.name ) ]
 
 
 buildInterestUpsertWithWhereUniqueWithoutInterestedUsersInput : InterestUpsertWithWhereUniqueWithoutInterestedUsersInputRequiredFields -> InterestUpsertWithWhereUniqueWithoutInterestedUsersInput
@@ -346,13 +346,13 @@ buildInterestWhereInput fillOptionals =
         optionals =
             
             fillOptionals
-                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, name = Absent, name_not = Absent, name_in = Absent, name_not_in = Absent, name_lt = Absent, name_lte = Absent, name_gt = Absent, name_gte = Absent, name_contains = Absent, name_not_contains = Absent, name_starts_with = Absent, name_not_starts_with = Absent, name_ends_with = Absent, name_not_ends_with = Absent, interestedUsers_every = Absent, interestedUsers_some = Absent, interestedUsers_none = Absent }
+                { and = Absent, or = Absent, not = Absent, id = Absent, id_not = Absent, id_in = Absent, id_not_in = Absent, id_lt = Absent, id_lte = Absent, id_gt = Absent, id_gte = Absent, id_contains = Absent, id_not_contains = Absent, id_starts_with = Absent, id_not_starts_with = Absent, id_ends_with = Absent, id_not_ends_with = Absent, icon = Absent, icon_not = Absent, icon_in = Absent, icon_not_in = Absent, icon_lt = Absent, icon_lte = Absent, icon_gt = Absent, icon_gte = Absent, icon_contains = Absent, icon_not_contains = Absent, icon_starts_with = Absent, icon_not_starts_with = Absent, icon_ends_with = Absent, icon_not_ends_with = Absent, name = Absent, name_not = Absent, name_in = Absent, name_not_in = Absent, name_lt = Absent, name_lte = Absent, name_gt = Absent, name_gte = Absent, name_contains = Absent, name_not_contains = Absent, name_starts_with = Absent, name_not_starts_with = Absent, name_ends_with = Absent, name_not_ends_with = Absent, interestedUsers_every = Absent, interestedUsers_some = Absent, interestedUsers_none = Absent }
     in
-    InterestWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, name = optionals.name, name_not = optionals.name_not, name_in = optionals.name_in, name_not_in = optionals.name_not_in, name_lt = optionals.name_lt, name_lte = optionals.name_lte, name_gt = optionals.name_gt, name_gte = optionals.name_gte, name_contains = optionals.name_contains, name_not_contains = optionals.name_not_contains, name_starts_with = optionals.name_starts_with, name_not_starts_with = optionals.name_not_starts_with, name_ends_with = optionals.name_ends_with, name_not_ends_with = optionals.name_not_ends_with, interestedUsers_every = optionals.interestedUsers_every, interestedUsers_some = optionals.interestedUsers_some, interestedUsers_none = optionals.interestedUsers_none }
+    InterestWhereInput{ and = optionals.and, or = optionals.or, not = optionals.not, id = optionals.id, id_not = optionals.id_not, id_in = optionals.id_in, id_not_in = optionals.id_not_in, id_lt = optionals.id_lt, id_lte = optionals.id_lte, id_gt = optionals.id_gt, id_gte = optionals.id_gte, id_contains = optionals.id_contains, id_not_contains = optionals.id_not_contains, id_starts_with = optionals.id_starts_with, id_not_starts_with = optionals.id_not_starts_with, id_ends_with = optionals.id_ends_with, id_not_ends_with = optionals.id_not_ends_with, icon = optionals.icon, icon_not = optionals.icon_not, icon_in = optionals.icon_in, icon_not_in = optionals.icon_not_in, icon_lt = optionals.icon_lt, icon_lte = optionals.icon_lte, icon_gt = optionals.icon_gt, icon_gte = optionals.icon_gte, icon_contains = optionals.icon_contains, icon_not_contains = optionals.icon_not_contains, icon_starts_with = optionals.icon_starts_with, icon_not_starts_with = optionals.icon_not_starts_with, icon_ends_with = optionals.icon_ends_with, icon_not_ends_with = optionals.icon_not_ends_with, name = optionals.name, name_not = optionals.name_not, name_in = optionals.name_in, name_not_in = optionals.name_not_in, name_lt = optionals.name_lt, name_lte = optionals.name_lte, name_gt = optionals.name_gt, name_gte = optionals.name_gte, name_contains = optionals.name_contains, name_not_contains = optionals.name_not_contains, name_starts_with = optionals.name_starts_with, name_not_starts_with = optionals.name_not_starts_with, name_ends_with = optionals.name_ends_with, name_not_ends_with = optionals.name_not_ends_with, interestedUsers_every = optionals.interestedUsers_every, interestedUsers_some = optionals.interestedUsers_some, interestedUsers_none = optionals.interestedUsers_none }
 
 
 type alias InterestWhereInputOptionalFields =
-    { and : (OptionalArgument (List InterestWhereInput)), or : (OptionalArgument (List InterestWhereInput)), not : (OptionalArgument (List InterestWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interestedUsers_every : (OptionalArgument UserWhereInput), interestedUsers_some : (OptionalArgument UserWhereInput), interestedUsers_none : (OptionalArgument UserWhereInput) }
+    { and : (OptionalArgument (List InterestWhereInput)), or : (OptionalArgument (List InterestWhereInput)), not : (OptionalArgument (List InterestWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), icon : (OptionalArgument String), icon_not : (OptionalArgument String), icon_in : (OptionalArgument (List String)), icon_not_in : (OptionalArgument (List String)), icon_lt : (OptionalArgument String), icon_lte : (OptionalArgument String), icon_gt : (OptionalArgument String), icon_gte : (OptionalArgument String), icon_contains : (OptionalArgument String), icon_not_contains : (OptionalArgument String), icon_starts_with : (OptionalArgument String), icon_not_starts_with : (OptionalArgument String), icon_ends_with : (OptionalArgument String), icon_not_ends_with : (OptionalArgument String), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interestedUsers_every : (OptionalArgument UserWhereInput), interestedUsers_some : (OptionalArgument UserWhereInput), interestedUsers_none : (OptionalArgument UserWhereInput) }
 
 
 {-| Type alias for the `InterestWhereInput` attributes. Note that this type
@@ -361,7 +361,7 @@ references to itself either directly (recursive) or indirectly (circular). See
 <https://github.com/dillonkearns/elm-graphql/issues/33>.
 -}
 type alias InterestWhereInputRaw =
-    { and : (OptionalArgument (List InterestWhereInput)), or : (OptionalArgument (List InterestWhereInput)), not : (OptionalArgument (List InterestWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interestedUsers_every : (OptionalArgument UserWhereInput), interestedUsers_some : (OptionalArgument UserWhereInput), interestedUsers_none : (OptionalArgument UserWhereInput) }
+    { and : (OptionalArgument (List InterestWhereInput)), or : (OptionalArgument (List InterestWhereInput)), not : (OptionalArgument (List InterestWhereInput)), id : (OptionalArgument Api.Scalar.Id), id_not : (OptionalArgument Api.Scalar.Id), id_in : (OptionalArgument (List Api.Scalar.Id)), id_not_in : (OptionalArgument (List Api.Scalar.Id)), id_lt : (OptionalArgument Api.Scalar.Id), id_lte : (OptionalArgument Api.Scalar.Id), id_gt : (OptionalArgument Api.Scalar.Id), id_gte : (OptionalArgument Api.Scalar.Id), id_contains : (OptionalArgument Api.Scalar.Id), id_not_contains : (OptionalArgument Api.Scalar.Id), id_starts_with : (OptionalArgument Api.Scalar.Id), id_not_starts_with : (OptionalArgument Api.Scalar.Id), id_ends_with : (OptionalArgument Api.Scalar.Id), id_not_ends_with : (OptionalArgument Api.Scalar.Id), icon : (OptionalArgument String), icon_not : (OptionalArgument String), icon_in : (OptionalArgument (List String)), icon_not_in : (OptionalArgument (List String)), icon_lt : (OptionalArgument String), icon_lte : (OptionalArgument String), icon_gt : (OptionalArgument String), icon_gte : (OptionalArgument String), icon_contains : (OptionalArgument String), icon_not_contains : (OptionalArgument String), icon_starts_with : (OptionalArgument String), icon_not_starts_with : (OptionalArgument String), icon_ends_with : (OptionalArgument String), icon_not_ends_with : (OptionalArgument String), name : (OptionalArgument String), name_not : (OptionalArgument String), name_in : (OptionalArgument (List String)), name_not_in : (OptionalArgument (List String)), name_lt : (OptionalArgument String), name_lte : (OptionalArgument String), name_gt : (OptionalArgument String), name_gte : (OptionalArgument String), name_contains : (OptionalArgument String), name_not_contains : (OptionalArgument String), name_starts_with : (OptionalArgument String), name_not_starts_with : (OptionalArgument String), name_ends_with : (OptionalArgument String), name_not_ends_with : (OptionalArgument String), interestedUsers_every : (OptionalArgument UserWhereInput), interestedUsers_some : (OptionalArgument UserWhereInput), interestedUsers_none : (OptionalArgument UserWhereInput) }
 
 
 {-| Type for the InterestWhereInput input object.
@@ -375,7 +375,7 @@ type InterestWhereInput
 encodeInterestWhereInput : InterestWhereInput -> Value
 encodeInterestWhereInput (InterestWhereInput input) =
     Encode.maybeObject
-        [ ( "AND", (encodeInterestWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeInterestWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeInterestWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "name", (Encode.string)  |> Encode.optional input.name ), ( "name_not", (Encode.string)  |> Encode.optional input.name_not ), ( "name_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_in ), ( "name_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_not_in ), ( "name_lt", (Encode.string)  |> Encode.optional input.name_lt ), ( "name_lte", (Encode.string)  |> Encode.optional input.name_lte ), ( "name_gt", (Encode.string)  |> Encode.optional input.name_gt ), ( "name_gte", (Encode.string)  |> Encode.optional input.name_gte ), ( "name_contains", (Encode.string)  |> Encode.optional input.name_contains ), ( "name_not_contains", (Encode.string)  |> Encode.optional input.name_not_contains ), ( "name_starts_with", (Encode.string)  |> Encode.optional input.name_starts_with ), ( "name_not_starts_with", (Encode.string)  |> Encode.optional input.name_not_starts_with ), ( "name_ends_with", (Encode.string)  |> Encode.optional input.name_ends_with ), ( "name_not_ends_with", (Encode.string)  |> Encode.optional input.name_not_ends_with ), ( "interestedUsers_every", (encodeUserWhereInput)  |> Encode.optional input.interestedUsers_every ), ( "interestedUsers_some", (encodeUserWhereInput)  |> Encode.optional input.interestedUsers_some ), ( "interestedUsers_none", (encodeUserWhereInput)  |> Encode.optional input.interestedUsers_none ) ]
+        [ ( "AND", (encodeInterestWhereInput |> Encode.list)  |> Encode.optional input.and ), ( "OR", (encodeInterestWhereInput |> Encode.list)  |> Encode.optional input.or ), ( "NOT", (encodeInterestWhereInput |> Encode.list)  |> Encode.optional input.not ), ( "id", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id ), ( "id_not", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not ), ( "id_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_in ), ( "id_not_in", ((\(Api.Scalar.Id raw) -> Encode.string raw) |> Encode.list)  |> Encode.optional input.id_not_in ), ( "id_lt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lt ), ( "id_lte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_lte ), ( "id_gt", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gt ), ( "id_gte", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_gte ), ( "id_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_contains ), ( "id_not_contains", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_contains ), ( "id_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_starts_with ), ( "id_not_starts_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_starts_with ), ( "id_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_ends_with ), ( "id_not_ends_with", ((\(Api.Scalar.Id raw) -> Encode.string raw))  |> Encode.optional input.id_not_ends_with ), ( "icon", (Encode.string)  |> Encode.optional input.icon ), ( "icon_not", (Encode.string)  |> Encode.optional input.icon_not ), ( "icon_in", (Encode.string |> Encode.list)  |> Encode.optional input.icon_in ), ( "icon_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.icon_not_in ), ( "icon_lt", (Encode.string)  |> Encode.optional input.icon_lt ), ( "icon_lte", (Encode.string)  |> Encode.optional input.icon_lte ), ( "icon_gt", (Encode.string)  |> Encode.optional input.icon_gt ), ( "icon_gte", (Encode.string)  |> Encode.optional input.icon_gte ), ( "icon_contains", (Encode.string)  |> Encode.optional input.icon_contains ), ( "icon_not_contains", (Encode.string)  |> Encode.optional input.icon_not_contains ), ( "icon_starts_with", (Encode.string)  |> Encode.optional input.icon_starts_with ), ( "icon_not_starts_with", (Encode.string)  |> Encode.optional input.icon_not_starts_with ), ( "icon_ends_with", (Encode.string)  |> Encode.optional input.icon_ends_with ), ( "icon_not_ends_with", (Encode.string)  |> Encode.optional input.icon_not_ends_with ), ( "name", (Encode.string)  |> Encode.optional input.name ), ( "name_not", (Encode.string)  |> Encode.optional input.name_not ), ( "name_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_in ), ( "name_not_in", (Encode.string |> Encode.list)  |> Encode.optional input.name_not_in ), ( "name_lt", (Encode.string)  |> Encode.optional input.name_lt ), ( "name_lte", (Encode.string)  |> Encode.optional input.name_lte ), ( "name_gt", (Encode.string)  |> Encode.optional input.name_gt ), ( "name_gte", (Encode.string)  |> Encode.optional input.name_gte ), ( "name_contains", (Encode.string)  |> Encode.optional input.name_contains ), ( "name_not_contains", (Encode.string)  |> Encode.optional input.name_not_contains ), ( "name_starts_with", (Encode.string)  |> Encode.optional input.name_starts_with ), ( "name_not_starts_with", (Encode.string)  |> Encode.optional input.name_not_starts_with ), ( "name_ends_with", (Encode.string)  |> Encode.optional input.name_ends_with ), ( "name_not_ends_with", (Encode.string)  |> Encode.optional input.name_not_ends_with ), ( "interestedUsers_every", (encodeUserWhereInput)  |> Encode.optional input.interestedUsers_every ), ( "interestedUsers_some", (encodeUserWhereInput)  |> Encode.optional input.interestedUsers_some ), ( "interestedUsers_none", (encodeUserWhereInput)  |> Encode.optional input.interestedUsers_none ) ]
 
 
 buildInterestWhereUniqueInput : (InterestWhereUniqueInputOptionalFields -> InterestWhereUniqueInputOptionalFields) -> InterestWhereUniqueInput

@@ -8,6 +8,8 @@ import Json.Decode as Decode exposing (Decoder)
 type InterestOrderByInput
     = Id_ASC
     | Id_DESC
+    | Icon_ASC
+    | Icon_DESC
     | Name_ASC
     | Name_DESC
     | UpdatedAt_ASC
@@ -16,7 +18,7 @@ type InterestOrderByInput
     | CreatedAt_DESC
 list : List InterestOrderByInput
 list =
-    [Id_ASC, Id_DESC, Name_ASC, Name_DESC, UpdatedAt_ASC, UpdatedAt_DESC, CreatedAt_ASC, CreatedAt_DESC]
+    [Id_ASC, Id_DESC, Icon_ASC, Icon_DESC, Name_ASC, Name_DESC, UpdatedAt_ASC, UpdatedAt_DESC, CreatedAt_ASC, CreatedAt_DESC]
 decoder : Decoder InterestOrderByInput
 decoder =
     Decode.string
@@ -28,6 +30,12 @@ decoder =
 
                     "id_DESC" ->
                         Decode.succeed Id_DESC
+
+                    "icon_ASC" ->
+                        Decode.succeed Icon_ASC
+
+                    "icon_DESC" ->
+                        Decode.succeed Icon_DESC
 
                     "name_ASC" ->
                         Decode.succeed Name_ASC
@@ -63,6 +71,14 @@ toString enum =
 
         Id_DESC ->
                 "id_DESC"
+
+
+        Icon_ASC ->
+                "icon_ASC"
+
+
+        Icon_DESC ->
+                "icon_DESC"
 
 
         Name_ASC ->

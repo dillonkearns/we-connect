@@ -28,6 +28,11 @@ id =
       Object.fieldDecoder "id" [] (Object.scalarDecoder |> Decode.map Api.Scalar.Id)
 
 
+icon : Field String Api.Object.InterestPreviousValues
+icon =
+      Object.fieldDecoder "icon" [] (Decode.string)
+
+
 name : Field String Api.Object.InterestPreviousValues
 name =
       Object.fieldDecoder "name" [] (Decode.string)
