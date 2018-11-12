@@ -145,12 +145,32 @@ slotCountsView userInterests timeSlots =
         timeSlots
     of
         RemoteData.Success success ->
-            Request.TimeSlot.userInterestsToSlotCounts userInterests success
-                |> Debug.toString
-                |> Element.text
+            slotsView (Request.TimeSlot.userInterestsToSlotCounts userInterests success)
 
+        -- |> Debug.toString
+        -- |> Element.text
         _ ->
             Element.text "..."
+
+
+slotsView slotsData =
+    Element.column [ Element.spacing 10 ]
+        [ Element.text "Your friends are waiting... Please confirm your seat!"
+        , slotsData
+            |> List.map slotView
+            |> Element.column [ Element.spacing 10 ]
+        ]
+
+
+
+-- |> Debug.toString
+-- |> Element.text
+
+
+slotView slotData =
+    slotData.time
+        |> Element.text
+        |> button
 
 
 timeSlotsView : List Request.TimeSlot.TimeSlot -> Element Msg
