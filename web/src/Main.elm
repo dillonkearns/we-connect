@@ -213,7 +213,11 @@ slotView slotData =
 
 timeSlotsView : List Request.TimeSlot.TimeSlot -> Element Msg
 timeSlotsView timeSlots =
-    Element.column [ Element.spacing 10 ]
+    Element.column
+        [ Element.spacing 10
+        , Element.width Element.fill
+        , Element.Font.center
+        ]
         (timeSlots |> List.map timeSlotView)
 
 
@@ -228,7 +232,10 @@ timeSlotView timeSlot =
         timeSlot.time
             |> Element.text
             |> button
-            |> Element.el [ Element.Events.onClick (SignupForTime timeSlot.time) ]
+            |> Element.el
+                [ Element.Events.onClick (SignupForTime timeSlot.time)
+                , Element.width Element.fill
+                ]
 
 
 usernameView username =
@@ -275,7 +282,7 @@ interestButton userInterests interest =
         |> button
         |> Element.el
             [ Element.Events.onClick (AddInterest interest.name)
-            , Element.width (Element.fill |> Element.maximum 500)
+            , Element.width Element.fill
             ]
 
 
@@ -283,7 +290,7 @@ button content =
     content
         |> Element.el
             [ Element.Border.width 2
-            , Element.width Element.fill
+            , Element.width (Element.fill |> Element.maximum 500)
             , Element.padding 10
             , Element.Border.rounded 5
             , Element.Font.bold
