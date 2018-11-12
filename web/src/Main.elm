@@ -254,27 +254,33 @@ interestsView allInterests userInterests =
 
 interestButton : List String -> Request.Interests.Interest -> Element Msg
 interestButton userInterests interest =
-    if List.member interest.name userInterests then
-        ("✔ " ++ interest.name)
-            |> Element.text
-            |> button
-            |> Element.el
-                []
+    Element.row
+        [ Element.spacing 20
+        , Element.width (Element.fill |> Element.maximum 100)
+        ]
+        (if List.member interest.name userInterests then
+            [ View.FontAwesome.icon "fas fa-dumbbell" |> Element.el []
+            , Element.text interest.name
+            , Element.text "✔" |> Element.el [ Element.alignRight ]
+            ]
 
-    else
-        Element.row [ Element.spacing 20 ]
-            [ View.FontAwesome.icon "fas fa-dumbbell"
+         else
+            [ View.FontAwesome.icon "fas fa-dumbbell" |> Element.el []
             , Element.text interest.name
             ]
-            |> button
-            |> Element.el
-                [ Element.Events.onClick (AddInterest interest.name) ]
+        )
+        |> button
+        |> Element.el
+            [ Element.Events.onClick (AddInterest interest.name)
+            , Element.width Element.fill
+            ]
 
 
 button content =
     content
         |> Element.el
             [ Element.Border.width 2
+            , Element.width Element.fill
             , Element.padding 10
             , Element.Border.rounded 5
             , Element.Font.bold
