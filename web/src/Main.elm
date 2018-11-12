@@ -127,7 +127,7 @@ mainView model =
                     Element.row [ Element.spacing 20 ]
                         [ interestsView allInterests userInterests
                         , timeSlotsView timeSlots
-                        , slotCountsView userInterests model.matches
+                        , slotConfirmationsView userInterests model.matches
                         ]
 
                 RemoteData.Loading ->
@@ -139,13 +139,13 @@ mainView model =
                         |> Element.text
 
 
-slotCountsView userInterests timeSlots =
+slotConfirmationsView userInterests timeSlots =
     -- slotCounts : List { time : String, things : List { interest : String, count : Int } }
     case
         timeSlots
     of
         RemoteData.Success success ->
-            slotsView (Request.TimeSlot.userInterestsToSlotCounts userInterests success)
+            slotConfirmationView (Request.TimeSlot.userInterestsToSlotCounts userInterests success)
 
         -- |> Debug.toString
         -- |> Element.text
@@ -153,7 +153,7 @@ slotCountsView userInterests timeSlots =
             Element.text "..."
 
 
-slotsView slotsData =
+slotConfirmationView slotsData =
     Element.column [ Element.spacing 10 ]
         [ Element.text "Your friends are waiting... Please confirm your seat!"
         , slotsData
