@@ -11,7 +11,14 @@ titleColor =
 
 
 view username =
-    [ Element.text "WeConnect"
+    [ Element.row [ Element.spacing 25 ]
+        [ Element.text "WeConnect"
+        , Element.text "Just Show Up"
+            |> Element.el
+                [ Element.Font.size 18
+                , Element.Font.color (Element.rgba255 255 255 255 0.85)
+                ]
+        ]
     , Element.text username
     ]
         |> Element.row
