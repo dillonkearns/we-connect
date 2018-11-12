@@ -257,6 +257,7 @@ interestsView allInterests userInterests =
         |> Element.column
             [ Element.spacing 10
             , Element.width Element.fill
+            , Element.centerX
             ]
 
 
@@ -290,7 +291,7 @@ button content =
     content
         |> Element.el
             [ Element.Border.width 2
-            , Element.width (Element.fill |> Element.maximum 500)
+            , Element.width (Element.fill |> Element.maximum 450)
             , Element.padding 10
             , Element.Border.rounded 5
             , Element.Font.bold
