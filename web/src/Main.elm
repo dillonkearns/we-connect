@@ -87,10 +87,10 @@ view model =
     { title = "WeConnect"
     , body =
         [ Element.layout
-            [ Element.padding 30
-            , Element.Background.image "assets/bg2-darkest2.jpg"
+            [ Element.Background.image "assets/bg2-darkest2.jpg"
+            , Element.width Element.fill
             ]
-            (Element.column [ Element.spacing 20 ]
+            (Element.column [ Element.spacing 20, Element.width Element.fill ]
                 [ View.Navbar.view (getUsername model.username)
                 , mainView model
                 ]
@@ -128,7 +128,10 @@ mainView model =
                             Request.TimeSlot.userInterestsToSlotCounts userInterests
                                 availabilities
                     in
-                    Element.row [ Element.spacing 20 ]
+                    Element.row
+                        [ Element.spacing 20
+                        , Element.padding 30
+                        ]
                         [ interestsView allInterests userInterests
                         , timeSlotsOrConfirmation timeSlots userInterests model.matches
 
