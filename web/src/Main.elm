@@ -174,8 +174,6 @@ slotConfirmationsView userInterests timeSlots =
         RemoteData.Success success ->
             slotConfirmationView (Request.TimeSlot.userInterestsToSlotCounts userInterests success)
 
-        -- |> Debug.toString
-        -- |> Element.text
         _ ->
             Element.text "..."
 
@@ -223,19 +221,21 @@ timeSlotsView timeSlots =
 
 timeSlotView : Request.TimeSlot.TimeSlot -> Element Msg
 timeSlotView timeSlot =
-    if timeSlot.userIsAvailable then
-        (timeSlot.time ++ " ✔")
-            |> Element.text
-            |> button
+    (if timeSlot.userIsAvailable then
+        Element.row [ Element.width Element.fill ]
+            [ Element.text timeSlot.time |> Element.el [ Element.centerX ]
+            , Element.text "✔" |> Element.el [ Element.alignRight ]
+            ]
 
-    else
-        timeSlot.time
-            |> Element.text
-            |> button
-            |> Element.el
-                [ Element.Events.onClick (SignupForTime timeSlot.time)
-                , Element.width Element.fill
-                ]
+     else
+        Element.text timeSlot.time
+    )
+        |> Element.el [ Element.width Element.fill ]
+        |> button
+        |> Element.el
+            [ Element.Events.onClick (SignupForTime timeSlot.time)
+            , Element.width Element.fill
+            ]
 
 
 usernameView username =
