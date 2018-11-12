@@ -11,17 +11,17 @@ titleColor =
 
 
 view username =
-    Element.text ("WeConnect - " ++ username)
-        |> Element.el
-            [ -- Element.Font.color titleColor
-              Element.Font.color (Element.rgba255 255 255 255 1.0)
+    [ Element.text "WeConnect"
+    , Element.text username
+    ]
+        |> Element.row
+            [ Element.Font.color (Element.rgba255 255 255 255 1.0)
             , Element.Font.bold
             , Element.Font.size 30
             , Element.Background.color (Element.rgba255 20 20 20 1.0)
-
-            -- , Element.Background.color (Element.rgba255 255 255 255 1.0)
             , Element.padding 25
             , Element.width Element.fill
+            , Element.spaceEvenly
             ]
 
 
