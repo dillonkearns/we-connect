@@ -243,12 +243,11 @@ interestsView allInterests userInterests =
 interestButton : List String -> Request.Interests.Interest -> Element Msg
 interestButton userInterests interest =
     if List.member interest.name userInterests then
-        ("✔ " ++ interest.name ++ " (" ++ String.fromInt interest.interestedCount ++ ")")
+        ("✔ " ++ interest.name)
             |> Element.text
             |> button
             |> Element.el
-                [-- Element.Events.onClick (AddInterest interest.name)
-                ]
+                []
 
     else
         interest.name
