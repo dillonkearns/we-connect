@@ -1,32 +1,52 @@
 mutation {
-  interest1: createInterest(data: { name: "Golfing" }) {
+  interest1: createInterest(
+    data: { name: "Golfing", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest2: createInterest(data: { name: "Surfing" }) {
+  interest2: createInterest(
+    data: { name: "Surfing", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest3: createInterest(data: { name: "Yoga" }) {
+  interest3: createInterest(
+    data: { name: "Yoga", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest4: createInterest(data: { name: "Movies" }) {
+  interest4: createInterest(
+    data: { name: "Movies", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest5: createInterest(data: { name: "Beach" }) {
+  interest5: createInterest(
+    data: { name: "Beach", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest6: createInterest(data: { name: "Partying" }) {
+  interest6: createInterest(
+    data: { name: "Partying", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest7: createInterest(data: { name: "Travel" }) {
+  interest7: createInterest(
+    data: { name: "Travel", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest8: createInterest(data: { name: "Shopping" }) {
+  interest8: createInterest(
+    data: { name: "Shopping", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest9: createInterest(data: { name: "Gym" }) {
+  interest9: createInterest(
+    data: { name: "Gym", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
-  interest10: createInterest(data: { name: "Restaurants" }) {
+  interest10: createInterest(
+    data: { name: "Restaurants", icon: "fas fa-umbrella-beach" }
+  ) {
     id
   }
 
