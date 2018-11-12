@@ -5,10 +5,28 @@ mutation {
   interest2: createInterest(data: { name: "Surfing" }) {
     id
   }
-  interest3: createInterest(data: { name: "Beach" }) {
+  interest3: createInterest(data: { name: "Yoga" }) {
     id
   }
-  interest4: createInterest(data: { name: "Kayaking" }) {
+  interest4: createInterest(data: { name: "Movies" }) {
+    id
+  }
+  interest5: createInterest(data: { name: "Beach" }) {
+    id
+  }
+  interest6: createInterest(data: { name: "Partying" }) {
+    id
+  }
+  interest7: createInterest(data: { name: "Travel" }) {
+    id
+  }
+  interest8: createInterest(data: { name: "Shopping" }) {
+    id
+  }
+  interest9: createInterest(data: { name: "Gym" }) {
+    id
+  }
+  interest10: createInterest(data: { name: "Restaurants" }) {
     id
   }
 
