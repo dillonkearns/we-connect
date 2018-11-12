@@ -179,8 +179,12 @@ slotConfirmationsView userInterests timeSlots =
 
 
 slotConfirmationView slotsData =
-    Element.column [ Element.spacing 10 ]
-        [ Element.text "Your friends are waiting... Please confirm your seat! ✅"
+    Element.column [ Element.spacing 10, Element.width Element.fill ]
+        [ [ Element.text "Your friends are waiting... Please confirm your seat! ✅" ]
+            |> Element.paragraph
+                [ Element.Font.color (Element.rgba255 255 255 255 1.0)
+                , Element.Font.size 30
+                ]
         , slotsData
             |> List.map slotView
             |> Element.column [ Element.spacing 10 ]
