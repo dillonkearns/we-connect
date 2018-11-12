@@ -91,7 +91,10 @@ view model =
             [ Element.Background.image "assets/bg2-darkest2.jpg"
             , Element.width Element.fill
             ]
-            (Element.column [ Element.spacing 20, Element.width Element.fill ]
+            (Element.column
+                [ Element.spacing 20
+                , Element.width Element.fill
+                ]
                 [ View.Navbar.view (getUsername model.username)
                 , Element.el [ Element.padding 30, Element.width (Element.fill |> Element.maximum 1000) ] (mainView model)
                 ]
@@ -130,14 +133,11 @@ mainView model =
                                 availabilities
                     in
                     Element.row
-                        [ Element.spacing 20
+                        [ Element.spacing 50
                         , Element.width Element.fill
                         ]
                         [ interestsView allInterests userInterests
                         , timeSlotsOrConfirmation timeSlots userInterests model.matches
-
-                        -- , timeSlotsView timeSlots
-                        -- , slotConfirmationsView userInterests model.matches
                         ]
 
                 RemoteData.Loading ->
