@@ -93,7 +93,7 @@ view model =
             ]
             (Element.column [ Element.spacing 20, Element.width Element.fill ]
                 [ View.Navbar.view (getUsername model.username)
-                , Element.el [ Element.padding 30 ] (mainView model)
+                , Element.el [ Element.padding 30, Element.width (Element.fill |> Element.maximum 1000) ] (mainView model)
                 ]
             )
         ]
@@ -131,6 +131,7 @@ mainView model =
                     in
                     Element.row
                         [ Element.spacing 20
+                        , Element.width Element.fill
                         ]
                         [ interestsView allInterests userInterests
                         , timeSlotsOrConfirmation timeSlots userInterests model.matches
@@ -274,7 +275,7 @@ interestButton userInterests interest =
         |> button
         |> Element.el
             [ Element.Events.onClick (AddInterest interest.name)
-            , Element.width (Element.fill |> Element.maximum 350)
+            , Element.width (Element.fill |> Element.maximum 500)
             ]
 
 
