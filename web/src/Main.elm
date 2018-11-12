@@ -196,6 +196,7 @@ slotView slotData =
         best =
             slotData.things
                 |> List.sortBy .count
+                |> List.reverse
                 |> List.head
                 |> Maybe.withDefault { interest = "", count = -1 }
     in
