@@ -1,0 +1,36 @@
+mutation {
+  interest1: createInterest(data: { name: "Golfing" }) {
+    id
+  }
+  interest2: createInterest(data: { name: "Surfing" }) {
+    id
+  }
+  interest3: createInterest(data: { name: "Beach" }) {
+    id
+  }
+  interest4: createInterest(data: { name: "Kayaking" }) {
+    id
+  }
+
+  time1: createTimeSlot(data: { time: "Monday @ 6pm" }) {
+    id
+  }
+  time2: createTimeSlot(data: { time: "Tuesday @ 6pm" }) {
+    id
+  }
+  time3: createTimeSlot(data: { time: "Wednesday @ 7pm" }) {
+    id
+  }
+  time4: createTimeSlot(data: { time: "Thursday @ 6pm" }) {
+    id
+  }
+  time5: createTimeSlot(data: { time: "Friday @ 6pm" }) {
+    id
+  }
+  time6: createTimeSlot(data: { time: "Friday @ 7pm" }) {
+    id
+  }
+  time7: createTimeSlot(data: { time: "Friday @ 8pm" }) {
+    id
+  }
+}
