@@ -256,23 +256,25 @@ interestButton : List String -> Request.Interests.Interest -> Element Msg
 interestButton userInterests interest =
     Element.row
         [ Element.spacing 20
-        , Element.width (Element.fill |> Element.maximum 100)
+        , Element.width Element.fill
+        , Element.spaceEvenly
         ]
         (if List.member interest.name userInterests then
             [ View.FontAwesome.icon "fas fa-dumbbell" |> Element.el []
             , Element.text interest.name
-            , Element.text "✔" |> Element.el [ Element.alignRight ]
+            , Element.text "✔"
             ]
 
          else
             [ View.FontAwesome.icon "fas fa-dumbbell" |> Element.el []
             , Element.text interest.name
+            , Element.text " "
             ]
         )
         |> button
         |> Element.el
             [ Element.Events.onClick (AddInterest interest.name)
-            , Element.width Element.fill
+            , Element.width (Element.fill |> Element.maximum 350)
             ]
 
 
